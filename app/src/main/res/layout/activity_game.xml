@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.GameActivity">
+
+    <TextView
+        android:id="@+id/tv_game_id"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/game_id"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_team_red"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/game_team_red"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_game_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game_id"/>
+
+    <Button
+        android:id="@+id/btn_team_red_goal"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="@string/game_add_goal"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_team_red"
+        app:layout_constraintTop_toBottomOf="@+id/tv_team_red"/>
+
+    <TextView
+        android:id="@+id/tv_team_blue"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="@string/game_team_blue"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_team_red_goal"
+        app:layout_constraintTop_toBottomOf="@+id/btn_team_red_goal"/>
+
+    <Button
+        android:id="@+id/btn_team_blue_goal"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="@string/game_add_goal"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_team_blue"
+        app:layout_constraintTop_toBottomOf="@+id/tv_team_blue"/>
+
+    <TextView
+        android:id="@+id/tv_game_score_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/game_score_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_team_blue_goal"/>
+
+    <TextView
+        android:id="@+id/tv_game_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/game_score"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game_score_title"/>
+</android.support.constraint.ConstraintLayout>
