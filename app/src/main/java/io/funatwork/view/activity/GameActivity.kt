@@ -7,8 +7,8 @@ import android.widget.TextView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import io.funatwork.R
 import io.funatwork.core.ApiClient
-import io.funatwork.core.model.babyfoot.Game
-import io.funatwork.core.model.babyfoot.Team
+import io.funatwork.core.entity.babyfoot.GameEntity
+import io.funatwork.core.entity.babyfoot.TeamEntity
 
 class GameActivity : AppCompatActivity() {
 
@@ -44,14 +44,14 @@ class GameActivity : AppCompatActivity() {
         clientApi.getGame(gameId, { apiResponse, game ->
             if (!apiResponse.hasFailed() && game != null) {
                 tvGameId.text = getString(R.string.game_id, game.id.toString())
-                tvRedTeam.text = getString(R.string.game_team_red, game.redTeam.attackPlayer.name, game.redTeam.defensePlayer.name)
-                tvBlueTeam.text = getString(R.string.game_team_blue, game.blueTeam.attackPlayer.name, game.blueTeam.defensePlayer.name)
+                tvRedTeam.text = getString(R.string.game_team_red, game.pRedTeamEntity.pAttackPlayerEntity.name, game.pRedTeamEntity.pDefensePlayerEntity.name)
+                tvBlueTeam.text = getString(R.string.game_team_blue, game.pBlueTeamEntity.pAttackPlayerEntity.name, game.pBlueTeamEntity.pDefensePlayerEntity.name)
                 tvScore.text = getString(R.string.game_score, game.blueTeamGoal.toString(), game.redTeamGoal.toString())
                 btnBlueTeamGoal.setOnClickListener {
-                    addGoal(game, game.blueTeam)
+                    addGoal(game, game.pBlueTeamEntity)
                 }
                 btnRedTeamGoal.setOnClickListener {
-                    addGoal(game, game.redTeam)
+                    addGoal(game, game.pRedTeamEntity)
                 }
             } else {
                 SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -64,8 +64,8 @@ class GameActivity : AppCompatActivity() {
 
     }
 
-    fun addGoal(game: Game, team: Team) {
-        clientApi.addGoal(game, team.attackPlayer, { apiResponse, game ->
+    fun addGoal(pGameEntity: GameEntity, pTeamEntity: TeamEntity) {
+        clientApi.addGoal(pGameEntity, pTeamEntity.pAttackPlayerEntity, { apiResponse, game ->
             if (!apiResponse.hasFailed() && game != null) {
                 tvScore.text = getString(R.string.game_score, game.blueTeamGoal.toString(), game.redTeamGoal.toString())
             } else {

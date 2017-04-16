@@ -2,33 +2,32 @@ package io.funatwork.view.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner
+import android.widget.ImageView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import io.funatwork.R
 import io.funatwork.core.ApiClient
-import io.funatwork.core.model.Player
-import io.funatwork.core.model.babyfoot.Team
+import io.funatwork.core.entity.PlayerEntity
+import io.funatwork.core.entity.babyfoot.TeamEntity
 
 
 class CreateGameActivity : BaseActivity() {
 
-    val redTeamAttack by lazy {
-        findViewById(R.id.redAttack) as Spinner
+    val imgRedAttackPlayer by lazy {
+        findViewById(R.id.img_red_attack_player) as ImageView
     }
-    val redTeamDefense by lazy {
-        findViewById(R.id.redDefense) as Spinner
+    val imgRedDefensePlayer by lazy {
+        findViewById(R.id.img_red_defense_player) as ImageView
     }
-    val blueTeamAttack by lazy {
-        findViewById(R.id.blueAttack) as Spinner
+    val imgBlueAttackPlayer by lazy {
+        findViewById(R.id.img_blue_attack_player) as ImageView
     }
-    val blueTeamDefense by lazy {
-        findViewById(R.id.blueDefense) as Spinner
+    val imgBlueDefensePlayer by lazy {
+        findViewById(R.id.img_blue_defense_player) as ImageView
     }
 
     val btnStarGame by lazy {
-        findViewById(R.id.btnStartGame) as Button
+        findViewById(R.id.btn_start_game) as Button
     }
 
     val clientApi by lazy {
@@ -37,29 +36,20 @@ class CreateGameActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_players)
+        setContentView(R.layout.activity_create_game)
 
-        val pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Loading"
-        pDialog.setCancelable(false)
-        pDialog.show()
 
-        clientApi.getPlayers { apiResponse, list ->
-            pDialog.dismissWithAnimation()
-            if (!apiResponse.hasFailed()) {
-                val spinnerArrayAdapter = ArrayAdapter(this,
-                        android.R.layout.simple_spinner_item, list)
-                redTeamAttack.adapter = spinnerArrayAdapter
-                redTeamDefense.adapter = spinnerArrayAdapter
-                blueTeamAttack.adapter = spinnerArrayAdapter
-                blueTeamDefense.adapter = spinnerArrayAdapter
-            } else {
-                SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Oops...")
-                        .setContentText("Something went wrong! (${apiResponse.message})")
-                        .show()
-            }
+        imgRedAttackPlayer.setOnClickListener {
+            navigator.navigateToSelectPlayer(this)
+        }
+        imgRedDefensePlayer.setOnClickListener {
+            navigator.navigateToSelectPlayer(this)
+        }
+        imgBlueAttackPlayer.setOnClickListener {
+            navigator.navigateToSelectPlayer(this)
+        }
+        imgBlueDefensePlayer.setOnClickListener {
+            navigator.navigateToSelectPlayer(this)
         }
 
         btnStarGame.setOnClickListener {
@@ -72,8 +62,8 @@ class CreateGameActivity : BaseActivity() {
                     && redTeamDefense.selectedItem != null
                     && blueTeamAttack.selectedItem != null
                     && blueTeamDefense.selectedItem != null) {
-                val blueTeam = Team(attackPlayer = blueTeamAttack.selectedItem as Player, defensePlayer = blueTeamDefense.selectedItem as Player)
-                val redTeam = Team(attackPlayer = redTeamAttack.selectedItem as Player, defensePlayer = redTeamDefense.selectedItem as Player)
+                val blueTeam = TeamEntity(pAttackPlayerEntity = blueTeamAttack.selectedItem as PlayerEntity, pDefensePlayerEntity = blueTeamDefense.selectedItem as PlayerEntity)
+                val redTeam = TeamEntity(pAttackPlayerEntity = redTeamAttack.selectedItem as PlayerEntity, pDefensePlayerEntity = redTeamDefense.selectedItem as PlayerEntity)
                 clientApi.startGame(redTeam, blueTeam, { apiResponse, game ->
                     if (!apiResponse.hasFailed() && game != null) {
                         navigator.navigateToGame(this, game)

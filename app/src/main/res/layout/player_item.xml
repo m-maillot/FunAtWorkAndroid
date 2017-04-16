@@ -8,14 +8,14 @@
               app:layout_collapseParallaxMultiplier="0.5">
 
     <ImageView
-        android:id="@+id/iv_player_avatar"
+        android:id="@+id/img_player_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_home_black_24dp"
         android:contentDescription=""/>
 
     <TextView
-        android:id="@+id/tv_player_name"
+        android:id="@+id/txt_player_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"/>

@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 25
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile project(":domain")
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.github.kittinunf.fuse:fuse:0.1'
+    compile 'com.github.kittinunf.fuel:fuel:1.5.0'
+    compile 'com.github.kittinunf.fuel:fuel-android:1.5.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    // Unit test
+    testCompile 'junit:junit:4.12'
+}
