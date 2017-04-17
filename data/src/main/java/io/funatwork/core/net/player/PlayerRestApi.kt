@@ -1,4 +1,4 @@
-package io.funatwork.core.net
+package io.funatwork.core.net.player
 
 import io.funatwork.core.entity.PlayerEntity
 import io.reactivex.Observable

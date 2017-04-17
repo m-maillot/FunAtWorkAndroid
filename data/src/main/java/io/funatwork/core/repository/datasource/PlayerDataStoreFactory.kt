@@ -2,7 +2,7 @@ package io.funatwork.core.repository.datasource
 
 import io.funatwork.core.cache.PlayerCache
 import io.funatwork.core.net.ConnectionUtils
-import io.funatwork.core.net.PlayerRestApiImpl
+import io.funatwork.core.net.player.PlayerRestApiImpl
 
 
 /**

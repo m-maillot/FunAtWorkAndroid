@@ -1,7 +1,7 @@
 package io.funatwork.core.repository.datasource
 
 import io.funatwork.core.cache.PlayerCache
-import io.funatwork.core.net.PlayerRestApi
+import io.funatwork.core.net.player.PlayerRestApi
 
 class CloudPlayerDataStore(val playerRestApi: PlayerRestApi, playerCache: PlayerCache) : PlayerDataStore {
 

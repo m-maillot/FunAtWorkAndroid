@@ -1,39 +1,67 @@
 package io.funatwork.view.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import cn.pedant.SweetAlert.SweetAlertDialog
+import com.squareup.picasso.Picasso
 import io.funatwork.R
-import io.funatwork.core.ApiClient
-import io.funatwork.core.entity.babyfoot.GameEntity
-import io.funatwork.core.entity.babyfoot.TeamEntity
+import io.funatwork.core.net.ConnectionUtils
+import io.funatwork.core.repository.GameDataRepository
+import io.funatwork.core.repository.datasource.GameDataStoreFactory
+import io.funatwork.domain.interactor.AddGoal
+import io.funatwork.domain.interactor.LoadGame
+import io.funatwork.extensions.getConnectivityManager
+import io.funatwork.model.babyfoot.GameModel
+import io.funatwork.presenter.GamePresenter
+import io.funatwork.view.GameView
+import xyz.hanks.library.SmallBang
 
-class GameActivity : AppCompatActivity() {
+class GameActivity : BaseActivity(), GameView {
 
-    val clientApi by lazy {
-        ApiClient(this)
+    val presenter by lazy {
+        GamePresenter(
+                gameView = this,
+                loadGame = LoadGame(
+                        gameRepository = GameDataRepository(
+                                gameDataStoreFactory = GameDataStoreFactory(
+                                        connectionUtils = ConnectionUtils(this.getConnectivityManager())
+                                )
+                        ),
+                        postExecutionThread = fwtApplication.uiThread,
+                        threadExecutor = fwtApplication.jobExecutor),
+                addGoal = AddGoal(
+                        gameRepository = GameDataRepository(
+                                gameDataStoreFactory = GameDataStoreFactory(
+                                        connectionUtils = ConnectionUtils(this.getConnectivityManager())
+                                )
+                        ),
+                        postExecutionThread = fwtApplication.uiThread,
+                        threadExecutor = fwtApplication.jobExecutor)
+        )
     }
 
-    val tvGameId by lazy {
-        findViewById(R.id.tv_game_id) as TextView
+    val imgPlayerRedAttack by lazy {
+        findViewById(R.id.img_player_red_attack) as ImageView
     }
-    val tvRedTeam by lazy {
-        findViewById(R.id.tv_team_red) as TextView
+    val imgPlayerRedDefense by lazy {
+        findViewById(R.id.img_player_red_defense) as ImageView
     }
-    val tvBlueTeam by lazy {
-        findViewById(R.id.tv_team_blue) as TextView
+    val imgPlayerBlueAttack by lazy {
+        findViewById(R.id.img_player_blue_attack) as ImageView
     }
-    val tvScore by lazy {
-        findViewById(R.id.tv_game_score) as TextView
+    val imgPlayerBlueDefense by lazy {
+        findViewById(R.id.img_player_blue_defense) as ImageView
     }
 
-    val btnRedTeamGoal by lazy {
-        findViewById(R.id.btn_team_red_goal) as Button
+    val tvScoreBlue by lazy {
+        findViewById(R.id.tv_score_blue) as TextView
     }
-    val btnBlueTeamGoal by lazy {
-        findViewById(R.id.btn_team_blue_goal) as Button
+    val tvScoreRed by lazy {
+        findViewById(R.id.tv_score_red) as TextView
+    }
+
+    val smallBang by lazy {
+        SmallBang.attach2Window(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,39 +69,39 @@ class GameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game)
 
         val gameId = intent.extras.getInt("GAME", -1)
-        clientApi.getGame(gameId, { apiResponse, game ->
-            if (!apiResponse.hasFailed() && game != null) {
-                tvGameId.text = getString(R.string.game_id, game.id.toString())
-                tvRedTeam.text = getString(R.string.game_team_red, game.pRedTeamEntity.pAttackPlayerEntity.name, game.pRedTeamEntity.pDefensePlayerEntity.name)
-                tvBlueTeam.text = getString(R.string.game_team_blue, game.pBlueTeamEntity.pAttackPlayerEntity.name, game.pBlueTeamEntity.pDefensePlayerEntity.name)
-                tvScore.text = getString(R.string.game_score, game.blueTeamGoal.toString(), game.redTeamGoal.toString())
-                btnBlueTeamGoal.setOnClickListener {
-                    addGoal(game, game.pBlueTeamEntity)
-                }
-                btnRedTeamGoal.setOnClickListener {
-                    addGoal(game, game.pRedTeamEntity)
-                }
-            } else {
-                SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Oops...")
-                        .setContentText("Something went wrong!")
-                        .show()
-            }
-        })
-
-
+        presenter.initialize(gameId)
     }
 
-    fun addGoal(pGameEntity: GameEntity, pTeamEntity: TeamEntity) {
-        clientApi.addGoal(pGameEntity, pTeamEntity.pAttackPlayerEntity, { apiResponse, game ->
-            if (!apiResponse.hasFailed() && game != null) {
-                tvScore.text = getString(R.string.game_score, game.blueTeamGoal.toString(), game.redTeamGoal.toString())
-            } else {
-                SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Oops...")
-                        .setContentText("Something went wrong!")
-                        .show()
-            }
-        })
+    override fun renderGame(game: GameModel) {
+        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).fit().into(imgPlayerBlueAttack)
+        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).fit().into(imgPlayerBlueDefense)
+        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).fit().into(imgPlayerRedAttack)
+        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).fit().into(imgPlayerRedDefense)
+
+
+        imgPlayerBlueAttack.setOnClickListener {
+            smallBang.bang(imgPlayerBlueAttack)
+            presenter.addGoal(game, game.blueTeam.attackPlayer)
+        }
+        imgPlayerBlueDefense.setOnClickListener {
+            smallBang.bang(imgPlayerBlueDefense)
+            presenter.addGoal(game, game.blueTeam.defensePlayer)
+        }
+        imgPlayerRedAttack.setOnClickListener {
+            smallBang.bang(imgPlayerRedAttack)
+            presenter.addGoal(game, game.redTeam.attackPlayer)
+        }
+        imgPlayerRedDefense.setOnClickListener {
+            smallBang.bang(imgPlayerRedDefense)
+            presenter.addGoal(game, game.redTeam.defensePlayer)
+        }
     }
+
+    override fun renderGoal(game: GameModel) {
+        tvScoreBlue.text = game.blueTeamGoal.toString()
+        tvScoreRed.text = game.redTeamGoal.toString()
+    }
+
+    override fun renderGameFinished(game: GameModel) =
+            navigator.navigateToGameOver(this, game)
 }

@@ -11,4 +11,8 @@ data class Game(val id: Int,
                 val blueTeamGoal: Int,
                 val goals: List<Goal>,
                 val status: Int,
-                val ended: Long)
+                val ended: Long) {
+    val GAME_STARTED = 1
+    val GAME_OVER = 2
+    val GAME_CANCELED = 3
+}

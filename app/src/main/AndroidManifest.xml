@@ -4,16 +4,17 @@
           package="io.funatwork">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".FwtApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_football"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon">
+        tools:replace="android:icon, android:allowBackup">
         <activity
             android:name=".SplashscreenActivity"
             android:screenOrientation="portrait">
@@ -36,7 +37,7 @@
             android:name=".view.activity.GameActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.SelectPlayerActivity">
+        <activity android:name=".view.activity.GameOverActivity">
         </activity>
     </application>
 

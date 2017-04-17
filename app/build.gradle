@@ -26,7 +26,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     // Unit test
-    testCompile 'junit:junit:4.12'
 
     // Automation test
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -40,6 +39,8 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'hanks.xyz:smallbang-library:0.1.2'
+    testCompile 'junit:junit:4.12'
 }
 repositories {
     mavenCentral()

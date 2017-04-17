@@ -1,80 +1,120 @@
 package io.funatwork.view.activity
 
-import android.graphics.Color
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import cn.pedant.SweetAlert.SweetAlertDialog
+import com.squareup.picasso.Picasso
 import io.funatwork.R
-import io.funatwork.core.ApiClient
-import io.funatwork.core.entity.PlayerEntity
-import io.funatwork.core.entity.babyfoot.TeamEntity
+import io.funatwork.core.cache.FileManager
+import io.funatwork.core.cache.PlayerCacheImpl
+import io.funatwork.core.cache.serializer.Serializer
+import io.funatwork.core.net.ConnectionUtils
+import io.funatwork.core.repository.GameDataRepository
+import io.funatwork.core.repository.PlayerDataRepository
+import io.funatwork.core.repository.datasource.GameDataStoreFactory
+import io.funatwork.core.repository.datasource.PlayerDataStoreFactory
+import io.funatwork.domain.interactor.GetPlayerList
+import io.funatwork.domain.interactor.StartGame
+import io.funatwork.extensions.getConnectivityManager
+import io.funatwork.model.PlayerModel
+import io.funatwork.model.Position
+import io.funatwork.model.Team
+import io.funatwork.model.babyfoot.GameModel
+import io.funatwork.model.babyfoot.TeamModel
+import io.funatwork.presenter.CreateGamePresenter
+import io.funatwork.view.StartGameView
+import io.funatwork.view.adapter.PlayerAdapter
 
 
-class CreateGameActivity : BaseActivity() {
+class CreateGameActivity : BaseActivity(), StartGameView {
 
-    val imgRedAttackPlayer by lazy {
-        findViewById(R.id.img_red_attack_player) as ImageView
-    }
-    val imgRedDefensePlayer by lazy {
-        findViewById(R.id.img_red_defense_player) as ImageView
-    }
-    val imgBlueAttackPlayer by lazy {
-        findViewById(R.id.img_blue_attack_player) as ImageView
-    }
-    val imgBlueDefensePlayer by lazy {
-        findViewById(R.id.img_blue_defense_player) as ImageView
+    val recyclerPlayers by lazy {
+        findViewById(R.id.rv_players) as RecyclerView
     }
 
-    val btnStarGame by lazy {
-        findViewById(R.id.btn_start_game) as Button
+    val presenter by lazy {
+        CreateGamePresenter(
+                startGameView = this,
+                getPlayerList = GetPlayerList(
+                        playerRepository = PlayerDataRepository(
+                                playerDataStoreFactory = PlayerDataStoreFactory(
+                                        connectionUtils = ConnectionUtils(this.getConnectivityManager()),
+                                        playerCache = PlayerCacheImpl(
+                                                context = this,
+                                                cacheDir = cacheDir,
+                                                fileManager = FileManager(),
+                                                threadExecutor = fwtApplication.jobExecutor,
+                                                serializer = Serializer()
+                                        ))
+                        ),
+                        threadExecutor = fwtApplication.jobExecutor,
+                        postExecutionThread = fwtApplication.uiThread),
+                startGame = StartGame(
+                        gameRepository = GameDataRepository(
+                                gameDataStoreFactory = GameDataStoreFactory(
+                                        connectionUtils = ConnectionUtils(this.getConnectivityManager())
+                                )
+                        ),
+                        postExecutionThread = fwtApplication.uiThread,
+                        threadExecutor = fwtApplication.jobExecutor)
+        )
     }
 
-    val clientApi by lazy {
-        ApiClient(this)
+    val imgPlayerRedAttack by lazy {
+        findViewById(R.id.img_player_red_attack) as ImageView
+    }
+    val imgPlayerRedDefense by lazy {
+        findViewById(R.id.img_player_red_defense) as ImageView
+    }
+    val imgPlayerBlueAttack by lazy {
+        findViewById(R.id.img_player_blue_attack) as ImageView
+    }
+    val imgPlayerBlueDefense by lazy {
+        findViewById(R.id.img_player_blue_defense) as ImageView
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_game)
 
+        recyclerPlayers.setHasFixedSize(true)
+        recyclerPlayers.layoutManager = GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false)
 
-        imgRedAttackPlayer.setOnClickListener {
-            navigator.navigateToSelectPlayer(this)
-        }
-        imgRedDefensePlayer.setOnClickListener {
-            navigator.navigateToSelectPlayer(this)
-        }
-        imgBlueAttackPlayer.setOnClickListener {
-            navigator.navigateToSelectPlayer(this)
-        }
-        imgBlueDefensePlayer.setOnClickListener {
-            navigator.navigateToSelectPlayer(this)
-        }
+        presenter.initialize()
+    }
 
-        btnStarGame.setOnClickListener {
-            val createGameDiag = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-            createGameDiag.progressHelper.barColor = Color.parseColor("#A5DC86")
-            createGameDiag.titleText = "Loading"
-            createGameDiag.setCancelable(false)
-            createGameDiag.show()
-            if (redTeamAttack.selectedItem != null
-                    && redTeamDefense.selectedItem != null
-                    && blueTeamAttack.selectedItem != null
-                    && blueTeamDefense.selectedItem != null) {
-                val blueTeam = TeamEntity(pAttackPlayerEntity = blueTeamAttack.selectedItem as PlayerEntity, pDefensePlayerEntity = blueTeamDefense.selectedItem as PlayerEntity)
-                val redTeam = TeamEntity(pAttackPlayerEntity = redTeamAttack.selectedItem as PlayerEntity, pDefensePlayerEntity = redTeamDefense.selectedItem as PlayerEntity)
-                clientApi.startGame(redTeam, blueTeam, { apiResponse, game ->
-                    if (!apiResponse.hasFailed() && game != null) {
-                        navigator.navigateToGame(this, game)
-                    } else {
-                        SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Oops...")
-                                .setContentText("Something went wrong! (${apiResponse.message})")
-                                .show()
-                    }
-                })
+    override fun renderPlayerList(playerModelList: List<PlayerModel>) {
+        recyclerPlayers.adapter = PlayerAdapter(this, playerModelList, presenter)
+    }
+
+    override fun onSelectPlayer(player: PlayerModel, team: Team, position: Position) {
+        if (team == Team.RED) {
+            if (position == Position.ATTACK) {
+                Picasso.with(this).load(player.avatar).fit().into(imgPlayerRedAttack)
+            } else {
+                Picasso.with(this).load(player.avatar).fit().into(imgPlayerRedDefense)
+            }
+        } else {
+            if (position == Position.ATTACK) {
+                Picasso.with(this).load(player.avatar).fit().into(imgPlayerBlueAttack)
+            } else {
+                Picasso.with(this).load(player.avatar).fit().into(imgPlayerBlueDefense)
             }
         }
+    }
+
+    override fun onReadyToStart(redTeam: TeamModel, blueTeam: TeamModel) {
+        val btnStart = findViewById(R.id.btn_start_game) as Button
+        btnStart.visibility = View.VISIBLE
+        btnStart.setOnClickListener {
+            presenter.startGame(redTeam, blueTeam)
+        }
+    }
+
+    override fun onGameStarted(game: GameModel) {
+        navigator.navigateToGame(this, game)
     }
 }

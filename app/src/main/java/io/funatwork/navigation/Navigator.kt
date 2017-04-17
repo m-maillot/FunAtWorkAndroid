@@ -2,15 +2,11 @@ package io.funatwork.navigation
 
 import android.content.Context
 import android.content.Intent
-import io.funatwork.core.entity.babyfoot.GameEntity
+import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.view.activity.CreateGameActivity
 import io.funatwork.view.activity.GameActivity
-import io.funatwork.view.activity.SelectPlayerActivity
+import io.funatwork.view.activity.GameOverActivity
 
-
-/**
- * Created by mmaillot on 3/29/17.
- */
 class Navigator {
 
     fun navigateToCreateGame(context: Context) {
@@ -18,15 +14,15 @@ class Navigator {
         context.startActivity(intentToLaunch)
     }
 
-    fun navigateToGame(context: Context, pGameEntity: GameEntity) {
+    fun navigateToGame(context: Context, gameModel: GameModel) {
         val intentToLaunch = Intent(context, GameActivity::class.java)
-        intentToLaunch.putExtra("GAME", pGameEntity.id)
+        intentToLaunch.putExtra("GAME", gameModel.id)
         context.startActivity(intentToLaunch)
     }
 
-    fun navigateToSelectPlayer(context: Context) {
-        val intentToLaunch = Intent(context, SelectPlayerActivity::class.java)
+    fun navigateToGameOver(context: Context, gameModel: GameModel) {
+        val intentToLaunch = Intent(context, GameOverActivity::class.java)
+        intentToLaunch.putExtra("GAME", gameModel.id)
         context.startActivity(intentToLaunch)
     }
-
 }
