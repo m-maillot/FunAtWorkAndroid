@@ -22,7 +22,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.503"
-        app:srcCompat="@drawable/ic_table_soccer"/>
+        app:srcCompat="@drawable/ic_football_field"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_players"
@@ -42,79 +42,97 @@
         android:id="@+id/tv_players_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
         android:text="@string/create_game_players_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toTopOf="@+id/rv_players"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_versus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/create_game_versus"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintBottom_toTopOf="@+id/tv_players_title"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+        android:id="@+id/img_player_red_defense"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView5"
+        app:srcCompat="@drawable/ic_user_silhouette"/>
 
     <ImageView
         android:id="@+id/img_player_red_attack"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView5"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView5"
-        app:srcCompat="@drawable/ic_soccer_player_green"/>
-
-    <ImageView
-        android:id="@+id/img_player_red_defense"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView5"
         app:layout_constraintRight_toRightOf="@+id/imageView5"
-        app:srcCompat="@drawable/ic_soccer_player_green"/>
+        app:srcCompat="@drawable/ic_user_silhouette"/>
 
     <ImageView
         android:id="@+id/img_player_blue_attack"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:srcCompat="@drawable/ic_soccer_player_red"/>
+        app:srcCompat="@drawable/ic_user_silhouette"/>
 
     <ImageView
         android:id="@+id/img_player_blue_defense"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:srcCompat="@drawable/ic_soccer_player_red"/>
+        app:srcCompat="@drawable/ic_user_silhouette"/>
 
-    <Button
-        android:id="@+id/btn_start_game"
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/pulsar_start_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/create_game_start_game"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintLeft_toLeftOf="@+id/imageView5"
         app:layout_constraintRight_toRightOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"/>
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:pulse_color="@color/colorAccent"
+        app:pulse_count="10"
+        app:pulse_duration="2000"
+        app:pulse_interpolator="Accelerate"
+        app:pulse_repeat="0"
+        app:pulse_startFromScratch="false">
 
+        <ImageView
+            android:id="@+id/btn_start_game"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_football_kickoff"
+            android:visibility="gone"/>
+    </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+    <ImageView
+        android:id="@+id/img_player_red_keeper"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_red_defense"
+        app:layout_constraintRight_toRightOf="@+id/img_player_red_defense"
+        app:srcCompat="@drawable/ic_red_keeper"/>
+
+    <ImageView
+        android:id="@+id/img_player_red_striker"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_red_attack"
+        app:layout_constraintRight_toRightOf="@+id/img_player_red_attack"
+        app:srcCompat="@drawable/ic_striker_red"/>
+
+    <ImageView
+        android:id="@+id/img_player_blue_keeper"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_blue_defense"
+        app:layout_constraintRight_toRightOf="@+id/img_player_blue_defense"
+        app:srcCompat="@drawable/ic_blue_keeper"/>
+
+    <ImageView
+        android:id="@+id/img_player_blue_striker"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_blue_attack"
+        app:layout_constraintRight_toRightOf="@+id/img_player_blue_attack"
+        app:srcCompat="@drawable/ic_striker_blue"/>
 
 </android.support.constraint.ConstraintLayout>

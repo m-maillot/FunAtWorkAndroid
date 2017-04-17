@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import io.funatwork.R
@@ -27,6 +26,7 @@ import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.presenter.CreateGamePresenter
 import io.funatwork.view.StartGameView
 import io.funatwork.view.adapter.PlayerAdapter
+import pl.bclogic.pulsator4droid.library.PulsatorLayout
 
 
 class CreateGameActivity : BaseActivity(), StartGameView {
@@ -107,8 +107,10 @@ class CreateGameActivity : BaseActivity(), StartGameView {
     }
 
     override fun onReadyToStart(redTeam: TeamModel, blueTeam: TeamModel) {
-        val btnStart = findViewById(R.id.btn_start_game) as Button
+        val btnStart = findViewById(R.id.btn_start_game) as ImageView
+        val pulsar = findViewById(R.id.pulsar_start_game) as PulsatorLayout
         btnStart.visibility = View.VISIBLE
+        pulsar.start()
         btnStart.setOnClickListener {
             presenter.startGame(redTeam, blueTeam)
         }

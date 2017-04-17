@@ -7,10 +7,6 @@
     <string name="create_game_players_title">Players:</string>
     <string name="create_game_versus">VS</string>
     <string name="create_game_start_game">Let\'s play!</string>
-    <string name="game_id">Game #%1$s</string>
-    <string name="game_team_red">Red pTeamEntity: %1$s / %2$s</string>
-    <string name="game_team_blue">blue pTeamEntity: %1$s / %2$s</string>
-    <string name="game_add_goal">Add new goal</string>
-    <string name="game_score_title">Score</string>
-    <string name="game_score">%1$s / %2$s</string>
+    <string name="game_cancel">Cancel</string>
+
 </resources>

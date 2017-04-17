@@ -40,6 +40,7 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'hanks.xyz:smallbang-library:0.1.2'
+    compile 'pl.bclogic:pulsator4droid:1.0.3'
     testCompile 'junit:junit:4.12'
 }
 repositories {
