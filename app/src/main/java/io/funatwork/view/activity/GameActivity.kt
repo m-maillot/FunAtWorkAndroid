@@ -1,6 +1,8 @@
 package io.funatwork.view.activity
 
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -43,17 +45,30 @@ class GameActivity : BaseActivity(), GameView {
         )
     }
 
-    val imgPlayerRedAttack by lazy {
+    val imgRedPlayerAttack by lazy {
         findViewById(R.id.img_player_red_attack) as ImageView
     }
-    val imgPlayerRedDefense by lazy {
+    val imgRedPlayerDefense by lazy {
         findViewById(R.id.img_player_red_defense) as ImageView
     }
-    val imgPlayerBlueAttack by lazy {
+    val imgBluePlayerAttack by lazy {
         findViewById(R.id.img_player_blue_attack) as ImageView
     }
-    val imgPlayerBlueDefense by lazy {
+    val imgBluePlayerDefense by lazy {
         findViewById(R.id.img_player_blue_defense) as ImageView
+    }
+
+    val imgGoalRedAttack by lazy {
+        findViewById(R.id.img_red_attack_goal) as ImageView
+    }
+    val imgGoalRedDefense by lazy {
+        findViewById(R.id.img_red_defense_goal) as ImageView
+    }
+    val imgGoalBlueAttack by lazy {
+        findViewById(R.id.img_blue_attack_goal) as ImageView
+    }
+    val imgGoalBlueDefense by lazy {
+        findViewById(R.id.img_blue_defense_goal) as ImageView
     }
 
     val tvScoreBlue by lazy {
@@ -78,26 +93,26 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun renderGame(game: GameModel) {
-        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueAttack)
-        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueDefense)
-        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedAttack)
-        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedDefense)
+        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerAttack)
+        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerDefense)
+        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerAttack)
+        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerDefense)
 
 
-        imgPlayerBlueAttack.setOnClickListener {
-            smallBang.bang(imgPlayerBlueAttack)
+        imgGoalBlueAttack.setOnClickListener {
+            smallBang.bang(imgGoalBlueAttack)
             presenter.addGoal(game, game.blueTeam.attackPlayer)
         }
-        imgPlayerBlueDefense.setOnClickListener {
-            smallBang.bang(imgPlayerBlueDefense)
+        imgGoalBlueDefense.setOnClickListener {
+            smallBang.bang(imgGoalBlueDefense)
             presenter.addGoal(game, game.blueTeam.defensePlayer)
         }
-        imgPlayerRedAttack.setOnClickListener {
-            smallBang.bang(imgPlayerRedAttack)
+        imgGoalRedAttack.setOnClickListener {
+            smallBang.bang(imgGoalRedAttack)
             presenter.addGoal(game, game.redTeam.attackPlayer)
         }
-        imgPlayerRedDefense.setOnClickListener {
-            smallBang.bang(imgPlayerRedDefense)
+        imgGoalRedDefense.setOnClickListener {
+            smallBang.bang(imgGoalRedDefense)
             presenter.addGoal(game, game.redTeam.defensePlayer)
         }
     }
@@ -108,7 +123,12 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun renderGameFinished(game: GameModel) {
-        navigator.navigateToGameOver(this, game)
+        val p1 = android.support.v4.util.Pair.create(imgRedPlayerAttack as View, "redAttackPlayer")
+        val p2 = android.support.v4.util.Pair.create(imgRedPlayerDefense as View, "redDefensePlayer")
+        val p3 = android.support.v4.util.Pair.create(imgBluePlayerAttack as View, "blueAttackPlayer")
+        val p4 = android.support.v4.util.Pair.create(imgBluePlayerDefense as View, "blueDefensePlayer")
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4)
+        navigator.navigateToGameOver(this, game, options)
         finish()
     }
 
@@ -121,7 +141,6 @@ class GameActivity : BaseActivity(), GameView {
                 .setCancelText(getString(R.string.game_cancel_no))
                 .setConfirmClickListener {
                     presenter.cancelGame()
-                    finish()
                 }
                 .setCancelClickListener(SweetAlertDialog::dismissWithAnimation)
                 .show()

@@ -6,78 +6,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryLight"
     tools:context=".view.activity.CreateGameActivity">
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_players"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"/>
-
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:background="@color/colorDivider"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/colorSecondaryText"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:id="@+id/constraintLayout">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
         <ImageView
             android:id="@+id/img_player_red_attack"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:srcCompat="@drawable/ic_user"
+            android:transitionName="redAttackPlayer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/img_player_red_defense"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:transitionName="redAttackPlayer"/>
+            app:layout_constraintRight_toLeftOf="@+id/img_player_red_defense"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_user"/>
 
         <ImageView
             android:id="@+id/img_player_red_defense"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:srcCompat="@drawable/ic_user"
+            android:transitionName="redDefensePlayer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/img_player_blue_attack"
             app:layout_constraintLeft_toRightOf="@+id/img_player_red_attack"
-            android:transitionName="redDefensePlayer"/>
+            app:layout_constraintRight_toLeftOf="@+id/img_player_blue_attack"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_user"/>
 
         <ImageView
             android:id="@+id/img_player_blue_attack"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:srcCompat="@drawable/ic_user"
+            android:transitionName="blueAttackPlayer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/img_player_blue_defense"
             app:layout_constraintLeft_toRightOf="@+id/img_player_red_defense"
-            android:transitionName="blueAttackPlayer"/>
+            app:layout_constraintRight_toLeftOf="@+id/img_player_blue_defense"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_user"/>
 
         <ImageView
             android:id="@+id/img_player_blue_defense"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:srcCompat="@drawable/ic_user"
+            android:transitionName="blueDefensePlayer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/img_player_blue_attack"
-            android:transitionName="blueDefensePlayer"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_user"/>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

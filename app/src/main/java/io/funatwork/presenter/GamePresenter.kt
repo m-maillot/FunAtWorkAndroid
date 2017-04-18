@@ -14,14 +14,11 @@ import io.funatwork.view.GameView
 
 class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal: AddGoal) : Presenter {
 
-    override fun resume() {
-    }
+    override fun resume() {}
 
-    override fun pause() {
-    }
+    override fun pause() {}
 
-    override fun destroy() {
-    }
+    override fun destroy() {}
 
     /**
      * Initializes the presenter by start retrieving the players list.

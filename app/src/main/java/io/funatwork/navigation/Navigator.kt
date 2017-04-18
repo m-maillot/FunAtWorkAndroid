@@ -31,9 +31,9 @@ class Navigator {
         context.startActivity(intentToLaunch, activityOptionsCompat.toBundle())
     }
 
-    fun navigateToGameOver(context: Context, gameModel: GameModel) {
+    fun navigateToGameOver(context: Context, gameModel: GameModel, activityOptionsCompat: ActivityOptionsCompat) {
         val intentToLaunch = Intent(context, GameOverActivity::class.java)
-        intentToLaunch.putExtra("GAME", gameModel.id)
-        context.startActivity(intentToLaunch)
+        intentToLaunch.putExtra("GAME", gameModel)
+        context.startActivity(intentToLaunch, activityOptionsCompat.toBundle())
     }
 }

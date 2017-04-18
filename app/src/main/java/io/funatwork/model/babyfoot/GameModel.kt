@@ -2,6 +2,7 @@ package io.funatwork.model.babyfoot
 
 import io.funatwork.model.babyfoot.GoalModel
 import io.funatwork.model.babyfoot.TeamModel
+import java.io.Serializable
 
 data class GameModel(val id: Int,
                      val beginTimestampInSeconds: Long,
@@ -11,4 +12,4 @@ data class GameModel(val id: Int,
                      val blueTeamGoal: Int,
                      val goals: List<GoalModel>,
                      val status: Int,
-                     val ended: Long)
+                     val ended: Long) : Serializable
