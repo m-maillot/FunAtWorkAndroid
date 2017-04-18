@@ -52,15 +52,15 @@
             android:id="@+id/img_player_red_attack"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_user"
+            android:transitionName="redAttackPlayer"/>
 
         <TextView
             android:id="@+id/tv_player_red_attack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Attack"
-            android:textColor="@color/colorPrimaryLight"
-            android:transitionName="redAttackPlayer"/>
+            android:textColor="@color/colorPrimaryLight"/>
     </LinearLayout>
 
     <LinearLayout
@@ -79,15 +79,15 @@
             android:id="@+id/img_player_red_defense"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_user"
+            android:transitionName="redDefensePlayer"/>
 
         <TextView
             android:id="@+id/tv_player_red_defense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Defense"
-            android:textColor="@color/colorPrimaryLight"
-            android:transitionName="redDefensePlayer"/>
+            android:textColor="@color/colorPrimaryLight"/>
     </LinearLayout>
 
     <LinearLayout
