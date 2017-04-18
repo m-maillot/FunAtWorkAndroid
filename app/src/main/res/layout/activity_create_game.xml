@@ -43,7 +43,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/img_player_red_defense"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:transitionName="redAttackPlayer"/>
 
         <ImageView
             android:id="@+id/img_player_red_defense"
@@ -53,7 +54,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/img_player_blue_attack"
-            app:layout_constraintLeft_toRightOf="@+id/img_player_red_attack"/>
+            app:layout_constraintLeft_toRightOf="@+id/img_player_red_attack"
+            android:transitionName="redDefensePlayer"/>
+
         <ImageView
             android:id="@+id/img_player_blue_attack"
             android:layout_width="64dp"
@@ -62,7 +65,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/img_player_blue_defense"
-            app:layout_constraintLeft_toRightOf="@+id/img_player_red_defense"/>
+            app:layout_constraintLeft_toRightOf="@+id/img_player_red_defense"
+            android:transitionName="blueAttackPlayer"/>
+
         <ImageView
             android:id="@+id/img_player_blue_defense"
             android:layout_width="64dp"
@@ -71,7 +76,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/img_player_blue_attack"/>
+            app:layout_constraintLeft_toRightOf="@+id/img_player_blue_attack"
+            android:transitionName="blueDefensePlayer"/>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

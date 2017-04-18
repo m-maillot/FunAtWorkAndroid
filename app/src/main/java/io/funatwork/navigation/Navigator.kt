@@ -8,6 +8,9 @@ import io.funatwork.view.activity.CreateGameActivity
 import io.funatwork.view.activity.GameActivity
 import io.funatwork.view.activity.GameOverActivity
 import io.funatwork.view.activity.StartGameActivity
+import android.support.v4.app.ActivityOptionsCompat
+
+
 
 class Navigator {
 
@@ -16,11 +19,11 @@ class Navigator {
         context.startActivity(intentToLaunch)
     }
 
-    fun navigateToStartGame(context: Context, redTeam: TeamModel, blueTeam: TeamModel) {
+    fun navigateToStartGame(context: Context, redTeam: TeamModel, blueTeam: TeamModel, activityOptionsCompat: ActivityOptionsCompat) {
         val intentToLaunch = Intent(context, StartGameActivity::class.java)
         intentToLaunch.putExtra("BLUE_TEAM", blueTeam)
         intentToLaunch.putExtra("RED_TEAM", redTeam)
-        context.startActivity(intentToLaunch)
+        context.startActivity(intentToLaunch, activityOptionsCompat.toBundle())
     }
 
     fun navigateToGame(context: Context, gameModel: GameModel) {

@@ -1,8 +1,10 @@
 package io.funatwork.view.activity
 
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import io.funatwork.R
@@ -118,6 +120,12 @@ class CreateGameActivity : BaseActivity(), SelectPlayersView {
     }
 
     override fun onReadyToStart(redTeam: TeamModel, blueTeam: TeamModel) {
-        navigator.navigateToStartGame(this, redTeam, blueTeam)
+        val p1 = android.support.v4.util.Pair.create(imgRedPlayerAttack as View, "redAttackPlayer")
+        val p2 = android.support.v4.util.Pair.create(imgRedPlayerDefense as View, "redDefensePlayer")
+        val p3 = android.support.v4.util.Pair.create(imgBluePlayerAttack as View, "blueAttackPlayer")
+        val p4 = android.support.v4.util.Pair.create(imgBluePlayerDefense as View, "blueDefensePlayer")
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4)
+
+        navigator.navigateToStartGame(this, redTeam, blueTeam, options)
     }
 }

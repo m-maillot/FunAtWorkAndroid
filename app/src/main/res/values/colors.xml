@@ -10,4 +10,6 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorBlueTeam">#006BD6</color>
     <color name="colorRedTeam">#D60000</color>
+    <color name="colorRedTeamLight">#FF7070</color>
+    <color name="colorBlueTeamLight">#70B8FF</color>
 </resources>
