@@ -1,6 +1,8 @@
 package io.funatwork.view.activity
 
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -76,7 +78,12 @@ class StartGameActivity : BaseActivity(), StartGameView {
     }
 
     override fun onGameStarted(game: GameModel) {
-        navigator.navigateToGame(this, game)
-        finish()
+        val p1 = android.support.v4.util.Pair.create(imgRedPlayerAttack as View, "redAttackPlayer")
+        val p2 = android.support.v4.util.Pair.create(imgRedPlayerDefense as View, "redDefensePlayer")
+        val p3 = android.support.v4.util.Pair.create(imgBluePlayerAttack as View, "blueAttackPlayer")
+        val p4 = android.support.v4.util.Pair.create(imgBluePlayerDefense as View, "blueDefensePlayer")
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4)
+
+        navigator.navigateToGame(this, game, options)
     }
 }

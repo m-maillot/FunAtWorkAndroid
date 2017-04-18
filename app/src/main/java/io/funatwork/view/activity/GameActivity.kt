@@ -71,6 +71,8 @@ class GameActivity : BaseActivity(), GameView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        supportActionBar?.title = getString(R.string.game_title)
+
         val gameId = intent.extras.getInt("GAME", -1)
         presenter.initialize(gameId)
     }

@@ -23,7 +23,8 @@
         android:layout_height="100dp"
         app:layout_constraintBottom_toTopOf="@+id/img_table_soccer"
         app:layout_constraintLeft_toLeftOf="@+id/img_table_soccer"
-        app:srcCompat="@drawable/ic_user_silhouette"/>
+        app:srcCompat="@drawable/ic_user_silhouette"
+        android:transitionName="redDefensePlayer"/>
 
     <ImageView
         android:id="@+id/img_player_red_attack"
@@ -31,7 +32,8 @@
         android:layout_height="100dp"
         app:layout_constraintBottom_toTopOf="@+id/img_table_soccer"
         app:layout_constraintRight_toRightOf="@+id/img_table_soccer"
-        app:srcCompat="@drawable/ic_user_silhouette"/>
+        app:srcCompat="@drawable/ic_user_silhouette"
+        android:transitionName="redAttackPlayer"/>
 
     <ImageView
         android:id="@+id/img_player_blue_attack"
@@ -39,7 +41,8 @@
         android:layout_height="100dp"
         app:layout_constraintLeft_toLeftOf="@+id/img_table_soccer"
         app:layout_constraintTop_toBottomOf="@+id/img_table_soccer"
-        app:srcCompat="@drawable/ic_user_silhouette"/>
+        app:srcCompat="@drawable/ic_user_silhouette"
+        android:transitionName="blueAttackPlayer"/>
 
     <ImageView
         android:id="@+id/img_player_blue_defense"
@@ -47,7 +50,8 @@
         android:layout_height="100dp"
         app:layout_constraintRight_toRightOf="@+id/img_table_soccer"
         app:layout_constraintTop_toBottomOf="@+id/img_table_soccer"
-        app:srcCompat="@drawable/ic_user_silhouette"/>
+        app:srcCompat="@drawable/ic_user_silhouette"
+        android:transitionName="blueDefensePlayer"/>
 
     <TextView
         android:id="@+id/tv_score_red"
