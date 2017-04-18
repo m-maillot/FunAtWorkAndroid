@@ -1,10 +1,8 @@
 package io.funatwork.view.activity
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import io.funatwork.R
@@ -12,34 +10,29 @@ import io.funatwork.core.cache.FileManager
 import io.funatwork.core.cache.PlayerCacheImpl
 import io.funatwork.core.cache.serializer.Serializer
 import io.funatwork.core.net.ConnectionUtils
-import io.funatwork.core.repository.GameDataRepository
 import io.funatwork.core.repository.PlayerDataRepository
-import io.funatwork.core.repository.datasource.GameDataStoreFactory
 import io.funatwork.core.repository.datasource.PlayerDataStoreFactory
 import io.funatwork.domain.interactor.GetPlayerList
-import io.funatwork.domain.interactor.StartGame
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.PlayerModel
 import io.funatwork.model.Position
 import io.funatwork.model.Team
-import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TeamModel
-import io.funatwork.presenter.CreateGamePresenter
+import io.funatwork.presenter.SelectPlayersPresenter
 import io.funatwork.utils.CircleTransformation
-import io.funatwork.view.StartGameView
+import io.funatwork.view.SelectPlayersView
 import io.funatwork.view.adapter.PlayerAdapter
-import pl.bclogic.pulsator4droid.library.PulsatorLayout
 
 
-class CreateGameActivity : BaseActivity(), StartGameView {
+class CreateGameActivity : BaseActivity(), SelectPlayersView {
 
     val recyclerPlayers by lazy {
         findViewById(R.id.rv_players) as RecyclerView
     }
 
     val presenter by lazy {
-        CreateGamePresenter(
-                startGameView = this,
+        SelectPlayersPresenter(
+                selectPlayersView = this,
                 getPlayerList = GetPlayerList(
                         playerRepository = PlayerDataRepository(
                                 playerDataStoreFactory = PlayerDataStoreFactory(
@@ -53,28 +46,20 @@ class CreateGameActivity : BaseActivity(), StartGameView {
                                         ))
                         ),
                         threadExecutor = fwtApplication.jobExecutor,
-                        postExecutionThread = fwtApplication.uiThread),
-                startGame = StartGame(
-                        gameRepository = GameDataRepository(
-                                gameDataStoreFactory = GameDataStoreFactory(
-                                        connectionUtils = ConnectionUtils(this.getConnectivityManager())
-                                )
-                        ),
-                        postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor)
+                        postExecutionThread = fwtApplication.uiThread)
         )
     }
 
-    val imgPlayerRedAttack by lazy {
+    val imgRedPlayerAttack by lazy {
         findViewById(R.id.img_player_red_attack) as ImageView
     }
-    val imgPlayerRedDefense by lazy {
+    val imgRedPlayerDefense by lazy {
         findViewById(R.id.img_player_red_defense) as ImageView
     }
-    val imgPlayerBlueAttack by lazy {
+    val imgBluePlayerAttack by lazy {
         findViewById(R.id.img_player_blue_attack) as ImageView
     }
-    val imgPlayerBlueDefense by lazy {
+    val imgBluePlayerDefense by lazy {
         findViewById(R.id.img_player_blue_defense) as ImageView
     }
 
@@ -82,14 +67,18 @@ class CreateGameActivity : BaseActivity(), StartGameView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_game)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.title = getString(R.string.create_game_players_title)
+
         recyclerPlayers.setHasFixedSize(true)
         recyclerPlayers.layoutManager = GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false)
 
         presenter.initialize()
-        imgPlayerRedAttack.setColorFilter(Color.argb(50, 0, 0, 0))
-        imgPlayerRedAttack.setColorFilter(Color.argb(200, 0, 0, 0))
-        imgPlayerRedAttack.setColorFilter(Color.argb(200, 0, 0, 0))
-        imgPlayerRedAttack.setColorFilter(Color.argb(200, 0, 0, 0))
+        imgRedPlayerAttack.setOnClickListener { presenter.removePlayer(Team.RED, Position.ATTACK) }
+        imgRedPlayerDefense.setOnClickListener { presenter.removePlayer(Team.RED, Position.DEFENSE) }
+        imgBluePlayerAttack.setOnClickListener { presenter.removePlayer(Team.BLUE, Position.ATTACK) }
+        imgBluePlayerDefense.setOnClickListener { presenter.removePlayer(Team.BLUE, Position.DEFENSE) }
     }
 
     override fun renderPlayerList(playerModelList: List<PlayerModel>) {
@@ -99,32 +88,36 @@ class CreateGameActivity : BaseActivity(), StartGameView {
     override fun onSelectPlayer(player: PlayerModel, team: Team, position: Position) {
         if (team == Team.RED) {
             if (position == Position.ATTACK) {
-                imgPlayerRedAttack.setColorFilter(Color.argb(0, 0, 0, 0))
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedAttack)
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerAttack)
             } else {
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedDefense)
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerDefense)
             }
         } else {
             if (position == Position.ATTACK) {
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueAttack)
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerAttack)
             } else {
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueDefense)
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerDefense)
+            }
+        }
+    }
+
+    override fun onRemovePlayer(player: PlayerModel, team: Team, position: Position) {
+        if (team == Team.RED) {
+            if (position == Position.ATTACK) {
+                imgRedPlayerAttack.setImageResource(R.drawable.ic_user)
+            } else {
+                imgRedPlayerDefense.setImageResource(R.drawable.ic_user)
+            }
+        } else {
+            if (position == Position.ATTACK) {
+                imgBluePlayerAttack.setImageResource(R.drawable.ic_user)
+            } else {
+                imgBluePlayerDefense.setImageResource(R.drawable.ic_user)
             }
         }
     }
 
     override fun onReadyToStart(redTeam: TeamModel, blueTeam: TeamModel) {
-        val btnStart = findViewById(R.id.btn_start_game) as ImageView
-        val pulsar = findViewById(R.id.pulsar_start_game) as PulsatorLayout
-        btnStart.visibility = View.VISIBLE
-        pulsar.start()
-        btnStart.setOnClickListener {
-            presenter.startGame(redTeam, blueTeam)
-        }
-    }
-
-    override fun onGameStarted(game: GameModel) {
-        navigator.navigateToGame(this, game)
-        finish()
+        navigator.navigateToStartGame(this, redTeam, blueTeam)
     }
 }

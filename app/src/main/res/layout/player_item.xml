@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/img_player_avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_gravity="top"
         app:srcCompat="@drawable/ic_home_black_24dp"/>
 

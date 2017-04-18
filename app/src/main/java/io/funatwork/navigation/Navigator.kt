@@ -3,14 +3,23 @@ package io.funatwork.navigation
 import android.content.Context
 import android.content.Intent
 import io.funatwork.model.babyfoot.GameModel
+import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.view.activity.CreateGameActivity
 import io.funatwork.view.activity.GameActivity
 import io.funatwork.view.activity.GameOverActivity
+import io.funatwork.view.activity.StartGameActivity
 
 class Navigator {
 
     fun navigateToCreateGame(context: Context) {
         val intentToLaunch = Intent(context, CreateGameActivity::class.java)
+        context.startActivity(intentToLaunch)
+    }
+
+    fun navigateToStartGame(context: Context, redTeam: TeamModel, blueTeam: TeamModel) {
+        val intentToLaunch = Intent(context, StartGameActivity::class.java)
+        intentToLaunch.putExtra("BLUE_TEAM", blueTeam)
+        intentToLaunch.putExtra("RED_TEAM", redTeam)
         context.startActivity(intentToLaunch)
     }
 

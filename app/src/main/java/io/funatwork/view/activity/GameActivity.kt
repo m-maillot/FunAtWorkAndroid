@@ -14,6 +14,7 @@ import io.funatwork.domain.interactor.LoadGame
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.presenter.GamePresenter
+import io.funatwork.utils.CircleTransformation
 import io.funatwork.view.GameView
 import xyz.hanks.library.SmallBang
 
@@ -75,10 +76,10 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun renderGame(game: GameModel) {
-        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).fit().into(imgPlayerBlueAttack)
-        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).fit().into(imgPlayerBlueDefense)
-        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).fit().into(imgPlayerRedAttack)
-        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).fit().into(imgPlayerRedDefense)
+        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueAttack)
+        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueDefense)
+        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedAttack)
+        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedDefense)
 
 
         imgPlayerBlueAttack.setOnClickListener {

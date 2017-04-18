@@ -1,3 +1,5 @@
 package io.funatwork.model
 
-data class PlayerModel(val id: Int, val name: String, val avatar: String)
+import java.io.Serializable
+
+data class PlayerModel(val id: Int, val name: String, val avatar: String) : Serializable
