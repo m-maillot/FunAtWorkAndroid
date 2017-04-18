@@ -4,9 +4,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="create_game_players_title">Players:</string>
+    <string name="create_game_players_title">Select players</string>
     <string name="create_game_versus">VS</string>
     <string name="create_game_start_game">Let\'s play!</string>
     <string name="game_cancel">Cancel</string>
+    <string name="game_cancel_title">Are you sure to exit this game?</string>
+    <string name="game_cancel_message">Game will be canceled</string>
+    <string name="game_cancel_yes">Yes</string>
+    <string name="game_cancel_no">No</string>
 
 </resources>

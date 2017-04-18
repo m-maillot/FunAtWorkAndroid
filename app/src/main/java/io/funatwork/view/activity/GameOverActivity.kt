@@ -13,6 +13,7 @@ class GameOverActivity : BaseActivity() {
         val restart = findViewById(R.id.btn_new_game) as Button
         restart.setOnClickListener {
             navigator.navigateToCreateGame(this)
+            finish()
         }
     }
 }

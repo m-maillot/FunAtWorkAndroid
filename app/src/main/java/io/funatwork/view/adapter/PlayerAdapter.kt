@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import io.funatwork.R
 import io.funatwork.model.PlayerModel
+import io.funatwork.utils.CircleTransformation
 
 class PlayerAdapter(val context: Context, val playerEntities: List<PlayerModel>, val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<PlayerAdapter.ViewHolder>() {
 
@@ -24,7 +25,7 @@ class PlayerAdapter(val context: Context, val playerEntities: List<PlayerModel>,
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val player = playerEntities[position]
-        Picasso.with(context).load(player.avatar).fit().into(holder?.avatar)
+        Picasso.with(context).load(player.avatar).transform(CircleTransformation()).fit().into(holder?.avatar)
         holder?.name?.text = player.name
         holder?.itemView?.setOnClickListener { onItemClickListener.onPlayerItemClicked(player) }
     }

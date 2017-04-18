@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".view.activity.GameOverActivity">
         </activity>
+        <activity android:name=".view.activity.StartGameActivity">
+        </activity>
     </application>
 
 </manifest>

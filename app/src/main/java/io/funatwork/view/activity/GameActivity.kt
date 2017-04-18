@@ -3,6 +3,7 @@ package io.funatwork.view.activity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.squareup.picasso.Picasso
 import io.funatwork.R
 import io.funatwork.core.net.ConnectionUtils
@@ -15,6 +16,7 @@ import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.presenter.GamePresenter
 import io.funatwork.view.GameView
 import xyz.hanks.library.SmallBang
+
 
 class GameActivity : BaseActivity(), GameView {
 
@@ -102,6 +104,23 @@ class GameActivity : BaseActivity(), GameView {
         tvScoreRed.text = game.redTeamGoal.toString()
     }
 
-    override fun renderGameFinished(game: GameModel) =
-            navigator.navigateToGameOver(this, game)
+    override fun renderGameFinished(game: GameModel) {
+        navigator.navigateToGameOver(this, game)
+        finish()
+    }
+
+
+    override fun onBackPressed() {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setContentText(getString(R.string.game_cancel_message))
+                .setTitleText(getString(R.string.game_cancel_title))
+                .setConfirmText(getString(R.string.game_cancel_yes))
+                .setCancelText(getString(R.string.game_cancel_no))
+                .setConfirmClickListener {
+                    presenter.cancelGame()
+                    finish()
+                }
+                .setCancelClickListener(SweetAlertDialog::dismissWithAnimation)
+                .show()
+    }
 }

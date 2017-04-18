@@ -9,4 +9,5 @@ interface GameView : LoadDataView {
     fun renderGoal(game: GameModel)
 
     fun renderGameFinished(game: GameModel)
+
 }

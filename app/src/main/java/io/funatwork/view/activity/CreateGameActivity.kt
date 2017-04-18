@@ -1,5 +1,6 @@
 package io.funatwork.view.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -24,6 +25,7 @@ import io.funatwork.model.Team
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.presenter.CreateGamePresenter
+import io.funatwork.utils.CircleTransformation
 import io.funatwork.view.StartGameView
 import io.funatwork.view.adapter.PlayerAdapter
 import pl.bclogic.pulsator4droid.library.PulsatorLayout
@@ -84,6 +86,10 @@ class CreateGameActivity : BaseActivity(), StartGameView {
         recyclerPlayers.layoutManager = GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false)
 
         presenter.initialize()
+        imgPlayerRedAttack.setColorFilter(Color.argb(50, 0, 0, 0))
+        imgPlayerRedAttack.setColorFilter(Color.argb(200, 0, 0, 0))
+        imgPlayerRedAttack.setColorFilter(Color.argb(200, 0, 0, 0))
+        imgPlayerRedAttack.setColorFilter(Color.argb(200, 0, 0, 0))
     }
 
     override fun renderPlayerList(playerModelList: List<PlayerModel>) {
@@ -93,15 +99,16 @@ class CreateGameActivity : BaseActivity(), StartGameView {
     override fun onSelectPlayer(player: PlayerModel, team: Team, position: Position) {
         if (team == Team.RED) {
             if (position == Position.ATTACK) {
-                Picasso.with(this).load(player.avatar).fit().into(imgPlayerRedAttack)
+                imgPlayerRedAttack.setColorFilter(Color.argb(0, 0, 0, 0))
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedAttack)
             } else {
-                Picasso.with(this).load(player.avatar).fit().into(imgPlayerRedDefense)
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerRedDefense)
             }
         } else {
             if (position == Position.ATTACK) {
-                Picasso.with(this).load(player.avatar).fit().into(imgPlayerBlueAttack)
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueAttack)
             } else {
-                Picasso.with(this).load(player.avatar).fit().into(imgPlayerBlueDefense)
+                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgPlayerBlueDefense)
             }
         }
     }
@@ -118,5 +125,6 @@ class CreateGameActivity : BaseActivity(), StartGameView {
 
     override fun onGameStarted(game: GameModel) {
         navigator.navigateToGame(this, game)
+        finish()
     }
 }

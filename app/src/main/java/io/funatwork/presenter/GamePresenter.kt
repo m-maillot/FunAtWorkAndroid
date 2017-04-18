@@ -41,6 +41,11 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
     fun addGoal(game: GameModel, player: PlayerModel) =
             addGoal.execute(GoalObserver(gameView), AddGoalParam(game.toBo(), player.toBo()))
 
+
+    fun cancelGame() {
+
+    }
+
     private class GameObserver(val gameView: GameView) : DefaultObserver<Game>() {
 
         override fun onComplete() {
