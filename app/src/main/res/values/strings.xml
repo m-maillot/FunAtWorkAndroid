@@ -19,5 +19,8 @@
     <string name="game_over_title">Game over!</string>
     <string name="game_over_initial_score">0</string>
     <string name="game_over_score_separator">-</string>
+    <string name="menu_play">Play</string>
+    <string name="menu_history">History</string>
+    <string name="menu_stats">Stats</string>
 
 </resources>

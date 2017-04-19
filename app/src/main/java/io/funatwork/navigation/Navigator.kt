@@ -3,6 +3,7 @@ package io.funatwork.navigation
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.ActivityOptionsCompat
+import io.funatwork.SplashscreenActivity
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.view.activity.CreateGameActivity
@@ -12,6 +13,11 @@ import io.funatwork.view.activity.StartGameActivity
 
 
 class Navigator {
+
+    fun navigateToPlay(context: Context) {
+        val intentToLaunch = Intent(context, SplashscreenActivity::class.java)
+        context.startActivity(intentToLaunch)
+    }
 
     fun navigateToCreateGame(context: Context) {
         val intentToLaunch = Intent(context, CreateGameActivity::class.java)

@@ -15,5 +15,6 @@ class SplashscreenActivity : BaseActivity() {
         button.setOnClickListener {
             navigator.navigateToCreateGame(this)
         }
+        bottomNavigationView?.selectedItemId = R.id.action_play
     }
 }
