@@ -14,4 +14,6 @@ interface GameRepository {
     fun game(gameId: Int): Observable<Game>
 
     fun addGoal(gameId: Int, striker: Player): Observable<Game>
+
+    fun stopGame(gameId: Int, cancelled: Boolean): Observable<Game>
 }

@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 import io.funatwork.R
 import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.GameDataRepository
-import io.funatwork.core.repository.datasource.GameDataStoreFactory
+import io.funatwork.core.repository.datasource.game.GameDataStoreFactory
 import io.funatwork.domain.interactor.AddGoal
 import io.funatwork.domain.interactor.LoadGame
 import io.funatwork.extensions.getConnectivityManager

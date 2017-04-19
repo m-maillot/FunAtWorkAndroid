@@ -3,7 +3,7 @@ package io.funatwork.core.repository
 import io.funatwork.core.entity.babyfoot.toBo
 import io.funatwork.core.entity.babyfoot.toEntity
 import io.funatwork.core.entity.toEntity
-import io.funatwork.core.repository.datasource.GameDataStoreFactory
+import io.funatwork.core.repository.datasource.game.GameDataStoreFactory
 import io.funatwork.domain.model.Player
 import io.funatwork.domain.model.babyfoot.Game
 import io.funatwork.domain.model.babyfoot.Team
@@ -23,4 +23,8 @@ class GameDataRepository(val gameDataStoreFactory: GameDataStoreFactory) : GameR
 
     override fun addGoal(gameId: Int, striker: Player) =
             gameDataStoreFactory.create().addGoal(gameId, striker.toEntity()).map { it.toBo() }
+
+    override fun stopGame(gameId: Int, cancelled: Boolean): Observable<Game> =
+            gameDataStoreFactory.create().stopGame(gameId, cancelled).map { it.toBo() }
+
 }

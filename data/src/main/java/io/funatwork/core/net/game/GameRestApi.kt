@@ -1,4 +1,4 @@
-package io.funatwork.core.net.player
+package io.funatwork.core.net.game
 
 import io.funatwork.core.entity.PlayerEntity
 import io.funatwork.core.entity.babyfoot.GameEntity
@@ -14,4 +14,6 @@ interface GameRestApi {
     fun startGame(redTeam: TeamEntity, blueTeam: TeamEntity): Observable<GameEntity>
 
     fun addGoal(gameId: Int, striker: PlayerEntity): Observable<GameEntity>
+
+    fun stopGame(gameId: Int, cancelled: Boolean): Observable<GameEntity>
 }

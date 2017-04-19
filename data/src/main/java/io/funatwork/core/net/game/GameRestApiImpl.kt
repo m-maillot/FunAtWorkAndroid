@@ -1,4 +1,4 @@
-package io.funatwork.core.net.player
+package io.funatwork.core.net.game
 
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
@@ -10,6 +10,7 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.net.RestApiData
 import io.funatwork.core.net.deserializer.GameDeserializer
 import io.funatwork.core.net.deserializer.GameListDeserializer
+import io.funatwork.core.net.game.GameRestApi
 import io.reactivex.Observable
 
 class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
@@ -20,8 +21,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                     try {
                         val (request, response, result) = "${RestApiData.API_URL_GET_GAME_LIST}/$gameId".httpGet().responseObject(GameDeserializer())
                         if (result.component2() == null) {
-                            val game = result.get()
-                            emitter.onNext(game)
+                            emitter.onNext(result.get())
                             emitter.onComplete()
                         } else {
                             emitter.onError(NetworkConnectionException(result.component2()))
@@ -40,8 +40,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                     try {
                         val (request, response, result) = RestApiData.API_URL_CREATE_GAME_LIST.httpPost(generateParameters(redTeam = redTeam, blueTeam = blueTeam)).responseObject(GameDeserializer())
                         if (result.component2() == null) {
-                            val game = result.get()
-                            emitter.onNext(game)
+                            emitter.onNext(result.get())
                             emitter.onComplete()
                         } else {
                             emitter.onError(NetworkConnectionException(result.component2()))
@@ -79,8 +78,26 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                     try {
                         val (request, response, result) = RestApiData.API_URL_ADD_GOAL.httpPost(generateParameters(gameId = gameId, striker = striker)).responseObject(GameDeserializer())
                         if (result.component2() == null) {
-                            val game = result.get()
-                            emitter.onNext(game)
+                            emitter.onNext(result.get())
+                            emitter.onComplete()
+                        } else {
+                            emitter.onError(NetworkConnectionException(result.component2()))
+                        }
+                    } catch (e: Exception) {
+                        emitter.onError(NetworkConnectionException(e.cause))
+                    }
+                } else {
+                    emitter.onError(NetworkConnectionException())
+                }
+            }
+
+    override fun stopGame(gameId: Int, cancelled: Boolean): Observable<GameEntity> =
+            Observable.create<GameEntity> { emitter ->
+                if (connectionUtils.isThereInternetConnection()) {
+                    try {
+                        val (request, response, result) = RestApiData.API_URL_STOP_GAME_LIST.httpPost(generateStopParameters(gameId, cancelled)).responseObject(GameDeserializer())
+                        if (result.component2() == null) {
+                            emitter.onNext(result.get())
                             emitter.onComplete()
                         } else {
                             emitter.onError(NetworkConnectionException(result.component2()))
@@ -99,8 +116,12 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                     Pair("bluePlayerAttackId", blueTeam.attackPlayer.id),
                     Pair("bluePlayerDefenseId", blueTeam.defensePlayer.id))
 
-    fun generateParameters(gameId: Int, striker: PlayerEntity) =
+    private fun generateParameters(gameId: Int, striker: PlayerEntity) =
             listOf(Pair("game", gameId),
                     Pair("striker", striker.id),
                     Pair("position", 1))
+
+    private fun generateStopParameters(gameId: Int, cancelled: Boolean) =
+            listOf(Pair("game", gameId),
+                    Pair("cancelled", if (cancelled) 1 else 0))
 }
