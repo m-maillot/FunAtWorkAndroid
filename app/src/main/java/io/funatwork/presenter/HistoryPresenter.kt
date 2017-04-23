@@ -48,7 +48,7 @@ class HistoryPresenter(val historyView: HistoryView, val getGameList: GetGameLis
         }
 
         override fun onNext(games: List<Game>) {
-            historyView.renderGameList(games.map(Game::toModel))
+            historyView.renderGameList(games.map(Game::toModel).filter { it.status == 2 })
         }
     }
 }

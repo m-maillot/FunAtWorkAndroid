@@ -14,7 +14,11 @@ android {
 
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", BABYFOOT_APP_BASE_URL
+        }
         release {
+            buildConfigField "String", "BASE_URL", BABYFOOT_APP_BASE_URL
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

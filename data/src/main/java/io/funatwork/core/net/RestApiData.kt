@@ -1,10 +1,10 @@
 package io.funatwork.core.net
 
+import io.funatwork.core.BuildConfig
+
 object RestApiData {
 
-    // val API_BASE_URL = "http://babyfoot.v3d.fr"
-    val API_BASE_URL = "http://192.168.1.68:8082"
-    // val API_BASE_URL = "http://192.168.100.162:8082"
+    val API_BASE_URL = BuildConfig.BASE_URL
 
     val API_URL_GET_PLAYER_LIST = API_BASE_URL + "/api/v1/players"
 
