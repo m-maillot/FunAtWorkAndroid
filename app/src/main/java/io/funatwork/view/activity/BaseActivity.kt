@@ -57,11 +57,14 @@ abstract class BaseActivity : AppCompatActivity() {
         bottomNavigationView?.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_play -> {
-                    if (!(this is SplashscreenActivity)) {
+                    if (this !is SplashscreenActivity) {
                         navigator.navigateToPlay(this)
                     }
                 }
                 R.id.action_history -> {
+                    if (this !is HistoryActivity) {
+                        navigator.navigateToHistory(this)
+                    }
                 }
                 R.id.action_stats -> {
                 }

@@ -38,7 +38,7 @@ class SelectPlayersPresenter(val selectPlayersView: SelectPlayersView, val getPl
      */
     private fun loadPlayerList() {
         selectPlayersView.showLoading()
-        getPlayerList.execute(UserListObserver(selectPlayersView), NoParams())
+        getPlayerList.execute(PlayerListObserver(selectPlayersView), NoParams())
     }
 
     fun removePlayer(team: Team, position: Position) {
@@ -85,7 +85,7 @@ class SelectPlayersPresenter(val selectPlayersView: SelectPlayersView, val getPl
         }
     }
 
-    private class UserListObserver(val selectPlayersView: SelectPlayersView) : DefaultObserver<List<Player>>() {
+    private class PlayerListObserver(val selectPlayersView: SelectPlayersView) : DefaultObserver<List<Player>>() {
 
         override fun onComplete() {
             selectPlayersView.hideLoading()

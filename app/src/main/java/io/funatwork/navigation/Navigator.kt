@@ -6,16 +6,18 @@ import android.support.v4.app.ActivityOptionsCompat
 import io.funatwork.SplashscreenActivity
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TeamModel
-import io.funatwork.view.activity.CreateGameActivity
-import io.funatwork.view.activity.GameActivity
-import io.funatwork.view.activity.GameOverActivity
-import io.funatwork.view.activity.StartGameActivity
+import io.funatwork.view.activity.*
 
 
 class Navigator {
 
     fun navigateToPlay(context: Context) {
         val intentToLaunch = Intent(context, SplashscreenActivity::class.java)
+        context.startActivity(intentToLaunch)
+    }
+
+    fun navigateToHistory(context: Context) {
+        val intentToLaunch = Intent(context, HistoryActivity::class.java)
         context.startActivity(intentToLaunch)
     }
 

@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">B3D</string>
     <string name="app_name_long">Babyfoot360Degrees</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <!-- Select players -->
     <string name="create_game_players_title">Select players</string>
     <string name="create_game_versus">VS</string>
     <string name="create_game_start_game">Let\'s play!</string>
+    <!-- Start game -->
     <string name="start_game_title">Ready?</string>
+    <!-- Game -->
     <string name="game_title">Let\'s play!</string>
     <string name="game_initial_score">0</string>
     <string name="game_cancel">Cancel</string>
@@ -19,6 +18,10 @@
     <string name="game_over_title">Game over!</string>
     <string name="game_over_initial_score">0</string>
     <string name="game_over_score_separator">-</string>
+    <!-- History -->
+    <string name="history_title">History</string>
+    <string name="history_date">%1$s (%2$s min) - %3$s</string>
+    <!-- Bottom bar -->
     <string name="menu_play">Play</string>
     <string name="menu_history">History</string>
     <string name="menu_stats">Stats</string>

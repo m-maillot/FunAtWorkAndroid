@@ -26,7 +26,6 @@
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
-            android:label="@string/title_activity_main"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -37,9 +36,17 @@
             android:name=".view.activity.GameActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.GameOverActivity">
+        <activity
+            android:name=".view.activity.GameOverActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.StartGameActivity">
+        <activity
+            android:name=".view.activity.StartGameActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.activity.HistoryActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
