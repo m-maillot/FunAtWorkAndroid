@@ -21,8 +21,15 @@ class Navigator {
         context.startActivity(intentToLaunch)
     }
 
-    fun navigateToCreateGame(context: Context) {
+    fun navigateToHome(context: Context, flags: Int = 0) {
+        val intentToLaunch = Intent(context, SplashscreenActivity::class.java)
+        intentToLaunch.flags = flags
+        context.startActivity(intentToLaunch)
+    }
+
+    fun navigateToCreateGame(context: Context, flags: Int = 0) {
         val intentToLaunch = Intent(context, CreateGameActivity::class.java)
+        intentToLaunch.flags = flags
         context.startActivity(intentToLaunch)
     }
 

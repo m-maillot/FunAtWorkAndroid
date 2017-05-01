@@ -3,7 +3,9 @@ package io.funatwork.presenter
 import io.funatwork.domain.interactor.AddGoal
 import io.funatwork.domain.interactor.DefaultObserver
 import io.funatwork.domain.interactor.LoadGame
+import io.funatwork.domain.interactor.StopGame
 import io.funatwork.domain.interactor.params.AddGoalParam
+import io.funatwork.domain.interactor.params.StopGameParam
 import io.funatwork.domain.model.babyfoot.Game
 import io.funatwork.model.PlayerModel
 import io.funatwork.model.babyfoot.GameModel
@@ -12,7 +14,9 @@ import io.funatwork.model.babyfoot.toModel
 import io.funatwork.model.toBo
 import io.funatwork.view.GameView
 
-class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal: AddGoal) : Presenter {
+class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal: AddGoal, val stopGame: StopGame) : Presenter {
+
+    var mGameId = -1
 
     override fun resume() {}
 
@@ -24,6 +28,7 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
      * Initializes the presenter by start retrieving the players list.
      */
     fun initialize(gameId: Int) {
+        mGameId = gameId
         loadGame(gameId)
     }
 
@@ -40,7 +45,7 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
 
 
     fun cancelGame() {
-
+        stopGame.execute(CancelGameObserver(gameView), StopGameParam(mGameId, true))
     }
 
     private class GameObserver(val gameView: GameView) : DefaultObserver<Game>() {
@@ -73,6 +78,22 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
             if (game.status == game.GAME_OVER) {
                 gameView.renderGameFinished(game.toModel())
             }
+        }
+    }
+
+    private class CancelGameObserver(val gameView: GameView) : DefaultObserver<Game>() {
+
+        override fun onComplete() {
+            gameView.hideLoading()
+        }
+
+        override fun onError(e: Throwable?) {
+            gameView.hideLoading()
+            gameView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+        }
+
+        override fun onNext(game: Game) {
+            gameView.renderGameCanceled()
         }
     }
 }

@@ -1,5 +1,6 @@
 package io.funatwork.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
@@ -13,6 +14,7 @@ import io.funatwork.core.repository.GameDataRepository
 import io.funatwork.core.repository.datasource.game.GameDataStoreFactory
 import io.funatwork.domain.interactor.AddGoal
 import io.funatwork.domain.interactor.LoadGame
+import io.funatwork.domain.interactor.StopGame
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.presenter.GamePresenter
@@ -35,6 +37,14 @@ class GameActivity : BaseActivity(), GameView {
                         postExecutionThread = fwtApplication.uiThread,
                         threadExecutor = fwtApplication.jobExecutor),
                 addGoal = AddGoal(
+                        gameRepository = GameDataRepository(
+                                gameDataStoreFactory = GameDataStoreFactory(
+                                        connectionUtils = ConnectionUtils(this.getConnectivityManager())
+                                )
+                        ),
+                        postExecutionThread = fwtApplication.uiThread,
+                        threadExecutor = fwtApplication.jobExecutor),
+                stopGame = StopGame(
                         gameRepository = GameDataRepository(
                                 gameDataStoreFactory = GameDataStoreFactory(
                                         connectionUtils = ConnectionUtils(this.getConnectivityManager())
@@ -132,6 +142,10 @@ class GameActivity : BaseActivity(), GameView {
         finish()
     }
 
+
+    override fun renderGameCanceled() {
+        navigator.navigateToHome(this, Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    }
 
     override fun onBackPressed() {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)

@@ -1,5 +1,6 @@
 package io.funatwork.view.activity
 
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -56,8 +57,7 @@ class GameOverActivity : BaseActivity() {
         tvScoreRed.text = game.redTeamGoal.toString()
 
         restart.setOnClickListener {
-            navigator.navigateToCreateGame(this)
-            finish()
+            navigator.navigateToCreateGame(this, FLAG_ACTIVITY_CLEAR_TOP)
         }
     }
 
@@ -65,5 +65,10 @@ class GameOverActivity : BaseActivity() {
         super.onEnterAnimationComplete()
         val smallBang = SmallBang.attach2Window(this)
         smallBang.bang(imgTrophy)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navigator.navigateToHome(this, FLAG_ACTIVITY_CLEAR_TOP)
     }
 }

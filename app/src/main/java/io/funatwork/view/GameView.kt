@@ -10,4 +10,6 @@ interface GameView : LoadDataView {
 
     fun renderGameFinished(game: GameModel)
 
+    fun renderGameCanceled()
+
 }
