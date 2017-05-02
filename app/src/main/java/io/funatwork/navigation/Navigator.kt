@@ -3,7 +3,6 @@ package io.funatwork.navigation
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.ActivityOptionsCompat
-import io.funatwork.SplashscreenActivity
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.view.activity.*
@@ -11,18 +10,13 @@ import io.funatwork.view.activity.*
 
 class Navigator {
 
-    fun navigateToPlay(context: Context) {
-        val intentToLaunch = Intent(context, SplashscreenActivity::class.java)
-        context.startActivity(intentToLaunch)
-    }
-
-    fun navigateToHistory(context: Context) {
-        val intentToLaunch = Intent(context, HistoryActivity::class.java)
+    fun navigateToMain(context: Context) {
+        val intentToLaunch = Intent(context, MainActivity::class.java)
         context.startActivity(intentToLaunch)
     }
 
     fun navigateToHome(context: Context, flags: Int = 0) {
-        val intentToLaunch = Intent(context, SplashscreenActivity::class.java)
+        val intentToLaunch = Intent(context, MainActivity::class.java)
         intentToLaunch.flags = flags
         context.startActivity(intentToLaunch)
     }

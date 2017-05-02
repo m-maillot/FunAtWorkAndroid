@@ -15,7 +15,9 @@ class HistoryPresenter(val historyView: HistoryView, val getGameList: GetGameLis
 
     override fun pause() {}
 
-    override fun destroy() {}
+    override fun destroy() {
+        this.getGameList.dispose()
+    }
 
     /**
      * Initializes the presenter by start retrieving the history list.

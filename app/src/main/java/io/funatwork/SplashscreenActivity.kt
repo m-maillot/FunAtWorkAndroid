@@ -11,10 +11,6 @@ class SplashscreenActivity : BaseActivity() {
 
         supportActionBar?.title = getString(R.string.app_name_long)
 
-        val button = findViewById(R.id.button)
-        button.setOnClickListener {
-            navigator.navigateToCreateGame(this)
-        }
-        bottomNavigationView?.selectedItemId = R.id.action_play
+        navigator.navigateToMain(this)
     }
 }

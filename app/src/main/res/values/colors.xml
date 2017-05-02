@@ -22,4 +22,5 @@
     <color name="colorRedTeam">#D60000</color>
     <color name="colorRedTeamLight">#FF7070</color>
     <color name="colorBlueTeamLight">#70B8FF</color>
+    <color name="white">#FFFFFF</color>
 </resources>

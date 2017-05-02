@@ -44,14 +44,6 @@
             android:name=".view.activity.StartGameActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".view.activity.HistoryActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".view.activity.StatsActivity"
-            android:screenOrientation="portrait">
-        </activity>
     </application>
 
 </manifest>
