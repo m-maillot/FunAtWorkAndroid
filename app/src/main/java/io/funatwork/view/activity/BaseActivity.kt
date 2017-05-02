@@ -9,10 +9,6 @@ import io.funatwork.R
 import io.funatwork.SplashscreenActivity
 import io.funatwork.navigation.Navigator
 
-
-/**
- * Created by mmaillot on 3/29/17.
- */
 abstract class BaseActivity : AppCompatActivity() {
 
     val bottomNavigationView by lazy {
