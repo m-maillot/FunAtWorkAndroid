@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
@@ -69,9 +70,11 @@ class CreateGameActivity : BaseActivity(), SelectPlayersView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_game)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.title = getString(R.string.create_game_players_title)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeButtonEnabled(true)
+            it.title = getString(R.string.create_game_players_title)
+        }
 
         recyclerPlayers.setHasFixedSize(true)
         recyclerPlayers.layoutManager = GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false)
@@ -82,6 +85,19 @@ class CreateGameActivity : BaseActivity(), SelectPlayersView {
         imgBluePlayerAttack.setOnClickListener { presenter.removePlayer(Team.BLUE, Position.ATTACK) }
         imgBluePlayerDefense.setOnClickListener { presenter.removePlayer(Team.BLUE, Position.DEFENSE) }
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+            else -> {
+
+            }
+        }
+        return true
+    }
+
 
     override fun renderPlayerList(playerModelList: List<PlayerModel>) {
         recyclerPlayers.adapter = PlayerAdapter(this, playerModelList, presenter)
