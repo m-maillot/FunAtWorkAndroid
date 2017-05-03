@@ -108,22 +108,38 @@ class GameActivity : BaseActivity(), GameView {
         Picasso.with(this).load(game.redTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerAttack)
         Picasso.with(this).load(game.redTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerDefense)
 
+        imgBluePlayerAttack.setOnClickListener {
+            smallBang.bang(imgBluePlayerAttack)
+            presenter.addGoal(game, game.blueTeam.attackPlayer)
+        }
+        imgBluePlayerDefense.setOnClickListener {
+            smallBang.bang(imgBluePlayerDefense)
+            presenter.addGoal(game, game.blueTeam.defensePlayer)
+        }
+        imgRedPlayerAttack.setOnClickListener {
+            smallBang.bang(imgRedPlayerAttack)
+            presenter.addGoal(game, game.redTeam.attackPlayer)
+        }
+        imgRedPlayerDefense.setOnClickListener {
+            smallBang.bang(imgRedPlayerDefense)
+            presenter.addGoal(game, game.redTeam.defensePlayer)
+        }
 
         imgGoalBlueAttack.setOnClickListener {
             smallBang.bang(imgGoalBlueAttack)
-            presenter.addGoal(game, game.blueTeam.attackPlayer)
+            presenter.addGamelle(game, game.blueTeam.attackPlayer)
         }
         imgGoalBlueDefense.setOnClickListener {
             smallBang.bang(imgGoalBlueDefense)
-            presenter.addGoal(game, game.blueTeam.defensePlayer)
+            presenter.addGamelle(game, game.blueTeam.defensePlayer)
         }
         imgGoalRedAttack.setOnClickListener {
             smallBang.bang(imgGoalRedAttack)
-            presenter.addGoal(game, game.redTeam.attackPlayer)
+            presenter.addGamelle(game, game.redTeam.attackPlayer)
         }
         imgGoalRedDefense.setOnClickListener {
             smallBang.bang(imgGoalRedDefense)
-            presenter.addGoal(game, game.redTeam.defensePlayer)
+            presenter.addGamelle(game, game.redTeam.defensePlayer)
         }
     }
 

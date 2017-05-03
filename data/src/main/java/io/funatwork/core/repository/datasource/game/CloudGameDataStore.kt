@@ -1,10 +1,8 @@
 package io.funatwork.core.repository.datasource.game
 
 import io.funatwork.core.entity.PlayerEntity
-import io.funatwork.core.entity.babyfoot.GameEntity
 import io.funatwork.core.entity.babyfoot.TeamEntity
 import io.funatwork.core.net.game.GameRestApi
-import io.funatwork.core.repository.datasource.game.GameDataStore
 
 class CloudGameDataStore(val gameRestApi: GameRestApi) : GameDataStore {
 
@@ -17,8 +15,8 @@ class CloudGameDataStore(val gameRestApi: GameRestApi) : GameDataStore {
     override fun gameEntity(gameId: Int) =
             gameRestApi.gameEntity(gameId)
 
-    override fun addGoal(gameId: Int, striker: PlayerEntity) =
-            gameRestApi.addGoal(gameId, striker)
+    override fun addGoal(gameId: Int, striker: PlayerEntity, gamelle: Boolean) =
+            gameRestApi.addGoal(gameId, striker, gamelle)
 
     override fun stopGame(gameId: Int, cancelled: Boolean) =
             gameRestApi.stopGame(gameId, cancelled)

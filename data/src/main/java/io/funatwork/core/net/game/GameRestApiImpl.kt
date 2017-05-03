@@ -10,7 +10,6 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.net.RestApiData
 import io.funatwork.core.net.deserializer.GameDeserializer
 import io.funatwork.core.net.deserializer.GameListDeserializer
-import io.funatwork.core.net.game.GameRestApi
 import io.reactivex.Observable
 
 class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
@@ -72,11 +71,11 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                 }
             }
 
-    override fun addGoal(gameId: Int, striker: PlayerEntity): Observable<GameEntity> =
+    override fun addGoal(gameId: Int, striker: PlayerEntity, gamelle: Boolean): Observable<GameEntity> =
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_ADD_GOAL.httpPost(generateParameters(gameId = gameId, striker = striker)).responseObject(GameDeserializer())
+                        val (request, response, result) = RestApiData.API_URL_ADD_GOAL.httpPost(generateParameters(gameId = gameId, striker = striker, gamelle = gamelle)).responseObject(GameDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()
@@ -116,10 +115,11 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                     Pair("bluePlayerAttackId", blueTeam.attackPlayer.id),
                     Pair("bluePlayerDefenseId", blueTeam.defensePlayer.id))
 
-    private fun generateParameters(gameId: Int, striker: PlayerEntity) =
+    private fun generateParameters(gameId: Int, striker: PlayerEntity, gamelle: Boolean) =
             listOf(Pair("game", gameId),
                     Pair("striker", striker.id),
-                    Pair("position", 1))
+                    Pair("position", 1),
+                    Pair("gamelle", if (gamelle) 1 else 0))
 
     private fun generateStopParameters(gameId: Int, cancelled: Boolean) =
             listOf(Pair("game", gameId),

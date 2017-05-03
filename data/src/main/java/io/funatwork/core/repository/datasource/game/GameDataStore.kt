@@ -13,7 +13,7 @@ interface GameDataStore {
 
     fun createGame(redTeam: TeamEntity, blueTeam: TeamEntity): Observable<GameEntity>
 
-    fun addGoal(gameId: Int, striker: PlayerEntity): Observable<GameEntity>
+    fun addGoal(gameId: Int, striker: PlayerEntity, gamelle: Boolean): Observable<GameEntity>
 
     fun stopGame(gameId: Int, cancelled: Boolean): Observable<GameEntity>
 }

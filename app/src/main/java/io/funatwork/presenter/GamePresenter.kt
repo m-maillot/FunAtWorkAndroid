@@ -43,6 +43,9 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
     fun addGoal(game: GameModel, player: PlayerModel) =
             addGoal.execute(GoalObserver(gameView), AddGoalParam(game.toBo(), player.toBo()))
 
+    fun addGamelle(game: GameModel, player: PlayerModel) =
+            addGoal.execute(GoalObserver(gameView), AddGoalParam(game.toBo(), player.toBo(), true))
+
 
     fun cancelGame() {
         stopGame.execute(CancelGameObserver(gameView), StopGameParam(mGameId, true))

@@ -21,8 +21,8 @@ class GameDataRepository(val gameDataStoreFactory: GameDataStoreFactory) : GameR
     override fun game(gameId: Int): Observable<Game> =
             gameDataStoreFactory.create().gameEntity(gameId).map { it.toBo() }
 
-    override fun addGoal(gameId: Int, striker: Player) =
-            gameDataStoreFactory.create().addGoal(gameId, striker.toEntity()).map { it.toBo() }
+    override fun addGoal(gameId: Int, striker: Player, gamelle: Boolean) =
+            gameDataStoreFactory.create().addGoal(gameId, striker.toEntity(), gamelle).map { it.toBo() }
 
     override fun stopGame(gameId: Int, cancelled: Boolean): Observable<Game> =
             gameDataStoreFactory.create().stopGame(gameId, cancelled).map { it.toBo() }

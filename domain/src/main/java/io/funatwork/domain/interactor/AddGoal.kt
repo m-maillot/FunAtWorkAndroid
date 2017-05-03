@@ -13,5 +13,5 @@ class AddGoal(val gameRepository: GameRepository,
         UseCase<Game, AddGoalParam>(threadExecutor, postExecutionThread) {
 
     override fun buildUseCaseObservable(params: AddGoalParam): Observable<Game> =
-            gameRepository.addGoal(params.game.id, params.stricker)
+            gameRepository.addGoal(params.game.id, params.stricker, params.gamelle)
 }
