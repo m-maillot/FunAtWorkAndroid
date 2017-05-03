@@ -7,10 +7,6 @@ class SplashscreenActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splashscreen)
-
-        supportActionBar?.title = getString(R.string.app_name_long)
-
         navigator.navigateToMain(this)
     }
 }

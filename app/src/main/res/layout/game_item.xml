@@ -18,7 +18,7 @@
             android:id="@+id/tv_game_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:padding="5dp"
             android:text="@string/history_date"
             android:textColor="@color/colorPrimaryText"/>
