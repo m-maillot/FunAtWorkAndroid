@@ -8,5 +8,6 @@ class SplashscreenActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navigator.navigateToMain(this)
+        finish()
     }
 }
