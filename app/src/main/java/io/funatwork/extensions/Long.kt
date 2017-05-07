@@ -4,5 +4,5 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun Long.showHumanDateFromSeconds(): String {
-    return SimpleDateFormat("d MMM HH:mm:ss", Locale.getDefault()).format(Date(this * 1000))
+    return SimpleDateFormat("d.MM.YYYY", Locale.getDefault()).format(Date(this * 1000))
 }

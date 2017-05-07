@@ -37,10 +37,7 @@ class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val o
         Picasso.with(context).load(game.blueTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(holder?.imgDefenseBlue)
         holder?.tvRedScore?.text = game.redTeamGoal.toString()
         holder?.tvBlueScore?.text = game.blueTeamGoal.toString()
-        holder?.tvDate?.text = context.getString(R.string.history_date,
-                game.beginTimestampInSeconds.showHumanDateFromSeconds(),
-                (game.beginTimestampInSeconds - game.ended).toString(),
-                game.status.toString())
+        holder?.tvDate?.text = game.beginTimestampInSeconds.showHumanDateFromSeconds()
         holder?.itemView?.setOnClickListener { onItemClickListener.onGameItemClicked(game) }
     }
 

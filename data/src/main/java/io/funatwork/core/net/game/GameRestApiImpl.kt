@@ -17,16 +17,12 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
     override fun gameEntity(gameId: Int): Observable<GameEntity> =
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
-                    try {
-                        val (request, response, result) = "${RestApiData.API_URL_GET_GAME_LIST}/$gameId".httpGet().responseObject(GameDeserializer())
-                        if (result.component2() == null) {
-                            emitter.onNext(result.get())
-                            emitter.onComplete()
-                        } else {
-                            emitter.onError(NetworkConnectionException(result.component2()))
-                        }
-                    } catch (e: Exception) {
-                        emitter.onError(NetworkConnectionException(e.cause))
+                    val (request, response, result) = "${RestApiData.API_URL_GET_GAME_LIST}/$gameId".httpGet().responseObject(GameDeserializer())
+                    if (result.component2() == null) {
+                        emitter.onNext(result.get())
+                        emitter.onComplete()
+                    } else {
+                        emitter.onError(NetworkConnectionException(result.component2()))
                     }
                 } else {
                     emitter.onError(NetworkConnectionException())

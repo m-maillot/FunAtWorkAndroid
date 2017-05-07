@@ -17,13 +17,20 @@
     <string name="game_cancel_no">No</string>
     <string name="game_over_title">Game over!</string>
     <string name="game_over_initial_score">0</string>
-    <string name="game_over_score_separator">-</string>
+    <string name="game_over_score_separator">:</string>
     <!-- History -->
     <string name="history_title">History</string>
     <string name="history_date">%1$s (%2$s min) - %3$s</string>
     <!-- Bottom bar -->
-    <string name="menu_play">Play</string>
-    <string name="menu_history">History</string>
-    <string name="menu_stats">Stats</string>
+    <string name="menu_matchs">Matchs</string>
+    <string name="menu_standings">Standings</string>
+    <string name="menu_profile">Profile</string>
+    <string name="img_no_description">No description</string>
+
+    <string name="games_title">🔥 Right now 🔥</string>
+    <string name="games_master_league">V3D Master league</string>
+    <string name="games_stadium_">V3D Stadium, Lyon</string>
+    <string name="games_ready_to_rumble">Ready to rumble?</string>
+    <string name="games_start_a_new_game">⚽ Start a new game ⚽</string>
 
 </resources>
