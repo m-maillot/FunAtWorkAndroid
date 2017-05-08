@@ -2,6 +2,7 @@ package io.funatwork.view.activity
 
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -86,5 +87,17 @@ class StartGameActivity : BaseActivity(), StartGameView {
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4)
 
         navigator.navigateToGame(this, game, options)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+            else -> {
+
+            }
+        }
+        return true
     }
 }
