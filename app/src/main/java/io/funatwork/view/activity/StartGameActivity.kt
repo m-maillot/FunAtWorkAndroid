@@ -3,6 +3,7 @@ package io.funatwork.view.activity
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -47,8 +48,8 @@ class StartGameActivity : BaseActivity(), StartGameView {
         findViewById(R.id.img_player_blue_defense) as ImageView
     }
 
-    val imgKickOff by lazy {
-        findViewById(R.id.img_kickoff) as ImageView
+    val btnKickOff by lazy {
+        findViewById(R.id.btn_kickoff) as Button
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +73,7 @@ class StartGameActivity : BaseActivity(), StartGameView {
         Picasso.with(this).load(blueTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(imgBluePlayerDefense)
         (findViewById(R.id.tv_player_blue_defense) as TextView).text = blueTeam.defensePlayer.name
 
-        imgKickOff.setOnClickListener {
+        btnKickOff.setOnClickListener {
             presenter.startGame(redTeam, blueTeam)
         }
     }
