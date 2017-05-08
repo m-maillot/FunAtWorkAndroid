@@ -27,7 +27,7 @@ import io.funatwork.view.SelectPlayersView
 import io.funatwork.view.adapter.PlayerAdapter
 
 
-class CreateGameActivity : BaseActivity(), SelectPlayersView {
+class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
 
     val recyclerPlayers by lazy {
         findViewById(R.id.rv_players) as RecyclerView
@@ -68,7 +68,7 @@ class CreateGameActivity : BaseActivity(), SelectPlayersView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_game)
+        setContentView(R.layout.activity_select_player)
 
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)

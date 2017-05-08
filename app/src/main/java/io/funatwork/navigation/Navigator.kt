@@ -22,7 +22,7 @@ class Navigator {
     }
 
     fun navigateToCreateGame(context: Context, flags: Int = 0) {
-        val intentToLaunch = Intent(context, CreateGameActivity::class.java)
+        val intentToLaunch = Intent(context, SelectPlayerActivity::class.java)
         intentToLaunch.flags = flags
         context.startActivity(intentToLaunch)
     }

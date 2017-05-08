@@ -31,7 +31,7 @@
             android:theme="@style/Theme.Baby.NoActionBar">
         </activity>
         <activity
-            android:name=".view.activity.CreateGameActivity"
+            android:name=".view.activity.SelectPlayerActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
