@@ -13,7 +13,7 @@ import io.funatwork.view.fragment.MainGameFragment
 class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
 
     val bottomNavigationView by lazy {
-        findViewById(R.id.bottom_navigation) as BottomNavigationView?
+        findViewById(R.id.bottom_navigation) as BottomNavigationView
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +29,9 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
     }
 
     fun initTab() {
+        val menuNav = bottomNavigationView.menu
+        menuNav.findItem(R.id.action_stats).isEnabled = false
+        menuNav.findItem(R.id.action_history).isEnabled = false
         bottomNavigationView?.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_play -> {
