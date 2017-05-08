@@ -21,7 +21,6 @@ import io.funatwork.domain.interactor.GetGameList
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.presenter.GameListPresenter
-import io.funatwork.utils.CircleTransformation
 import io.funatwork.view.GameListView
 import io.funatwork.view.adapter.GameAdapter
 
@@ -52,6 +51,7 @@ class MainGameFragment : BaseFragment(), GameListView, GameAdapter.OnItemClickLi
      */
     interface InitNewGame {
         fun onNewGame()
+        fun onEditGame(game: GameModel, redAttack: View, redDefense: View, blueAttack: View, blueDefense: View)
     }
 
 
@@ -105,16 +105,21 @@ class MainGameFragment : BaseFragment(), GameListView, GameAdapter.OnItemClickLi
                 val tvBlueDefense = currentView.findViewById(R.id.tv_player_blue_defense_name) as TextView
                 val tvScoreRed = currentView.findViewById(R.id.tv_score_red) as TextView
                 val tvScoreBlue = currentView.findViewById(R.id.tv_score_blue) as TextView
-                Picasso.with(activity).load(game.redTeam.attackPlayer.avatar).transform(CircleTransformation()).fit().into(imgRedAttack)
-                Picasso.with(activity).load(game.redTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(imgRedDefense)
-                Picasso.with(activity).load(game.blueTeam.attackPlayer.avatar).transform(CircleTransformation()).fit().into(imgBlueAttack)
-                Picasso.with(activity).load(game.blueTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(imgBlueDefense)
+                Picasso.with(activity).load(game.redTeam.attackPlayer.avatar).into(imgRedAttack)
+                Picasso.with(activity).load(game.redTeam.defensePlayer.avatar).into(imgRedDefense)
+                Picasso.with(activity).load(game.blueTeam.attackPlayer.avatar).into(imgBlueAttack)
+                Picasso.with(activity).load(game.blueTeam.defensePlayer.avatar).into(imgBlueDefense)
                 tvScoreRed.text = game.redTeamGoal.toString()
                 tvScoreBlue.text = game.blueTeamGoal.toString()
                 tvRedAttack.text = game.redTeam.attackPlayer.name.take(10)
                 tvRedDefense.text = game.redTeam.defensePlayer.name.take(10)
                 tvBlueAttack.text = game.blueTeam.attackPlayer.name.take(10)
                 tvBlueDefense.text = game.blueTeam.defensePlayer.name.take(10)
+
+                val editBtn = currentView.findViewById(R.id.img_edit_game) as ImageView
+                editBtn.setOnClickListener {
+                    initGameListener?.onEditGame(game, imgRedAttack, imgRedDefense, imgBlueAttack, imgBlueDefense)
+                }
                 flipperView.displayedChild = 0
             } else {
                 val btnStart = currentView.findViewById(R.id.btn_start_new_game) as Button

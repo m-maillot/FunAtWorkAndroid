@@ -10,8 +10,9 @@ import io.funatwork.view.activity.*
 
 class Navigator {
 
-    fun navigateToMain(context: Context) {
+    fun navigateToMain(context: Context, flags: Int = 0) {
         val intentToLaunch = Intent(context, MainActivity::class.java)
+        intentToLaunch.flags = flags
         context.startActivity(intentToLaunch)
     }
 

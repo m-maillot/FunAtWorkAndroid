@@ -8,7 +8,6 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import io.funatwork.R
 import io.funatwork.model.babyfoot.GameModel
-import io.funatwork.utils.CircleTransformation
 import xyz.hanks.library.SmallBang
 
 class GameOverActivity : BaseActivity() {
@@ -45,19 +44,24 @@ class GameOverActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_over)
 
-        supportActionBar?.title = getString(R.string.game_over_title)
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeButtonEnabled(true)
+            it.title = getString(R.string.game_over_title)
+        }
 
         val game = intent.extras.getSerializable("GAME") as GameModel
-        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerAttack)
-        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerDefense)
-        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerAttack)
-        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerDefense)
+        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).into(imgBluePlayerAttack)
+        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).into(imgBluePlayerDefense)
+        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).into(imgRedPlayerAttack)
+        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).into(imgRedPlayerDefense)
 
         tvScoreBlue.text = game.blueTeamGoal.toString()
         tvScoreRed.text = game.redTeamGoal.toString()
 
         restart.setOnClickListener {
-            navigator.navigateToCreateGame(this, FLAG_ACTIVITY_CLEAR_TOP)
+            navigator.navigateToMain(this, FLAG_ACTIVITY_CLEAR_TOP)
         }
     }
 

@@ -11,7 +11,6 @@ import com.squareup.picasso.Picasso
 import io.funatwork.R
 import io.funatwork.extensions.showHumanDateFromSeconds
 import io.funatwork.model.babyfoot.GameModel
-import io.funatwork.utils.CircleTransformation
 
 class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
@@ -31,10 +30,10 @@ class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val o
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val game = gameEntities[position]
-        Picasso.with(context).load(game.redTeam.attackPlayer.avatar).transform(CircleTransformation()).fit().into(holder?.imgAttackRed)
-        Picasso.with(context).load(game.redTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(holder?.imgDefenseRed)
-        Picasso.with(context).load(game.blueTeam.attackPlayer.avatar).transform(CircleTransformation()).fit().into(holder?.imgAttackBlue)
-        Picasso.with(context).load(game.blueTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(holder?.imgDefenseBlue)
+        Picasso.with(context).load(game.redTeam.attackPlayer.avatar).into(holder?.imgAttackRed)
+        Picasso.with(context).load(game.redTeam.defensePlayer.avatar).into(holder?.imgDefenseRed)
+        Picasso.with(context).load(game.blueTeam.attackPlayer.avatar).into(holder?.imgAttackBlue)
+        Picasso.with(context).load(game.blueTeam.defensePlayer.avatar).into(holder?.imgDefenseBlue)
         holder?.tvRedScore?.text = game.redTeamGoal.toString()
         holder?.tvBlueScore?.text = game.blueTeamGoal.toString()
         holder?.tvDate?.text = game.beginTimestampInSeconds.showHumanDateFromSeconds()

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
+    android:background="@color/colorBackground"
     tools:context="io.funatwork.view.activity.GameOverActivity">
 
 
@@ -23,21 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_world_cup"/>
 
-    <TextView
-        android:id="@+id/tv_congrats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Game over!"
-        app:layout_constraintBottom_toTopOf="@+id/btn_new_game"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_winners"/>
-
     <LinearLayout
         android:id="@+id/layout_winners"
         android:layout_width="wrap_content"
@@ -48,10 +33,11 @@
         android:layout_marginStart="8dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/tv_congrats"
+        app:layout_constraintBottom_toTopOf="@+id/btn_new_game"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_trophy">
+        app:layout_constraintTop_toBottomOf="@+id/img_trophy"
+        android:layout_marginBottom="8dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,46 +45,53 @@
             android:layout_marginEnd="8dp"
             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_player_red_attack"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="5dp"
+                android:contentDescription="@string/img_no_description"
+                android:src="@drawable/ic_user_grey_512"
                 android:transitionName="redAttackPlayer"
-                app:srcCompat="@drawable/ic_user"/>
+                app:civ_border_width="0dp"/>
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_player_red_defense"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:contentDescription="@string/img_no_description"
+                android:src="@drawable/ic_user_grey_512"
                 android:transitionName="redDefensePlayer"
-                app:srcCompat="@drawable/ic_user"/>
+                app:civ_border_width="0dp"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_score_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="@string/game_over_initial_score"
             android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
-            android:textSize="32sp"/>
+            android:textSize="50sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:textColor="@color/colorPrimary"
             android:text="@string/game_over_score_separator"
             android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
-            android:textSize="32sp"/>
+            android:textSize="50sp"/>
 
         <TextView
             android:id="@+id/tv_score_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="@string/game_over_initial_score"
             android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
-            android:textSize="32sp"/>
+            android:textSize="50sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -106,20 +99,24 @@
             android:layout_marginStart="8dp"
             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_player_blue_attack"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="5dp"
+                android:contentDescription="@string/img_no_description"
+                android:src="@drawable/ic_user_grey_512"
                 android:transitionName="blueAttackPlayer"
-                app:srcCompat="@drawable/ic_user"/>
+                app:civ_border_width="0dp"/>
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_player_blue_defense"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:contentDescription="@string/img_no_description"
+                android:src="@drawable/ic_user_grey_512"
                 android:transitionName="blueDefensePlayer"
-                app:srcCompat="@drawable/ic_user"/>
+                app:civ_border_width="0dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -131,11 +128,11 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="New game"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/game_over_done"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_congrats"/>
+        />
 
 </android.support.constraint.ConstraintLayout>

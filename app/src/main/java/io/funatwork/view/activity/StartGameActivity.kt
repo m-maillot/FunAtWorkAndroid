@@ -64,14 +64,14 @@ class StartGameActivity : BaseActivity(), StartGameView {
         val redTeam = intent.extras.getSerializable("RED_TEAM") as TeamModel
         val blueTeam = intent.extras.getSerializable("BLUE_TEAM") as TeamModel
 
-        Picasso.with(this).load(redTeam.attackPlayer.avatar).transform(CircleTransformation()).fit().into(imgRedPlayerAttack)
+        Picasso.with(this).load(redTeam.attackPlayer.avatar).into(imgRedPlayerAttack)
         (findViewById(R.id.tv_player_red_attack) as TextView).text = redTeam.attackPlayer.name
-        Picasso.with(this).load(redTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(imgRedPlayerDefense)
+        Picasso.with(this).load(redTeam.defensePlayer.avatar).into(imgRedPlayerDefense)
         (findViewById(R.id.tv_player_red_defense) as TextView).text = redTeam.defensePlayer.name
 
-        Picasso.with(this).load(blueTeam.attackPlayer.avatar).transform(CircleTransformation()).fit().into(imgBluePlayerAttack)
+        Picasso.with(this).load(blueTeam.attackPlayer.avatar).into(imgBluePlayerAttack)
         (findViewById(R.id.tv_player_blue_attack) as TextView).text = blueTeam.attackPlayer.name
-        Picasso.with(this).load(blueTeam.defensePlayer.avatar).transform(CircleTransformation()).fit().into(imgBluePlayerDefense)
+        Picasso.with(this).load(blueTeam.defensePlayer.avatar).into(imgBluePlayerDefense)
         (findViewById(R.id.tv_player_blue_defense) as TextView).text = blueTeam.defensePlayer.name
 
         btnKickOff.setOnClickListener {

@@ -18,15 +18,14 @@
         app:layout_constraintRight_toLeftOf="@+id/layout_player_red_defense"
         app:layout_constraintLeft_toLeftOf="parent">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_player_red_attack"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_user_grey_512"
             app:civ_border_color="@color/colorRedTeam5"
             android:transitionName="redAttackPlayer"
-            app:civ_border_width="4dp"
-            app:civ_shadow="false"/>
+            app:civ_border_width="4dp"/>
 
         <TextView
             android:id="@+id/tv_player_red_attack"
@@ -48,15 +47,14 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginEnd="8dp">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_player_red_defense"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_user_grey_512"
             app:civ_border_color="@color/colorRedTeam5"
             android:transitionName="redDefensePlayer"
-            app:civ_border_width="4dp"
-            app:civ_shadow="false"/>
+            app:civ_border_width="4dp"/>
 
         <TextView
             android:id="@+id/tv_player_red_defense"
@@ -77,15 +75,14 @@
         app:layout_constraintRight_toLeftOf="@+id/layout_player_blue_defense"
         app:layout_constraintLeft_toLeftOf="parent">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_player_blue_defense"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_user_grey_512"
             app:civ_border_color="@color/colorBlueTeam5"
             android:transitionName="blueDefensePlayer"
-            app:civ_border_width="4dp"
-            app:civ_shadow="false"/>
+            app:civ_border_width="4dp"/>
 
         <TextView
             android:id="@+id/tv_player_blue_defense"
@@ -105,15 +102,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/layout_player_blue_attack">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_player_blue_attack"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_user_grey_512"
             app:civ_border_color="@color/colorBlueTeam5"
             android:transitionName="blueAttackPlayer"
-            app:civ_border_width="4dp"
-            app:civ_shadow="false"/>
+            app:civ_border_width="4dp"/>
 
         <TextView
             android:id="@+id/tv_player_blue_attack"

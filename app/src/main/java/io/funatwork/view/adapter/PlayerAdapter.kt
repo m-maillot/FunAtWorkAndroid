@@ -25,7 +25,7 @@ class PlayerAdapter(val context: Context, val playerEntities: List<PlayerModel>,
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val player = playerEntities[position]
-        Picasso.with(context).load(player.avatar).transform(CircleTransformation()).fit().into(holder?.avatar)
+        Picasso.with(context).load(player.avatar).into(holder?.avatar)
         holder?.name?.text = player.name
         holder?.itemView?.setOnClickListener { onItemClickListener.onPlayerItemClicked(player) }
     }

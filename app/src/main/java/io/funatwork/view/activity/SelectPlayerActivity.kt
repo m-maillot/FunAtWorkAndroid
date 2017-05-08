@@ -22,7 +22,6 @@ import io.funatwork.model.Position
 import io.funatwork.model.Team
 import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.presenter.SelectPlayersPresenter
-import io.funatwork.utils.CircleTransformation
 import io.funatwork.view.SelectPlayersView
 import io.funatwork.view.adapter.PlayerAdapter
 
@@ -106,15 +105,15 @@ class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
     override fun onSelectPlayer(player: PlayerModel, team: Team, position: Position) {
         if (team == Team.RED) {
             if (position == Position.ATTACK) {
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerAttack)
+                Picasso.with(this).load(player.avatar).into(imgRedPlayerAttack)
             } else {
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgRedPlayerDefense)
+                Picasso.with(this).load(player.avatar).into(imgRedPlayerDefense)
             }
         } else {
             if (position == Position.ATTACK) {
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerAttack)
+                Picasso.with(this).load(player.avatar).into(imgBluePlayerAttack)
             } else {
-                Picasso.with(this).load(player.avatar).fit().transform(CircleTransformation()).into(imgBluePlayerDefense)
+                Picasso.with(this).load(player.avatar).into(imgBluePlayerDefense)
             }
         }
     }

@@ -15,7 +15,7 @@
     <string name="game_cancel_message">Game will be canceled</string>
     <string name="game_cancel_yes">Yes</string>
     <string name="game_cancel_no">No</string>
-    <string name="game_over_title">Game over!</string>
+    <string name="game_over_title">GG!</string>
     <string name="game_over_initial_score">0</string>
     <string name="game_over_score_separator">:</string>
     <!-- History -->
@@ -32,5 +32,7 @@
     <string name="games_stadium_">V3D Stadium, Lyon</string>
     <string name="games_ready_to_rumble">Ready to rumble?</string>
     <string name="games_start_a_new_game">⚽ Start a new game ⚽</string>
+    <string name="game_over_main_title">Game over!</string>
+    <string name="game_over_done">Done</string>
 
 </resources>
