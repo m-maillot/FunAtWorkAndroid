@@ -34,5 +34,7 @@
     <string name="games_start_a_new_game">⚽ Start a new game ⚽</string>
     <string name="game_over_main_title">Game over!</string>
     <string name="game_over_done">Done</string>
+    <string name="game_state_finished">Finished</string>
+    <string name="game_state_canceled">Canceled</string>
 
 </resources>

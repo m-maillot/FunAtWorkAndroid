@@ -26,6 +26,7 @@ class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val o
         val tvRedScore: TextView = mView.findViewById(R.id.tv_score_red) as TextView
         val tvBlueScore: TextView = mView.findViewById(R.id.tv_score_blue) as TextView
         val tvDate: TextView = mView.findViewById(R.id.tv_game_date) as TextView
+        val tvStatus: TextView = mView.findViewById(R.id.tv_game_state) as TextView
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
@@ -37,6 +38,7 @@ class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val o
         holder?.tvRedScore?.text = game.redTeamGoal.toString()
         holder?.tvBlueScore?.text = game.blueTeamGoal.toString()
         holder?.tvDate?.text = game.beginTimestampInSeconds.showHumanDateFromSeconds()
+        holder?.tvStatus?.text = if (game.status == 2) context.getString(R.string.game_state_finished) else context.getString(R.string.game_state_canceled)
         holder?.itemView?.setOnClickListener { onItemClickListener.onGameItemClicked(game) }
     }
 

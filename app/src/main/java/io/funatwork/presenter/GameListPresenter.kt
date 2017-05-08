@@ -56,7 +56,7 @@ class GameListPresenter(val gameListView: GameListView, val getGameList: GetGame
             } else {
                 gameListView.renderCurrentGame(null)
             }
-            gameListView.renderGameFinishedList(games.map(Game::toModel).filter { it.status == 2 })
+            gameListView.renderGameFinishedList(games.map(Game::toModel).filter { it.status != 1 })
         }
     }
 }
