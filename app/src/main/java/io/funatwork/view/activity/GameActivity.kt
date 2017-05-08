@@ -155,7 +155,6 @@ class GameActivity : BaseActivity(), GameView {
         val p4 = android.support.v4.util.Pair.create(imgBluePlayerDefense as View, "blueDefensePlayer")
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4)
         navigator.navigateToGameOver(this, game, options)
-        finish()
     }
 
 
@@ -169,8 +168,9 @@ class GameActivity : BaseActivity(), GameView {
                 .setTitleText(getString(R.string.game_cancel_title))
                 .setConfirmText(getString(R.string.game_cancel_yes))
                 .setCancelText(getString(R.string.game_cancel_no))
-                .setConfirmClickListener {
+                .setConfirmClickListener { dialog ->
                     presenter.cancelGame()
+                    dialog.dismissWithAnimation()
                 }
                 .setCancelClickListener(SweetAlertDialog::dismissWithAnimation)
                 .show()
