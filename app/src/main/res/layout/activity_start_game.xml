@@ -23,8 +23,9 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="0dp"
             android:layout_weight="1"
-            android:background="@color/colorRedTeamLight">
+            android:background="@drawable/field_red_team">
 
         </android.support.constraint.ConstraintLayout>
 
@@ -32,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/colorBlueTeamLight">
+            android:background="@drawable/field_blue_team">
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
@@ -54,8 +55,9 @@
             android:id="@+id/img_player_red_attack"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="@string/img_no_description"
             android:transitionName="redAttackPlayer"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_user_grey_512"/>
 
         <TextView
             android:id="@+id/tv_player_red_attack"
@@ -82,8 +84,9 @@
             android:id="@+id/img_player_red_defense"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="@string/img_no_description"
             android:transitionName="redDefensePlayer"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_user_grey_512"/>
 
         <TextView
             android:id="@+id/tv_player_red_defense"
@@ -100,6 +103,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/img_no_description"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +116,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:transitionName="blueDefensePlayer"
-            app:srcCompat="@drawable/ic_user"/>
+            android:contentDescription="@string/img_no_description"
+            app:srcCompat="@drawable/ic_user_grey_512"/>
 
         <TextView
             android:id="@+id/tv_player_blue_defense"
@@ -139,8 +144,9 @@
             android:id="@+id/img_player_blue_attack"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="@string/img_no_description"
             android:transitionName="blueAttackPlayer"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_user_grey_512"/>
 
         <TextView
             android:id="@+id/tv_player_blue_attack"
@@ -157,9 +163,26 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/img_no_description"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:srcCompat="@drawable/ic_football_kickoff"/>
+
+    <Button
+        android:id="@+id/btn_kickoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Start!"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
+        app:layout_constraintRight_toRightOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

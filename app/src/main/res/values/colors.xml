@@ -25,9 +25,21 @@
     <color name="colorIcons">#212121</color>
     <color name="colorDivider">#BDBDBD</color>
     -->
-    <color name="colorBlueTeam">#006BD6</color>
-    <color name="colorRedTeam">#D60000</color>
-    <color name="colorRedTeamLight">#FF7070</color>
-    <color name="colorBlueTeamLight">#70B8FF</color>
+    <color name="colorBlueTeam">#1B779F</color>
+    <color name="colorBlueTeamLight">#88C3DD</color>
+    <color name="colorBlueTeam1">#88C3DD</color>
+    <color name="colorBlueTeam2">#59A5C6</color>
+    <color name="colorBlueTeam3">#378BB0</color>
+    <color name="colorBlueTeam4">#1B779F</color>
+    <color name="colorBlueTeam5">#095D81</color>
+
+    <color name="colorRedTeam">#FD4B21</color>
+    <color name="colorRedTeamLight">#FFAC98</color>
+    <color name="colorRedTeam1">#FFAC98</color>
+    <color name="colorRedTeam2">#FF886C</color>
+    <color name="colorRedTeam3">#FF6B48</color>
+    <color name="colorRedTeam4">#FD4B21</color>
+    <color name="colorRedTeam5">#CD2C06</color>
+
     <color name="white">#FFFFFF</color>
 </resources>
