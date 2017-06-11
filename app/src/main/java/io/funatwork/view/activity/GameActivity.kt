@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
 import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.GameDataRepository
@@ -55,29 +55,29 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     val imgRedPlayerAttack by lazy {
-        findViewById(R.id.img_player_red_attack) as ImageView
+        findViewById(R.id.img_player_red_attack) as CircleImageView
     }
     val imgRedPlayerDefense by lazy {
-        findViewById(R.id.img_player_red_defense) as ImageView
+        findViewById(R.id.img_player_red_defense) as CircleImageView
     }
     val imgBluePlayerAttack by lazy {
-        findViewById(R.id.img_player_blue_attack) as ImageView
+        findViewById(R.id.img_player_blue_attack) as CircleImageView
     }
     val imgBluePlayerDefense by lazy {
-        findViewById(R.id.img_player_blue_defense) as ImageView
+        findViewById(R.id.img_player_blue_defense) as CircleImageView
     }
 
     val imgGoalRedAttack by lazy {
-        findViewById(R.id.img_red_attack_goal) as ImageView
+        findViewById(R.id.tv_red_attack_gamelle) as TextView
     }
     val imgGoalRedDefense by lazy {
-        findViewById(R.id.img_red_defense_goal) as ImageView
+        findViewById(R.id.tv_red_defense_gamelle) as TextView
     }
     val imgGoalBlueAttack by lazy {
-        findViewById(R.id.img_blue_attack_goal) as ImageView
+        findViewById(R.id.tv_blue_attack_gamelle) as TextView
     }
     val imgGoalBlueDefense by lazy {
-        findViewById(R.id.img_blue_defense_goal) as ImageView
+        findViewById(R.id.tv_blue_defense_gamelle) as TextView
     }
 
     val tvScoreBlue by lazy {
@@ -87,7 +87,7 @@ class GameActivity : BaseActivity(), GameView {
         findViewById(R.id.tv_score_red) as TextView
     }
 
-    val smallBang by lazy {
+    val smallBang: SmallBang by lazy {
         SmallBang.attach2Window(this)
     }
 

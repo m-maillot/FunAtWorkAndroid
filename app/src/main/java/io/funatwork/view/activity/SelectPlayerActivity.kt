@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
 import io.funatwork.core.cache.FileManager
 import io.funatwork.core.cache.PlayerCacheImpl
@@ -53,16 +54,16 @@ class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
     }
 
     val imgRedPlayerAttack by lazy {
-        findViewById(R.id.img_player_red_attack) as ImageView
+        findViewById(R.id.img_player_red_attack) as CircleImageView
     }
     val imgRedPlayerDefense by lazy {
-        findViewById(R.id.img_player_red_defense) as ImageView
+        findViewById(R.id.img_player_red_defense) as CircleImageView
     }
     val imgBluePlayerAttack by lazy {
-        findViewById(R.id.img_player_blue_attack) as ImageView
+        findViewById(R.id.img_player_blue_attack) as CircleImageView
     }
     val imgBluePlayerDefense by lazy {
-        findViewById(R.id.img_player_blue_defense) as ImageView
+        findViewById(R.id.img_player_blue_defense) as CircleImageView
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
