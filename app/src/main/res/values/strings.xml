@@ -39,5 +39,6 @@
     <string name="game_goal_gamelle">G</string>
     <string name="start_game_start">Start!</string>
     <string name="start_game_versus">VS</string>
+    <string name="matchs_last_games">Last games</string>
 
 </resources>

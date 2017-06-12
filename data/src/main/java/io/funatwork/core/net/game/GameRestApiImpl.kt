@@ -52,7 +52,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
             Observable.create<List<GameEntity>> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_GET_GAME_LIST.httpGet().responseObject(GameListDeserializer())
+                        val (request, response, result) = "${RestApiData.API_URL_GET_GAME_LIST}?limit=10".httpGet().responseObject(GameListDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()
