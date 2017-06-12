@@ -53,7 +53,7 @@
                 android:contentDescription="@string/img_no_description"
                 android:transitionName="redAttackPlayer"
                 app:civ_border_width="0dp"
-                app:srcCompat="@drawable/ic_user_24dp" />
+                android:src="@drawable/ic_user" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_player_red_defense"
@@ -62,7 +62,7 @@
                 android:contentDescription="@string/img_no_description"
                 android:transitionName="redDefensePlayer"
                 app:civ_border_width="0dp"
-                app:srcCompat="@drawable/ic_user_24dp" />
+                android:src="@drawable/ic_user" />
         </LinearLayout>
 
         <TextView
@@ -107,7 +107,7 @@
                 android:contentDescription="@string/img_no_description"
                 android:transitionName="blueAttackPlayer"
                 app:civ_border_width="0dp"
-                app:srcCompat="@drawable/ic_user_24dp" />
+                android:src="@drawable/ic_user" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_player_blue_defense"
@@ -116,7 +116,7 @@
                 android:contentDescription="@string/img_no_description"
                 android:transitionName="blueDefensePlayer"
                 app:civ_border_width="0dp"
-                app:srcCompat="@drawable/ic_user_24dp" />
+                android:src="@drawable/ic_user" />
         </LinearLayout>
     </LinearLayout>
 

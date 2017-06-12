@@ -38,5 +38,6 @@
     <string name="game_state_canceled">Canceled</string>
     <string name="game_goal_gamelle">G</string>
     <string name="start_game_start">Start!</string>
+    <string name="start_game_versus">VS</string>
 
 </resources>
