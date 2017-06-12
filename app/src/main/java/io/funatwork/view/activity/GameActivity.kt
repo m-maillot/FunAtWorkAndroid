@@ -1,11 +1,11 @@
 package io.funatwork.view.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.widget.TextView
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
@@ -34,7 +34,7 @@ class GameActivity : BaseActivity(), GameView {
                                 )
                         ),
                         postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor),
+                        threadExecutor = fwtApplication.sequentialJobExecutor),
                 addGoal = AddGoal(
                         gameRepository = GameDataRepository(
                                 gameDataStoreFactory = GameDataStoreFactory(
@@ -42,7 +42,7 @@ class GameActivity : BaseActivity(), GameView {
                                 )
                         ),
                         postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor),
+                        threadExecutor = fwtApplication.sequentialJobExecutor),
                 stopGame = StopGame(
                         gameRepository = GameDataRepository(
                                 gameDataStoreFactory = GameDataStoreFactory(
@@ -50,7 +50,7 @@ class GameActivity : BaseActivity(), GameView {
                                 )
                         ),
                         postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor)
+                        threadExecutor = fwtApplication.sequentialJobExecutor)
         )
     }
 
@@ -108,43 +108,41 @@ class GameActivity : BaseActivity(), GameView {
         Picasso.with(this).load(game.redTeam.defensePlayer.avatar).into(imgRedPlayerDefense)
 
         imgBluePlayerAttack.setOnClickListener {
-            smallBang.bang(imgBluePlayerAttack)
             presenter.addGoal(game, game.blueTeam.attackPlayer)
         }
         imgBluePlayerDefense.setOnClickListener {
-            smallBang.bang(imgBluePlayerDefense)
             presenter.addGoal(game, game.blueTeam.defensePlayer)
         }
         imgRedPlayerAttack.setOnClickListener {
-            smallBang.bang(imgRedPlayerAttack)
             presenter.addGoal(game, game.redTeam.attackPlayer)
         }
         imgRedPlayerDefense.setOnClickListener {
-            smallBang.bang(imgRedPlayerDefense)
             presenter.addGoal(game, game.redTeam.defensePlayer)
         }
 
         imgGoalBlueAttack.setOnClickListener {
-            smallBang.bang(imgGoalBlueAttack)
             presenter.addGamelle(game, game.blueTeam.attackPlayer)
         }
         imgGoalBlueDefense.setOnClickListener {
-            smallBang.bang(imgGoalBlueDefense)
             presenter.addGamelle(game, game.blueTeam.defensePlayer)
         }
         imgGoalRedAttack.setOnClickListener {
-            smallBang.bang(imgGoalRedAttack)
             presenter.addGamelle(game, game.redTeam.attackPlayer)
         }
         imgGoalRedDefense.setOnClickListener {
-            smallBang.bang(imgGoalRedDefense)
             presenter.addGamelle(game, game.redTeam.defensePlayer)
         }
     }
 
     override fun renderGoal(game: GameModel) {
-        tvScoreBlue.text = game.blueTeamGoal.toString()
-        tvScoreRed.text = game.redTeamGoal.toString()
+        if (tvScoreBlue.text != game.blueTeamGoal.toString()) {
+            tvScoreBlue.text = game.blueTeamGoal.toString()
+            smallBang.bang(tvScoreBlue)
+        }
+        if (tvScoreRed.text != game.redTeamGoal.toString()) {
+            tvScoreRed.text = game.redTeamGoal.toString()
+            smallBang.bang(tvScoreRed)
+        }
     }
 
     override fun renderGameFinished(game: GameModel) {
@@ -162,16 +160,14 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun onBackPressed() {
-        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                .setContentText(getString(R.string.game_cancel_message))
-                .setTitleText(getString(R.string.game_cancel_title))
-                .setConfirmText(getString(R.string.game_cancel_yes))
-                .setCancelText(getString(R.string.game_cancel_no))
-                .setConfirmClickListener { dialog ->
+        AlertDialog.Builder(this)
+                .setMessage(getString(R.string.game_cancel_message))
+                .setTitle(getString(R.string.game_cancel_title))
+                .setPositiveButton(getString(R.string.game_cancel_yes), { dialog, _ ->
                     presenter.cancelGame()
-                    dialog.dismissWithAnimation()
-                }
-                .setCancelClickListener(SweetAlertDialog::dismissWithAnimation)
-                .show()
+                    dialog.dismiss()
+                }).setNegativeButton(getString(R.string.game_cancel_no), { dialog, _ ->
+            dialog.cancel()
+        }).show()
     }
 }

@@ -3,6 +3,7 @@ package io.funatwork.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -57,8 +58,7 @@ class MainGameFragment : BaseFragment(), GameListView, GameAdapter.OnItemClickLi
 
     private var initGameListener: InitNewGame? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onAttachToContext(context: Context?) {
         if (context is InitNewGame) {
             this.initGameListener = context
         }
@@ -66,6 +66,7 @@ class MainGameFragment : BaseFragment(), GameListView, GameAdapter.OnItemClickLi
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         val view = inflater?.inflate(R.layout.fragment_matchs, container, false)
         recyclerGames = view?.findViewById(R.id.rv_games) as RecyclerView
         recyclerGames?.setHasFixedSize(true)
