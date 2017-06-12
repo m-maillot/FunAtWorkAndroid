@@ -3,6 +3,7 @@ package io.funatwork.view.activity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v7.app.AppCompatDelegate
 import android.view.View
 import io.funatwork.R
 import io.funatwork.extensions.addFragment

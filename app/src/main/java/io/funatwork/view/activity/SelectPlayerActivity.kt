@@ -122,15 +122,15 @@ class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
     override fun onRemovePlayer(player: PlayerModel, team: Team, position: Position) {
         if (team == Team.RED) {
             if (position == Position.ATTACK) {
-                imgRedPlayerAttack.setImageResource(R.drawable.ic_user)
+                imgRedPlayerAttack.setImageResource(R.drawable.ic_user_24dp)
             } else {
-                imgRedPlayerDefense.setImageResource(R.drawable.ic_user)
+                imgRedPlayerDefense.setImageResource(R.drawable.ic_user_24dp)
             }
         } else {
             if (position == Position.ATTACK) {
-                imgBluePlayerAttack.setImageResource(R.drawable.ic_user)
+                imgBluePlayerAttack.setImageResource(R.drawable.ic_user_24dp)
             } else {
-                imgBluePlayerDefense.setImageResource(R.drawable.ic_user)
+                imgBluePlayerDefense.setImageResource(R.drawable.ic_user_24dp)
             }
         }
     }

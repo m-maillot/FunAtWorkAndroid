@@ -1,11 +1,11 @@
 package io.funatwork.view.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.widget.TextView
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
@@ -162,16 +162,14 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun onBackPressed() {
-        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                .setContentText(getString(R.string.game_cancel_message))
-                .setTitleText(getString(R.string.game_cancel_title))
-                .setConfirmText(getString(R.string.game_cancel_yes))
-                .setCancelText(getString(R.string.game_cancel_no))
-                .setConfirmClickListener { dialog ->
+        AlertDialog.Builder(this)
+                .setMessage(getString(R.string.game_cancel_message))
+                .setTitle(getString(R.string.game_cancel_title))
+                .setPositiveButton(getString(R.string.game_cancel_yes), { dialog, which ->
                     presenter.cancelGame()
-                    dialog.dismissWithAnimation()
-                }
-                .setCancelClickListener(SweetAlertDialog::dismissWithAnimation)
-                .show()
+                    dialog.dismiss()
+                }).setNegativeButton(getString(R.string.game_cancel_no), { dialog, which ->
+            dialog.cancel()
+        }).show()
     }
 }

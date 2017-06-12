@@ -1,12 +1,11 @@
 package io.funatwork.view.activity
 
-import android.graphics.Color
-import android.support.design.widget.BottomNavigationView
+import android.app.ProgressDialog
+import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import cn.pedant.SweetAlert.SweetAlertDialog
+import android.support.v7.app.AppCompatDelegate
 import io.funatwork.FwtApplication
-import io.funatwork.R
-import io.funatwork.SplashscreenActivity
 import io.funatwork.navigation.Navigator
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -16,15 +15,21 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     val navigator = Navigator()
-    var dialog: SweetAlertDialog? = null
+    var dialog: ProgressDialog? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+        super.onCreate(savedInstanceState)
+    }
 
     fun showLoading() {
-        val dialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        dialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        dialog.titleText = "Loading"
+        val dialog = ProgressDialog(this)
+        dialog.isIndeterminate = true
         dialog.setCancelable(false)
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        dialog.setMessage("Loading")
         dialog.show()
-        this.dialog = dialog;
+        this.dialog = dialog
     }
 
     fun hideLoading() {
@@ -34,9 +39,6 @@ abstract class BaseActivity : AppCompatActivity() {
     fun context() = this
 
     fun showError(title: String, message: String) {
-        SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText(title)
-                .setContentText(message)
-                .show()
+        AlertDialog.Builder(this).setTitle(title).setMessage(message).show()
     }
 }
