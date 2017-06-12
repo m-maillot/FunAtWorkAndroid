@@ -10,9 +10,8 @@
     <application
         android:name=".FwtApplication"
         android:allowBackup="false"
-        android:icon="@drawable/ic_football"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Baby.ActionBar"
         tools:replace="android:icon, android:allowBackup">
