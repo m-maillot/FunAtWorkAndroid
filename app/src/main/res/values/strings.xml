@@ -27,15 +27,16 @@
     <string name="menu_profile">Profile</string>
     <string name="img_no_description">No description</string>
 
-    <string name="games_title">Right now</string>
+    <string name="games_title">\uD83D\uDD25 Right now \uD83D\uDD25</string>
     <string name="games_master_league">V3D Master league</string>
     <string name="games_stadium_">V3D Stadium, Lyon</string>
     <string name="games_ready_to_rumble">Ready to rumble?</string>
-    <string name="games_start_a_new_game">Start a new game</string>
+    <string name="games_start_a_new_game">\u26BD\uFE0E Start a new game \u26BD\uFE0E</string>
     <string name="game_over_main_title">Game over!</string>
     <string name="game_over_done">Done</string>
     <string name="game_state_finished">Finished</string>
     <string name="game_state_canceled">Canceled</string>
     <string name="game_goal_gamelle">G</string>
+    <string name="start_game_start">Start!</string>
 
 </resources>

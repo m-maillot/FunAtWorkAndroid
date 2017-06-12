@@ -42,7 +42,7 @@ class SelectPlayersPresenter(val selectPlayersView: SelectPlayersView, val getPl
     }
 
     fun removePlayer(team: Team, position: Position) {
-        var player = undefinedPlayer
+        val player : PlayerModel
         if (team == Team.RED) {
             if (position == Position.ATTACK) {
                 player = playerRedAttack
