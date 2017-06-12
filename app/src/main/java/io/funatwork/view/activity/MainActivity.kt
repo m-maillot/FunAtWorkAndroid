@@ -32,22 +32,22 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
         val menuNav = bottomNavigationView.menu
         menuNav.findItem(R.id.action_stats).isEnabled = false
         menuNav.findItem(R.id.action_history).isEnabled = false
-        bottomNavigationView?.setOnNavigationItemSelectedListener { item ->
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_play -> {
-                    if (bottomNavigationView?.selectedItemId != R.id.action_play) {
+                    if (bottomNavigationView.selectedItemId != R.id.action_play) {
                         supportActionBar?.title = getString(R.string.game_title)
                         addFragment(R.id.fragmentContainer, MainGameFragment())
                     }
                 }
                 R.id.action_history -> {
-                    if (bottomNavigationView?.selectedItemId != R.id.action_history) {
+                    if (bottomNavigationView.selectedItemId != R.id.action_history) {
                         supportActionBar?.title = getString(R.string.history_title)
                         addFragment(R.id.fragmentContainer, HistoryFragment())
                     }
                 }
                 R.id.action_stats -> {
-                    if (bottomNavigationView?.selectedItemId != R.id.action_stats) {
+                    if (bottomNavigationView.selectedItemId != R.id.action_stats) {
 
                     }
                 }

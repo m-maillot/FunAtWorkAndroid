@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
 import io.funatwork.model.babyfoot.GameModel
 import xyz.hanks.library.SmallBang
@@ -17,16 +18,16 @@ class GameOverActivity : BaseActivity() {
     }
 
     val imgRedPlayerAttack by lazy {
-        findViewById(R.id.img_player_red_attack) as ImageView
+        findViewById(R.id.img_player_red_attack) as CircleImageView
     }
     val imgRedPlayerDefense by lazy {
-        findViewById(R.id.img_player_red_defense) as ImageView
+        findViewById(R.id.img_player_red_defense) as CircleImageView
     }
     val imgBluePlayerAttack by lazy {
-        findViewById(R.id.img_player_blue_attack) as ImageView
+        findViewById(R.id.img_player_blue_attack) as CircleImageView
     }
     val imgBluePlayerDefense by lazy {
-        findViewById(R.id.img_player_blue_defense) as ImageView
+        findViewById(R.id.img_player_blue_defense) as CircleImageView
     }
 
     val imgTrophy by lazy {
