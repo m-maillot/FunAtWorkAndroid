@@ -23,15 +23,16 @@ class PushMessagingService : FirebaseMessagingService() {
             val data = remoteMessage.data
             Log.d(TAG, "Message data payload: " + data)
             val intent = intentCreator.create(parser.parse(data))
-            sendBroadcast(intent)
+            if (intent != null) {
+                sendBroadcast(intent)
+            } else {
+                Log.d(TAG, "Unknown type, no broadcast sent")
+            }
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.notification != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.notification.body)
         }
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
 }

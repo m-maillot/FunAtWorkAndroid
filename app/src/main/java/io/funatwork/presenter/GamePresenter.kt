@@ -1,5 +1,9 @@
 package io.funatwork.presenter
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import io.funatwork.domain.interactor.AddGoal
 import io.funatwork.domain.interactor.DefaultObserver
 import io.funatwork.domain.interactor.LoadGame
@@ -7,6 +11,9 @@ import io.funatwork.domain.interactor.StopGame
 import io.funatwork.domain.interactor.params.AddGoalParam
 import io.funatwork.domain.interactor.params.StopGameParam
 import io.funatwork.domain.model.babyfoot.Game
+import io.funatwork.gcm.PushMessageKeys
+import io.funatwork.gcm.model.GameOverModel
+import io.funatwork.gcm.model.NewGoalModel
 import io.funatwork.model.PlayerModel
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.toBo
@@ -27,9 +34,13 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
     /**
      * Initializes the presenter by start retrieving the players list.
      */
-    fun initialize(gameId: Int) {
+    fun initialize(gameId: Int, context: Context) {
         mGameId = gameId
         loadGame(gameId)
+        val filter = IntentFilter()
+        filter.addAction(PushMessageKeys.ACTION_NEW_GOAL)
+        filter.addAction(PushMessageKeys.ACTION_GAME_OVER)
+        context.registerReceiver(PushMessageObserver(gameView), filter)
     }
 
     /**
@@ -77,7 +88,7 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
         }
 
         override fun onNext(game: Game) {
-            gameView.renderGoal(game.toModel())
+            gameView.renderGoal(game.blueTeamGoal, game.redTeamGoal)
             if (game.status == game.GAME_OVER) {
                 gameView.renderGameFinished(game.toModel())
             }
@@ -98,5 +109,21 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
         override fun onNext(game: Game) {
             gameView.renderGameCanceled()
         }
+    }
+
+    private class PushMessageObserver(val gameView: GameView) : BroadcastReceiver() {
+
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent != null) {
+                if (intent.action == PushMessageKeys.ACTION_NEW_GOAL) {
+                    val data = intent.getParcelableExtra<NewGoalModel>(PushMessageKeys.EXTRA_DATA)
+                    gameView.renderGoal(data.blueScore, data.redScore)
+                } else if (intent.action == PushMessageKeys.ACTION_GAME_OVER) {
+                    val data = intent.getParcelableExtra<GameOverModel>(PushMessageKeys.EXTRA_DATA)
+                    // gameView.renderGameFinished(
+                }
+            }
+        }
+
     }
 }

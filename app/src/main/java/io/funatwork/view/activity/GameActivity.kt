@@ -98,7 +98,7 @@ class GameActivity : BaseActivity(), GameView {
         supportActionBar?.title = getString(R.string.game_title)
 
         val gameId = intent.extras.getInt("GAME", -1)
-        presenter.initialize(gameId)
+        presenter.initialize(gameId, this)
     }
 
     override fun renderGame(game: GameModel) {
@@ -134,13 +134,13 @@ class GameActivity : BaseActivity(), GameView {
         }
     }
 
-    override fun renderGoal(game: GameModel) {
-        if (tvScoreBlue.text != game.blueTeamGoal.toString()) {
-            tvScoreBlue.text = game.blueTeamGoal.toString()
+    override fun renderGoal(blueScore: Int, redScore: Int) {
+        if (tvScoreBlue.text != blueScore.toString()) {
+            tvScoreBlue.text = blueScore.toString()
             smallBang.bang(tvScoreBlue)
         }
-        if (tvScoreRed.text != game.redTeamGoal.toString()) {
-            tvScoreRed.text = game.redTeamGoal.toString()
+        if (tvScoreRed.text != redScore.toString()) {
+            tvScoreRed.text = redScore.toString()
             smallBang.bang(tvScoreRed)
         }
     }

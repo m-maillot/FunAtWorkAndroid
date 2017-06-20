@@ -6,7 +6,7 @@ interface GameView : LoadDataView {
 
     fun renderGame(game: GameModel)
 
-    fun renderGoal(game: GameModel)
+    fun renderGoal(blueScore: Int, redScore: Int)
 
     fun renderGameFinished(game: GameModel)
 

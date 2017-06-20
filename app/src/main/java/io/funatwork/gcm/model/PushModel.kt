@@ -1,7 +1,9 @@
 package io.funatwork.gcm.model
 
+import io.mironov.smuggler.AutoParcelable
+
 /**
- * Created by mmaillot on 6/11/17.
+ * Model with data received though a push message
  */
-interface PushModel {
-}
+interface PushModel: AutoParcelable
+

@@ -29,7 +29,7 @@ abstract class BaseFragment : Fragment(), LoadDataView {
 
     override fun getContext(): Context =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                context else activity
+                super.getContext() else super.getActivity()
 
     // Here for old device support
     @Suppress("OverridingDeprecatedMember", "DEPRECATION")
