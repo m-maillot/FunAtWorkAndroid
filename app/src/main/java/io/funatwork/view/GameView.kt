@@ -12,4 +12,8 @@ interface GameView : LoadDataView {
 
     fun renderGameCanceled()
 
+    fun showNewGoalProcessing()
+
+    fun dismissNewGoalProcessing()
+
 }

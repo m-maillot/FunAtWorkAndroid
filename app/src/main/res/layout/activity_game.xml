@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,6 +15,9 @@
         android:layout_height="100dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/ic_user"
         android:transitionName="redAttackPlayer"
         app:civ_border_color="@color/colorRedTeam5"
@@ -23,7 +25,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tv_score_separator"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/img_player_blue_attack"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_red_attack_gamelle"
@@ -39,7 +41,7 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="@+id/img_player_red_attack"
         app:layout_constraintRight_toRightOf="@+id/img_player_red_attack"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_red_attack"/>
+        app:layout_constraintTop_toBottomOf="@+id/img_player_red_attack" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_player_blue_attack"
@@ -54,7 +56,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tv_score_separator"
         app:layout_constraintLeft_toRightOf="@+id/img_player_red_attack"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_blue_attack_gamelle"
@@ -70,7 +72,7 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_attack"
         app:layout_constraintRight_toRightOf="@+id/img_player_blue_attack"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_attack"/>
+        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_attack" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_player_blue_defense"
@@ -85,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/img_player_red_defense"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_score_separator"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_score_separator" />
 
     <TextView
         android:id="@+id/tv_blue_defense_gamelle"
@@ -101,7 +103,7 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_defense"
         app:layout_constraintRight_toRightOf="@+id/img_player_blue_defense"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_defense"/>
+        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_defense" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_player_red_defense"
@@ -116,7 +118,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/img_player_blue_defense"
-        app:layout_constraintTop_toBottomOf="@+id/tv_score_separator"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_score_separator" />
 
     <TextView
         android:id="@+id/tv_red_defense_gamelle"
@@ -132,7 +134,7 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="@+id/img_player_red_defense"
         app:layout_constraintRight_toRightOf="@+id/img_player_red_defense"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_red_defense"/>
+        app:layout_constraintTop_toBottomOf="@+id/img_player_red_defense" />
 
     <TextView
         android:id="@+id/tv_score_red"
@@ -144,7 +146,7 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tv_score_separator"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_score_blue"
@@ -156,7 +158,7 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_score_separator"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_score_separator"
@@ -169,6 +171,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/background_goal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.50"
+        android:background="@color/colorSecondaryText"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/img_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/img_no_description"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/goal_large_title" />
 
 </android.support.constraint.ConstraintLayout>

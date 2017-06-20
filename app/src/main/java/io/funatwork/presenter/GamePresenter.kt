@@ -51,12 +51,15 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
         loadGame.execute(GameObserver(gameView), gameId)
     }
 
-    fun addGoal(game: GameModel, player: PlayerModel) =
-            addGoal.execute(GoalObserver(gameView), AddGoalParam(game.toBo(), player.toBo()))
+    fun addGoal(game: GameModel, player: PlayerModel) {
+        gameView.showNewGoalProcessing()
+        addGoal.execute(GoalObserver(gameView), AddGoalParam(game.toBo(), player.toBo()))
+    }
 
-    fun addGamelle(game: GameModel, player: PlayerModel) =
-            addGoal.execute(GoalObserver(gameView), AddGoalParam(game.toBo(), player.toBo(), true))
-
+    fun addGamelle(game: GameModel, player: PlayerModel) {
+        gameView.showNewGoalProcessing()
+        addGoal.execute(GoalObserver(gameView), AddGoalParam(game.toBo(), player.toBo(), true))
+    }
 
     fun cancelGame() {
         stopGame.execute(CancelGameObserver(gameView), StopGameParam(mGameId, true))
@@ -81,9 +84,11 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
     private class GoalObserver(val gameView: GameView) : DefaultObserver<Game>() {
 
         override fun onComplete() {
+            gameView.dismissNewGoalProcessing()
         }
 
         override fun onError(e: Throwable?) {
+            gameView.dismissNewGoalProcessing()
             gameView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
         }
 

@@ -1,15 +1,17 @@
 package io.funatwork.view.activity
 
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
 import io.funatwork.model.babyfoot.GameModel
-import xyz.hanks.library.SmallBang
+import nl.dionsegijn.konfetti.KonfettiView
+import nl.dionsegijn.konfetti.models.Shape
+import nl.dionsegijn.konfetti.models.Size
 
 class GameOverActivity : BaseActivity() {
 
@@ -30,8 +32,8 @@ class GameOverActivity : BaseActivity() {
         findViewById(R.id.img_player_blue_defense) as CircleImageView
     }
 
-    val imgTrophy by lazy {
-        findViewById(R.id.img_trophy) as ImageView
+    val viewKonfetti by lazy {
+        findViewById(R.id.viewKonfetti) as KonfettiView
     }
 
     val tvScoreRed by lazy {
@@ -68,8 +70,16 @@ class GameOverActivity : BaseActivity() {
 
     override fun onEnterAnimationComplete() {
         super.onEnterAnimationComplete()
-        val smallBang = SmallBang.attach2Window(this)
-        smallBang.bang(imgTrophy)
+        viewKonfetti.build()
+                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                .setDirection(0.0, 359.0)
+                .setSpeed(5f, 10f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(5000L)
+                .addShapes(Shape.RECT, Shape.CIRCLE)
+                .addSizes(Size(12))
+                .setPosition(-50f, viewKonfetti.width + 50f, -50f, -50f)
+                .stream(300, 5000L)
     }
 
     override fun onBackPressed() {

@@ -5,6 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -83,12 +88,25 @@ class GameActivity : BaseActivity(), GameView {
     val tvScoreBlue by lazy {
         findViewById(R.id.tv_score_blue) as TextView
     }
+
     val tvScoreRed by lazy {
         findViewById(R.id.tv_score_red) as TextView
     }
 
+    val imgGoal by lazy {
+        findViewById(R.id.img_goal) as ImageView
+    }
+
+    val backgroundGoal by lazy {
+        findViewById(R.id.background_goal) as LinearLayout
+    }
+
     val smallBang: SmallBang by lazy {
         SmallBang.attach2Window(this)
+    }
+
+    val zoomInAnimation by lazy {
+        AnimationUtils.loadAnimation(this, R.anim.zoomin)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +117,8 @@ class GameActivity : BaseActivity(), GameView {
 
         val gameId = intent.extras.getInt("GAME", -1)
         presenter.initialize(gameId, this)
+
+        imgGoal.animation = zoomInAnimation
     }
 
     override fun renderGame(game: GameModel) {
@@ -135,6 +155,9 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun renderGoal(blueScore: Int, redScore: Int) {
+        imgGoal.clearAnimation()
+        backgroundGoal.visibility = GONE
+        imgGoal.visibility = GONE
         if (tvScoreBlue.text != blueScore.toString()) {
             tvScoreBlue.text = blueScore.toString()
             smallBang.bang(tvScoreBlue)
@@ -169,5 +192,16 @@ class GameActivity : BaseActivity(), GameView {
                 }).setNegativeButton(getString(R.string.game_cancel_no), { dialog, _ ->
             dialog.cancel()
         }).show()
+    }
+
+    override fun showNewGoalProcessing() {
+        backgroundGoal.visibility = VISIBLE
+        imgGoal.visibility = VISIBLE
+        imgGoal.startAnimation(zoomInAnimation)
+    }
+
+    override fun dismissNewGoalProcessing() {
+        backgroundGoal.visibility = GONE
+        imgGoal.visibility = GONE
     }
 }
