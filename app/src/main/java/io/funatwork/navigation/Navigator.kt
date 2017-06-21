@@ -22,8 +22,14 @@ class Navigator {
         context.startActivity(intentToLaunch)
     }
 
-    fun navigateToCreateGame(context: Context, flags: Int = 0) {
+    fun navigateToCreateGame(context: Context, flags: Int = 0, teamRed: TeamModel? = null, teamBlue: TeamModel? = null) {
         val intentToLaunch = Intent(context, SelectPlayerActivity::class.java)
+        if (teamBlue != null && teamRed != null) {
+            intentToLaunch.putExtra("redAttackId", teamRed.attackPlayer.id)
+            intentToLaunch.putExtra("redDefenseId", teamRed.defensePlayer.id)
+            intentToLaunch.putExtra("blueAttackId", teamBlue.attackPlayer.id)
+            intentToLaunch.putExtra("blueDefenseId", teamBlue.defensePlayer.id)
+        }
         intentToLaunch.flags = flags
         context.startActivity(intentToLaunch)
     }

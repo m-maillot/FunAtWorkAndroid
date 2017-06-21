@@ -10,21 +10,52 @@
     tools:layout_editor_absoluteY="81dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_player_red_attack"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/img_player_blue_defense"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_user"
+        android:transitionName="blueDefensePlayer"
+        app:civ_border_color="@color/colorBlueTeam5"
+        app:civ_border_width="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_score_separator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/img_player_red_attack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_blue_defense_gamelle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/game_goal_gamelle"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_defense"
+        app:layout_constraintRight_toRightOf="@+id/img_player_blue_defense"
+        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_defense" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_player_red_attack"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_user"
         android:transitionName="redAttackPlayer"
         app:civ_border_color="@color/colorRedTeam5"
         app:civ_border_width="4dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_score_separator"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/img_player_blue_attack"
+        app:layout_constraintLeft_toRightOf="@+id/img_player_blue_defense"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -44,71 +75,9 @@
         app:layout_constraintTop_toBottomOf="@+id/img_player_red_attack" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_player_blue_attack"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/ic_user"
-        android:transitionName="blueAttackPlayer"
-        app:civ_border_color="@color/colorBlueTeam5"
-        app:civ_border_width="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_score_separator"
-        app:layout_constraintLeft_toRightOf="@+id/img_player_red_attack"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_blue_attack_gamelle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/game_goal_gamelle"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_attack"
-        app:layout_constraintRight_toRightOf="@+id/img_player_blue_attack"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_attack" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_player_blue_defense"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/ic_user"
-        android:transitionName="blueDefensePlayer"
-        app:civ_border_color="@color/colorBlueTeam5"
-        app:civ_border_width="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/img_player_red_defense"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_score_separator" />
-
-    <TextView
-        android:id="@+id/tv_blue_defense_gamelle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/game_goal_gamelle"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_defense"
-        app:layout_constraintRight_toRightOf="@+id/img_player_blue_defense"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_defense" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_player_red_defense"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_user"
@@ -116,8 +85,8 @@
         app:civ_border_color="@color/colorRedTeam5"
         app:civ_border_width="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/img_player_blue_defense"
+        app:layout_constraintLeft_toRightOf="@+id/img_player_blue_attack"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_score_separator" />
 
     <TextView
@@ -136,17 +105,36 @@
         app:layout_constraintRight_toRightOf="@+id/img_player_red_defense"
         app:layout_constraintTop_toBottomOf="@+id/img_player_red_defense" />
 
-    <TextView
-        android:id="@+id/tv_score_red"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_initial_score"
-        android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"
-        android:textColor="@color/colorPrimary"
-        android:textSize="50sp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_player_blue_attack"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_user"
+        android:transitionName="blueAttackPlayer"
+        app:civ_border_color="@color/colorBlueTeam5"
+        app:civ_border_width="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/tv_score_separator"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/img_player_red_defense"
+        app:layout_constraintTop_toBottomOf="@+id/tv_score_separator" />
+
+    <TextView
+        android:id="@+id/tv_blue_attack_gamelle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/game_goal_gamelle"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_attack"
+        app:layout_constraintRight_toRightOf="@+id/img_player_blue_attack"
+        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_attack" />
 
     <TextView
         android:id="@+id/tv_score_blue"
@@ -155,7 +143,19 @@
         android:text="@string/game_initial_score"
         android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"
         android:textColor="@color/colorPrimary"
-        android:textSize="50sp"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_score_separator"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_score_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_initial_score"
+        android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"
+        android:textColor="@color/colorPrimary"
+        android:textSize="70sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_score_separator"
         app:layout_constraintTop_toTopOf="parent" />
@@ -167,7 +167,7 @@
         android:text="@string/game_over_score_separator"
         android:textAppearance="@android:style/TextAppearance.Holo.WindowTitle"
         android:textColor="@color/colorPrimary"
-        android:textSize="50sp"
+        android:textSize="70sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

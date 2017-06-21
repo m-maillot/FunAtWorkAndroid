@@ -15,8 +15,12 @@ import nl.dionsegijn.konfetti.models.Size
 
 class GameOverActivity : BaseActivity() {
 
-    val restart by lazy {
+    val btnRestart by lazy {
         findViewById(R.id.btn_new_game) as Button
+    }
+
+    val btnDone by lazy {
+        findViewById(R.id.btn_done) as Button
     }
 
     val imgRedPlayerAttack by lazy {
@@ -63,9 +67,14 @@ class GameOverActivity : BaseActivity() {
         tvScoreBlue.text = game.blueTeamGoal.toString()
         tvScoreRed.text = game.redTeamGoal.toString()
 
-        restart.setOnClickListener {
+        btnRestart.setOnClickListener {
             navigator.navigateToMain(this, FLAG_ACTIVITY_CLEAR_TOP)
         }
+
+        btnDone.setOnClickListener {
+            navigator.navigateToCreateGame(this, FLAG_ACTIVITY_CLEAR_TOP, game.redTeam, game.blueTeam)
+        }
+
     }
 
     override fun onEnterAnimationComplete() {

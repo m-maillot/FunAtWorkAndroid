@@ -33,6 +33,7 @@
     <string name="games_ready_to_rumble">Ready to rumble?</string>
     <string name="games_start_a_new_game">\u26BD\uFE0E Start a new game \u26BD\uFE0E</string>
     <string name="game_over_main_title">Game over!</string>
+    <string name="game_over_new_game">New game</string>
     <string name="game_over_done">Done</string>
     <string name="game_state_finished">Finished</string>
     <string name="game_state_canceled">Canceled</string>

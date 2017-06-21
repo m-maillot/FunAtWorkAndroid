@@ -42,7 +42,7 @@ class SelectPlayersPresenter(val selectPlayersView: SelectPlayersView, val getPl
     }
 
     fun removePlayer(team: Team, position: Position) {
-        val player : PlayerModel
+        val player: PlayerModel
         if (team == Team.RED) {
             if (position == Position.ATTACK) {
                 player = playerRedAttack
@@ -61,6 +61,14 @@ class SelectPlayersPresenter(val selectPlayersView: SelectPlayersView, val getPl
             }
         }
         selectPlayersView.onRemovePlayer(player, team, position)
+    }
+
+    fun setDefaultPlayerSelected(player: PlayerModel, team: Team, position: Position) {
+        when (team) {
+            Team.RED -> if (position == Position.ATTACK) playerRedAttack = player else playerRedDefense = player
+            Team.BLUE -> if (position == Position.ATTACK) playerBlueAttack = player else playerBlueDefense = player
+        }
+        selectPlayersView.onSelectPlayer(player, team, position)
     }
 
     override fun onPlayerItemClicked(player: PlayerModel) {

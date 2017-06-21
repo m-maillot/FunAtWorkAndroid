@@ -6,7 +6,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
@@ -66,6 +65,11 @@ class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
         findViewById(R.id.img_player_blue_defense) as CircleImageView
     }
 
+    val playerRedAttackId by lazy { intent.extras?.getInt("redAttackId", -1) ?: -1 }
+    val playerRedDefenseId by lazy { intent.extras?.getInt("redDefenseId", -1) ?: -1 }
+    val playerBlueAttackId by lazy { intent.extras?.getInt("blueAttackId", -1) ?: -1 }
+    val playerBlueDefenseId by lazy { intent.extras?.getInt("blueDefenseId", -1) ?: -1 }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_player)
@@ -101,6 +105,18 @@ class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
 
     override fun renderPlayerList(playerModelList: List<PlayerModel>) {
         recyclerPlayers.adapter = PlayerAdapter(this, playerModelList, presenter)
+        playerModelList.find { it.id == playerRedAttackId }?.let {
+            presenter.setDefaultPlayerSelected(it, Team.RED, Position.ATTACK)
+        }
+        playerModelList.find { it.id == playerRedDefenseId }?.let {
+            presenter.setDefaultPlayerSelected(it, Team.RED, Position.DEFENSE)
+        }
+        playerModelList.find { it.id == playerBlueAttackId }?.let {
+            presenter.setDefaultPlayerSelected(it, Team.BLUE, Position.ATTACK)
+        }
+        playerModelList.find { it.id == playerBlueDefenseId }?.let {
+            presenter.setDefaultPlayerSelected(it, Team.BLUE, Position.DEFENSE)
+        }
     }
 
     override fun onSelectPlayer(player: PlayerModel, team: Team, position: Position) {

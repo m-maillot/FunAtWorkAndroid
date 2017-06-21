@@ -10,4 +10,5 @@ class SplashscreenActivity : BaseActivity() {
         navigator.navigateToMain(this)
         finish()
     }
+
 }
