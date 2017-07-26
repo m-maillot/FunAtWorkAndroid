@@ -6,7 +6,7 @@
     android:background="@color/white">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_games"
+        android:id="@+id/rv_standings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"

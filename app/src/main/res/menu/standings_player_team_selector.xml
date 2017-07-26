@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_player"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/action_show_player_stats"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_team"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:title="@string/action_show_team_stats"
+        app:showAsAction="ifRoom" />
+</menu>

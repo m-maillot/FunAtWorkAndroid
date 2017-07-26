@@ -7,8 +7,8 @@ import android.view.View
 import io.funatwork.R
 import io.funatwork.extensions.addFragment
 import io.funatwork.model.babyfoot.GameModel
-import io.funatwork.view.fragment.HistoryFragment
 import io.funatwork.view.fragment.MainGameFragment
+import io.funatwork.view.fragment.StandingsFragment
 
 class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
 
@@ -19,6 +19,7 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_nav)
+        supportActionBar?.hide()
         supportActionBar?.title = getString(R.string.game_title)
         addFragment(R.id.fragmentContainer, MainGameFragment())
     }
@@ -31,19 +32,21 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
     fun initTab() {
         val menuNav = bottomNavigationView.menu
         menuNav.findItem(R.id.action_stats).isEnabled = false
-        menuNav.findItem(R.id.action_history).isEnabled = false
+        menuNav.findItem(R.id.action_standings).isEnabled = true
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_play -> {
                     if (bottomNavigationView.selectedItemId != R.id.action_play) {
+                        supportActionBar?.hide()
                         supportActionBar?.title = getString(R.string.game_title)
                         addFragment(R.id.fragmentContainer, MainGameFragment())
                     }
                 }
-                R.id.action_history -> {
-                    if (bottomNavigationView.selectedItemId != R.id.action_history) {
-                        supportActionBar?.title = getString(R.string.history_title)
-                        addFragment(R.id.fragmentContainer, HistoryFragment())
+                R.id.action_standings -> {
+                    if (bottomNavigationView.selectedItemId != R.id.action_standings) {
+                        supportActionBar?.show()
+                        supportActionBar?.title = getString(R.string.standings_title)
+                        addFragment(R.id.fragmentContainer, StandingsFragment())
                     }
                 }
                 R.id.action_stats -> {

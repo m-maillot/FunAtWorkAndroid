@@ -27,8 +27,7 @@
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Baby.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.SelectPlayerActivity"
             android:screenOrientation="portrait" />

@@ -13,13 +13,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/match_current_game"
-            layout="@layout/babyfoot_current_game_header" />
 
         <include
             android:id="@+id/match_no_current_game"
             layout="@layout/babyfoot_no_current_game_header" />
+
+        <include
+            android:id="@+id/match_current_game"
+            layout="@layout/babyfoot_current_game_header" />
 
     </ViewFlipper>
 

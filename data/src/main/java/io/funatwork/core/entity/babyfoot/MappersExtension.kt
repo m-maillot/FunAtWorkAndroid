@@ -2,9 +2,7 @@ package io.funatwork.core.entity.babyfoot
 
 import io.funatwork.core.entity.toBo
 import io.funatwork.core.entity.toEntity
-import io.funatwork.domain.model.babyfoot.Game
-import io.funatwork.domain.model.babyfoot.Goal
-import io.funatwork.domain.model.babyfoot.Team
+import io.funatwork.domain.model.babyfoot.*
 
 fun TeamEntity.toBo() =
         Team(id = id,
@@ -31,3 +29,21 @@ fun GameEntity.toBo() =
                 ended = ended,
                 goals = goals.map { it.toBo() },
                 status = status)
+
+fun PlayerStatsEntity.toBo() =
+        PlayerStats(player = player.toBo(),
+                gamePlayed = gamePlayed,
+                eloRanking = eloRanking,
+                goalAverage = goalAverage,
+                loose = loose,
+                victory = victory)
+
+fun TeamStatsEntity.toBo() =
+        TeamStats(player1 = player1.toBo(),
+                victory = victory,
+                loose = loose,
+                goalAverage = goalAverage,
+                eloRanking = eloRanking,
+                gamePlayed = gamePlayed,
+                player2 = player2.toBo()
+        )

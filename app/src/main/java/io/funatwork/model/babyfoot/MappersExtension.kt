@@ -1,8 +1,6 @@
 package io.funatwork.model.babyfoot
 
-import io.funatwork.domain.model.babyfoot.Game
-import io.funatwork.domain.model.babyfoot.Goal
-import io.funatwork.domain.model.babyfoot.Team
+import io.funatwork.domain.model.babyfoot.*
 import io.funatwork.model.toBo
 import io.funatwork.model.toModel
 
@@ -47,3 +45,20 @@ fun TeamModel.toBo() =
         Team(id = id,
                 attackPlayer = attackPlayer.toBo(),
                 defensePlayer = defensePlayer.toBo())
+
+fun TeamStats.toModel() =
+        TeamStatsModel(player1 = player1.toModel(),
+                player2 = player2.toModel(),
+                gamePlayed = gamePlayed,
+                eloRanking = eloRanking,
+                goalAverage = goalAverage,
+                loose = loose,
+                victory = victory)
+
+fun PlayerStats.toModel() =
+        PlayerStatsModel(player = player.toModel(),
+                gamePlayed = gamePlayed,
+                eloRanking = eloRanking,
+                goalAverage = goalAverage,
+                loose = loose,
+                victory = victory)
