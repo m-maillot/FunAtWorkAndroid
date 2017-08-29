@@ -3,17 +3,19 @@ package io.funatwork.view.activity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair.create
 import android.view.View
 import io.funatwork.R
 import io.funatwork.extensions.addFragment
 import io.funatwork.model.babyfoot.GameModel
+import io.funatwork.view.fragment.AccountFragment
 import io.funatwork.view.fragment.MainGameFragment
 import io.funatwork.view.fragment.StandingsFragment
 
 class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
 
-    val bottomNavigationView by lazy {
-        findViewById(R.id.bottom_navigation) as BottomNavigationView
+    private val bottomNavigationView by lazy {
+        findViewById<BottomNavigationView>(R.id.bottom_navigation)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +31,9 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
         initTab()
     }
 
-    fun initTab() {
+    private fun initTab() {
         val menuNav = bottomNavigationView.menu
-        menuNav.findItem(R.id.action_stats).isEnabled = false
+        menuNav.findItem(R.id.action_account).isEnabled = true
         menuNav.findItem(R.id.action_standings).isEnabled = true
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -49,9 +51,11 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
                         addFragment(R.id.fragmentContainer, StandingsFragment())
                     }
                 }
-                R.id.action_stats -> {
-                    if (bottomNavigationView.selectedItemId != R.id.action_stats) {
-
+                R.id.action_account -> {
+                    if (bottomNavigationView.selectedItemId != R.id.action_account) {
+                        supportActionBar?.show()
+                        supportActionBar?.title = getString(R.string.account_title)
+                        addFragment(R.id.fragmentContainer, AccountFragment())
                     }
                 }
             }
@@ -66,11 +70,11 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
             navigator.navigateToGame(this, game, generateTransition(redAttack, redDefense, blueAttack, blueDefense))
 
 
-    fun generateTransition(redAttack: View, redDefense: View, blueAttack: View, blueDefense: View): ActivityOptionsCompat {
-        val p1 = android.support.v4.util.Pair.create(redAttack, "redAttackPlayer")
-        val p2 = android.support.v4.util.Pair.create(redDefense, "redDefensePlayer")
-        val p3 = android.support.v4.util.Pair.create(blueAttack, "blueAttackPlayer")
-        val p4 = android.support.v4.util.Pair.create(blueDefense, "blueDefensePlayer")
+    private fun generateTransition(redAttack: View, redDefense: View, blueAttack: View, blueDefense: View): ActivityOptionsCompat {
+        val p1 = create(redAttack, "redAttackPlayer")
+        val p2 = create(redDefense, "redDefensePlayer")
+        val p3 = create(blueAttack, "blueAttackPlayer")
+        val p4 = create(blueDefense, "blueDefensePlayer")
         return ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4)
     }
 }

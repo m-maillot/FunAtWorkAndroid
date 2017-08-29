@@ -38,20 +38,20 @@ class StartGameActivity : BaseActivity(), StartGameView {
     }
 
     val imgRedPlayerAttack by lazy {
-        findViewById(R.id.img_player_red_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_attack)
     }
     val imgRedPlayerDefense by lazy {
-        findViewById(R.id.img_player_red_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_defense)
     }
     val imgBluePlayerAttack by lazy {
-        findViewById(R.id.img_player_blue_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_attack)
     }
     val imgBluePlayerDefense by lazy {
-        findViewById(R.id.img_player_blue_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_defense)
     }
 
     val btnKickOff by lazy {
-        findViewById(R.id.btn_kickoff) as Button
+        findViewById<Button>(R.id.btn_kickoff)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,14 +66,14 @@ class StartGameActivity : BaseActivity(), StartGameView {
         val blueTeam = intent.extras.getSerializable("BLUE_TEAM") as TeamModel
 
         Picasso.with(this).load(redTeam.attackPlayer.avatar).into(imgRedPlayerAttack)
-        (findViewById(R.id.tv_player_red_attack) as TextView).text = redTeam.attackPlayer.name
+        (findViewById<TextView>(R.id.tv_player_red_attack)).text = redTeam.attackPlayer.name
         Picasso.with(this).load(redTeam.defensePlayer.avatar).into(imgRedPlayerDefense)
-        (findViewById(R.id.tv_player_red_defense) as TextView).text = redTeam.defensePlayer.name
+        (findViewById<TextView>(R.id.tv_player_red_defense)).text = redTeam.defensePlayer.name
 
         Picasso.with(this).load(blueTeam.attackPlayer.avatar).into(imgBluePlayerAttack)
-        (findViewById(R.id.tv_player_blue_attack) as TextView).text = blueTeam.attackPlayer.name
+        (findViewById<TextView>(R.id.tv_player_blue_attack)).text = blueTeam.attackPlayer.name
         Picasso.with(this).load(blueTeam.defensePlayer.avatar).into(imgBluePlayerDefense)
-        (findViewById(R.id.tv_player_blue_defense) as TextView).text = blueTeam.defensePlayer.name
+        (findViewById<TextView>(R.id.tv_player_blue_defense)).text = blueTeam.defensePlayer.name
 
         btnKickOff.setOnClickListener {
             presenter.startGame(redTeam, blueTeam)

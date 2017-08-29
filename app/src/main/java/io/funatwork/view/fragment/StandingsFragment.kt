@@ -57,7 +57,7 @@ class StandingsFragment : BaseFragment(), StandingsView {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_standings, container, false)
-        recyclerGames = view?.findViewById(R.id.rv_standings) as RecyclerView
+        recyclerGames = view?.findViewById<RecyclerView>(R.id.rv_standings)
         recyclerGames?.setHasFixedSize(true)
         recyclerGames?.layoutManager = LinearLayoutManager(context)
         return view

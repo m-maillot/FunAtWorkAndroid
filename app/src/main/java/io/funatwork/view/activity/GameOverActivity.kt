@@ -16,35 +16,35 @@ import nl.dionsegijn.konfetti.models.Size
 class GameOverActivity : BaseActivity() {
 
     val btnRestart by lazy {
-        findViewById(R.id.btn_new_game) as Button
+        findViewById<Button>(R.id.btn_new_game)
     }
 
     val btnDone by lazy {
-        findViewById(R.id.btn_done) as Button
+        findViewById<Button>(R.id.btn_done)
     }
 
     val imgRedPlayerAttack by lazy {
-        findViewById(R.id.img_player_red_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_attack)
     }
     val imgRedPlayerDefense by lazy {
-        findViewById(R.id.img_player_red_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_defense)
     }
     val imgBluePlayerAttack by lazy {
-        findViewById(R.id.img_player_blue_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_attack)
     }
     val imgBluePlayerDefense by lazy {
-        findViewById(R.id.img_player_blue_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_defense)
     }
 
     val viewKonfetti by lazy {
-        findViewById(R.id.viewKonfetti) as KonfettiView
+        findViewById<KonfettiView>(R.id.viewKonfetti)
     }
 
     val tvScoreRed by lazy {
-        findViewById(R.id.tv_score_red) as TextView
+        findViewById<TextView>(R.id.tv_score_red)
     }
     val tvScoreBlue by lazy {
-        findViewById(R.id.tv_score_blue) as TextView
+        findViewById<TextView>(R.id.tv_score_blue)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

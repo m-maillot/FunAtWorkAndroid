@@ -19,8 +19,8 @@ class PlayerAdapter(val context: Context, val playerEntities: List<PlayerModel>,
     }
 
     class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-        val avatar: ImageView = mView.findViewById(R.id.img_player_avatar) as ImageView
-        val name: TextView = mView.findViewById(R.id.txt_player_name) as TextView
+        val avatar: ImageView = mView.findViewById(R.id.img_player_avatar)
+        val name: TextView = mView.findViewById(R.id.txt_player_name)
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

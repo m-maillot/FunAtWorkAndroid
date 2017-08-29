@@ -14,11 +14,11 @@ import io.funatwork.model.babyfoot.PlayerStatsModel
 class PlayerStatsAdapter(val context: Context, val teamStatsModels: List<PlayerStatsModel>) : RecyclerView.Adapter<PlayerStatsAdapter.ViewHolder>() {
 
     class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-        val imgPlayer: ImageView = mView.findViewById(R.id.img_player) as ImageView
-        val tvPosition: TextView = mView.findViewById(R.id.tv_player_position) as TextView
-        val tvPlayerName: TextView = mView.findViewById(R.id.tv_player_name) as TextView
-        val tvPlayerStat: TextView = mView.findViewById(R.id.tv_player_stat_detail) as TextView
-        val tvPlayerElo: TextView = mView.findViewById(R.id.tv_player_elo_ranking) as TextView
+        val imgPlayer: ImageView = mView.findViewById(R.id.img_player)
+        val tvPosition: TextView = mView.findViewById(R.id.tv_player_position)
+        val tvPlayerName: TextView = mView.findViewById(R.id.tv_player_name)
+        val tvPlayerStat: TextView = mView.findViewById(R.id.tv_player_stat_detail)
+        val tvPlayerElo: TextView = mView.findViewById(R.id.tv_player_elo_ranking)
 
     }
 

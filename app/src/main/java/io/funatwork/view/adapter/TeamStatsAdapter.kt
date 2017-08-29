@@ -14,12 +14,12 @@ import io.funatwork.model.babyfoot.TeamStatsModel
 class TeamStatsAdapter(val context: Context, val teamStatsModels: List<TeamStatsModel>) : RecyclerView.Adapter<TeamStatsAdapter.ViewHolder>() {
 
     class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-        val imgPlayer1: ImageView = mView.findViewById(R.id.img_player1) as ImageView
-        val imgPlayer2: ImageView = mView.findViewById(R.id.img_player2) as ImageView
-        val tvPosition: TextView = mView.findViewById(R.id.tv_team_position) as TextView
-        val tvTeamName: TextView = mView.findViewById(R.id.tv_team_name) as TextView
-        val tvTeamStat: TextView = mView.findViewById(R.id.tv_team_stat_detail) as TextView
-        val tvTeamElo: TextView = mView.findViewById(R.id.tv_team_elo_ranking) as TextView
+        val imgPlayer1: ImageView = mView.findViewById(R.id.img_player1)
+        val imgPlayer2: ImageView = mView.findViewById(R.id.img_player2)
+        val tvPosition: TextView = mView.findViewById(R.id.tv_team_position)
+        val tvTeamName: TextView = mView.findViewById(R.id.tv_team_name)
+        val tvTeamStat: TextView = mView.findViewById(R.id.tv_team_stat_detail)
+        val tvTeamElo: TextView = mView.findViewById(R.id.tv_team_elo_ranking)
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

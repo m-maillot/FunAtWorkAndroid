@@ -7,7 +7,7 @@ import io.reactivex.observers.DisposableObserver
  */
 open class DefaultObserver<T> : DisposableObserver<T>() {
 
-    override fun onNext(t: T) {
+    override fun onNext(element: T) {
         // no-op by default.
     }
 
@@ -15,7 +15,7 @@ open class DefaultObserver<T> : DisposableObserver<T>() {
         // no-op by default.
     }
 
-    override fun onError(e: Throwable?) {
+    override fun onError(exception: Throwable?) {
         // no-op by default.
     }
 }

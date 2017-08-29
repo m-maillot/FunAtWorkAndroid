@@ -60,45 +60,45 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     val imgRedPlayerAttack by lazy {
-        findViewById(R.id.img_player_red_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_attack)
     }
     val imgRedPlayerDefense by lazy {
-        findViewById(R.id.img_player_red_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_defense)
     }
     val imgBluePlayerAttack by lazy {
-        findViewById(R.id.img_player_blue_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_attack)
     }
     val imgBluePlayerDefense by lazy {
-        findViewById(R.id.img_player_blue_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_defense)
     }
 
     val imgGoalRedAttack by lazy {
-        findViewById(R.id.tv_red_attack_gamelle) as TextView
+        findViewById<TextView>(R.id.tv_red_attack_gamelle)
     }
     val imgGoalRedDefense by lazy {
-        findViewById(R.id.tv_red_defense_gamelle) as TextView
+        findViewById<TextView>(R.id.tv_red_defense_gamelle)
     }
     val imgGoalBlueAttack by lazy {
-        findViewById(R.id.tv_blue_attack_gamelle) as TextView
+        findViewById<TextView>(R.id.tv_blue_attack_gamelle)
     }
     val imgGoalBlueDefense by lazy {
-        findViewById(R.id.tv_blue_defense_gamelle) as TextView
+        findViewById<TextView>(R.id.tv_blue_defense_gamelle)
     }
 
     val tvScoreBlue by lazy {
-        findViewById(R.id.tv_score_blue) as TextView
+        findViewById<TextView>(R.id.tv_score_blue)
     }
 
     val tvScoreRed by lazy {
-        findViewById(R.id.tv_score_red) as TextView
+        findViewById<TextView>(R.id.tv_score_red)
     }
 
     val imgGoal by lazy {
-        findViewById(R.id.img_goal) as ImageView
+        findViewById<ImageView>(R.id.img_goal)
     }
 
     val backgroundGoal by lazy {
-        findViewById(R.id.background_goal) as LinearLayout
+        findViewById<LinearLayout>(R.id.background_goal)
     }
 
     val smallBang: SmallBang by lazy {

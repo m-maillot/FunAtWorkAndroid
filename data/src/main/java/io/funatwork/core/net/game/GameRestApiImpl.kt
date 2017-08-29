@@ -1,6 +1,7 @@
 package io.funatwork.core.net.game
 
 import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.httpHead
 import com.github.kittinunf.fuel.httpPost
 import io.funatwork.core.entity.PlayerEntity
 import io.funatwork.core.entity.babyfoot.GameEntity
@@ -33,7 +34,9 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_CREATE_GAME_LIST.httpPost(generateParameters(redTeam = redTeam, blueTeam = blueTeam)).responseObject(GameDeserializer())
+                        val (request, response, result) = RestApiData.API_URL_CREATE_GAME_LIST
+                                .httpPost(generateParameters(redTeam = redTeam, blueTeam = blueTeam))
+                                .responseObject(GameDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()

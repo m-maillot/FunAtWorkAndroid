@@ -19,14 +19,14 @@ class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val o
     }
 
     class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
-        val imgAttackRed: ImageView = mView.findViewById(R.id.img_player_red_attack) as ImageView
-        val imgDefenseRed: ImageView = mView.findViewById(R.id.img_player_red_defense) as ImageView
-        val imgAttackBlue: ImageView = mView.findViewById(R.id.img_player_blue_attack) as ImageView
-        val imgDefenseBlue: ImageView = mView.findViewById(R.id.img_player_blue_defense) as ImageView
-        val tvRedScore: TextView = mView.findViewById(R.id.tv_score_red) as TextView
-        val tvBlueScore: TextView = mView.findViewById(R.id.tv_score_blue) as TextView
-        val tvDate: TextView = mView.findViewById(R.id.tv_game_date) as TextView
-        val tvStatus: TextView = mView.findViewById(R.id.tv_game_state) as TextView
+        val imgAttackRed: ImageView = mView.findViewById(R.id.img_player_red_attack)
+        val imgDefenseRed: ImageView = mView.findViewById(R.id.img_player_red_defense)
+        val imgAttackBlue: ImageView = mView.findViewById(R.id.img_player_blue_attack)
+        val imgDefenseBlue: ImageView = mView.findViewById(R.id.img_player_blue_defense)
+        val tvRedScore: TextView = mView.findViewById(R.id.tv_score_red)
+        val tvBlueScore: TextView = mView.findViewById(R.id.tv_score_blue)
+        val tvDate: TextView = mView.findViewById(R.id.tv_game_date)
+        val tvStatus: TextView = mView.findViewById(R.id.tv_game_state)
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

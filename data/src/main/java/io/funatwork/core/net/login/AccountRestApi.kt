@@ -1,9 +1,9 @@
 package io.funatwork.core.net.login
 
-import io.funatwork.domain.model.UserAuthEntity
+import io.funatwork.core.entity.UserAuthEntity
 import io.reactivex.Observable
 
-interface LoginRestApi {
+interface AccountRestApi {
 
     fun login(login: String, password: String): Observable<UserAuthEntity>
 }

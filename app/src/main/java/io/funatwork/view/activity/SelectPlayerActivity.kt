@@ -29,7 +29,7 @@ import io.funatwork.view.adapter.PlayerAdapter
 class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
 
     val recyclerPlayers by lazy {
-        findViewById(R.id.rv_players) as RecyclerView
+        findViewById<RecyclerView>(R.id.rv_players)
     }
 
     val presenter by lazy {
@@ -53,16 +53,16 @@ class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
     }
 
     val imgRedPlayerAttack by lazy {
-        findViewById(R.id.img_player_red_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_attack)
     }
     val imgRedPlayerDefense by lazy {
-        findViewById(R.id.img_player_red_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_red_defense)
     }
     val imgBluePlayerAttack by lazy {
-        findViewById(R.id.img_player_blue_attack) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_attack)
     }
     val imgBluePlayerDefense by lazy {
-        findViewById(R.id.img_player_blue_defense) as CircleImageView
+        findViewById<CircleImageView>(R.id.img_player_blue_defense)
     }
 
     val playerRedAttackId by lazy { intent.extras?.getInt("redAttackId", -1) ?: -1 }
