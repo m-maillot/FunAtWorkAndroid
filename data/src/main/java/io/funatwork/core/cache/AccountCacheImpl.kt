@@ -20,11 +20,16 @@ class AccountCacheImpl(private val cacheDir: File,
 
     override fun get() =
             Observable.create<UserAuthEntity> { emitter ->
-                val fileContent = fileManager.readFileContent(buildFile())
-                val userAuth = serializer.deserialize(fileContent, object : TypeToken<UserAuthEntity>() {}.type)
-                if (userAuth != null) {
-                    emitter.onNext(userAuth)
-                    emitter.onComplete()
+                val cacheFile = buildFile()
+                if (cacheFile.exists()) {
+                    val fileContent = fileManager.readFileContent(buildFile())
+                    val userAuth = serializer.deserialize(fileContent, object : TypeToken<UserAuthEntity>() {}.type)
+                    if (userAuth != null) {
+                        emitter.onNext(userAuth)
+                        emitter.onComplete()
+                    } else {
+                        emitter.onError(NotLoggedException())
+                    }
                 } else {
                     emitter.onError(NotLoggedException())
                 }

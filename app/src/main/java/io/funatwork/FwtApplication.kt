@@ -9,4 +9,8 @@ class FwtApplication : Application() {
     val uiThread = UIThread()
     val jobExecutor = JobExecutor()
     val sequentialJobExecutor = SequentialJobExecutor()
+
+    override fun onCreate() {
+        super.onCreate()
+    }
 }

@@ -53,5 +53,7 @@
 
     <!-- Profile -->
     <string name="account_title">Profile</string>
+    <string name="account_input_login">Login</string>
+    <string name="account_button_signin">Signin</string>
 
 </resources>

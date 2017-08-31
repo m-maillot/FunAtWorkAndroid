@@ -27,7 +27,7 @@ android {
 
 dependencies {
     compile project(":domain")
-    compile 'com.android.support:appcompat-v7:26.0.0'
+    compile "com.android.support:appcompat-v7:$androidsupport_verion"
     compile 'com.github.kittinunf.fuse:fuse:0.1'
     compile 'com.github.kittinunf.fuel:fuel:1.5.0'
     compile 'com.github.kittinunf.fuel:fuel-android:1.5.0'

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ViewFlipper
 import io.funatwork.R
 import io.funatwork.core.cache.AccountCacheImpl
@@ -39,7 +41,7 @@ class AccountFragment : BaseFragment(), AccountView {
                                 ))),
                         postExecutionThread = fwtApplication.uiThread,
                         threadExecutor = fwtApplication.jobExecutor),
-                signing = Signin(
+                signin = Signin(
                         accountRepository = AccountDataRepository(accountDataStoreFactory =
                         AccountDataStoreFactory(
                                 connectionUtils = ConnectionUtils(activity.getConnectivityManager()),
@@ -54,9 +56,17 @@ class AccountFragment : BaseFragment(), AccountView {
         )
     }
 
+    private var signing: Button? = null
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_account, container, false)
+        signing = view?.findViewById(R.id.btn_signin)
+        signing?.setOnClickListener {
+            val login = view?.findViewById<EditText>(R.id.et_login)?.text?.toString() ?: ""
+            val password = view?.findViewById<EditText>(R.id.et_password)?.text?.toString() ?: ""
+            presenter.signin(login, password)
+        }
         return view
     }
 

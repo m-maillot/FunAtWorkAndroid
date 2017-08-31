@@ -9,4 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Not logged" />
+
+    <EditText
+        android:id="@+id/et_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/account_input_login" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btn_signin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_button_signin" />
 </LinearLayout>
