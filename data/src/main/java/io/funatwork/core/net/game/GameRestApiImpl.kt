@@ -4,6 +4,7 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpHead
 import com.github.kittinunf.fuel.httpPost
 import io.funatwork.core.entity.PlayerEntity
+import io.funatwork.core.entity.UserAuthEntity
 import io.funatwork.core.entity.babyfoot.GameEntity
 import io.funatwork.core.entity.babyfoot.TeamEntity
 import io.funatwork.core.exception.NetworkConnectionException
@@ -18,7 +19,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
     override fun gameEntity(gameId: Int): Observable<GameEntity> =
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
-                    val (request, response, result) = "${RestApiData.API_URL_GET_GAME_LIST}/$gameId".httpGet().responseObject(GameDeserializer())
+                    val (_, _, result) = "${RestApiData.API_URL_GET_GAME_LIST}/$gameId".httpGet().responseObject(GameDeserializer())
                     if (result.component2() == null) {
                         emitter.onNext(result.get())
                         emitter.onComplete()
@@ -34,7 +35,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_CREATE_GAME_LIST
+                        val (_, _, result) = RestApiData.API_URL_CREATE_GAME_LIST
                                 .httpPost(generateParameters(redTeam = redTeam, blueTeam = blueTeam))
                                 .responseObject(GameDeserializer())
                         if (result.component2() == null) {
@@ -55,7 +56,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
             Observable.create<List<GameEntity>> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = "${RestApiData.API_URL_GET_GAME_LIST}?limit=10".httpGet().responseObject(GameListDeserializer())
+                        val (_, _, result) = "${RestApiData.API_URL_GET_GAME_LIST}?limit=10".httpGet().responseObject(GameListDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()
@@ -74,7 +75,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_ADD_GOAL.httpPost(generateParameters(gameId = gameId, striker = striker, gamelle = gamelle)).responseObject(GameDeserializer())
+                        val (_, _, result) = RestApiData.API_URL_ADD_GOAL.httpPost(generateParameters(gameId = gameId, striker = striker, gamelle = gamelle)).responseObject(GameDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()
@@ -93,7 +94,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_STOP_GAME_LIST.httpPost(generateStopParameters(gameId, cancelled)).responseObject(GameDeserializer())
+                        val (_, _, result) = RestApiData.API_URL_STOP_GAME_LIST.httpPost(generateStopParameters(gameId, cancelled)).responseObject(GameDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()

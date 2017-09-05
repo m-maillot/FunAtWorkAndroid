@@ -1,6 +1,7 @@
 package io.funatwork.core.repository.datasource.game
 
 import io.funatwork.core.entity.PlayerEntity
+import io.funatwork.core.entity.UserAuthEntity
 import io.funatwork.core.entity.babyfoot.TeamEntity
 import io.funatwork.core.net.game.GameRestApi
 

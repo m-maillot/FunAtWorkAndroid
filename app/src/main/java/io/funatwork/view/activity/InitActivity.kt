@@ -1,18 +1,16 @@
-package io.funatwork
+package io.funatwork.view.activity
 
 import android.os.Bundle
-import io.funatwork.view.activity.BaseActivity
 
-class SplashscreenActivity : BaseActivity() {
+class InitActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // setContentView(R.layout.activity_init)
         if (fwtApplication.userAuth == null) {
             navigator.navigateToLogin(this)
         } else {
-            navigator.navigateToMain(this)
+            navigator.navigateToHome(this)
         }
-        finish()
     }
-
 }

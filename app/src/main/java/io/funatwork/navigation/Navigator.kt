@@ -16,6 +16,12 @@ class Navigator {
         context.startActivity(intentToLaunch)
     }
 
+    fun navigateToLogin(context: Context, flags: Int = 0) {
+        val intentToLaunch = Intent(context, LoginActivity::class.java)
+        intentToLaunch.flags = flags
+        context.startActivity(intentToLaunch)
+    }
+
     fun navigateToHome(context: Context, flags: Int = 0) {
         val intentToLaunch = Intent(context, MainActivity::class.java)
         intentToLaunch.flags = flags

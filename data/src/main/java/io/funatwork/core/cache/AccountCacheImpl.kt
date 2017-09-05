@@ -20,20 +20,26 @@ class AccountCacheImpl(private val cacheDir: File,
 
     override fun get() =
             Observable.create<UserAuthEntity> { emitter ->
-                val cacheFile = buildFile()
-                if (cacheFile.exists()) {
-                    val fileContent = fileManager.readFileContent(buildFile())
-                    val userAuth = serializer.deserialize(fileContent, object : TypeToken<UserAuthEntity>() {}.type)
-                    if (userAuth != null) {
-                        emitter.onNext(userAuth)
-                        emitter.onComplete()
-                    } else {
-                        emitter.onError(NotLoggedException())
-                    }
+                val userAuth = getUserAuth()
+                if (userAuth != null) {
+                    emitter.onNext(userAuth)
+                    emitter.onComplete()
                 } else {
                     emitter.onError(NotLoggedException())
                 }
             }
+
+    fun getUserAuth(): UserAuthEntity? {
+        val cacheFile = buildFile()
+        if (cacheFile.exists()) {
+            val fileContent = fileManager.readFileContent(buildFile())
+            val userAuth = serializer.deserialize(fileContent, object : TypeToken<UserAuthEntity>() {}.type)
+            if (userAuth != null) {
+                return userAuth
+            }
+        }
+        return null
+    }
 
     override fun isExpired() =
             getAuthUser()?.expire_at?.let {

@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import io.funatwork.R
 import io.funatwork.model.PlayerModel
-import io.funatwork.utils.CircleTransformation
 
 class PlayerAdapter(val context: Context, val playerEntities: List<PlayerModel>, val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<PlayerAdapter.ViewHolder>() {
 

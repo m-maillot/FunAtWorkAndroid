@@ -5,7 +5,6 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -18,7 +17,6 @@ import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.presenter.StartGamePresenter
-import io.funatwork.utils.CircleTransformation
 import io.funatwork.view.StartGameView
 
 class StartGameActivity : BaseActivity(), StartGameView {

@@ -1,6 +1,7 @@
 package io.funatwork.core.net.stats
 
 import com.github.kittinunf.fuel.httpGet
+import io.funatwork.core.entity.UserAuthEntity
 import io.funatwork.core.entity.babyfoot.PlayerStatsEntity
 import io.funatwork.core.entity.babyfoot.TeamStatsEntity
 import io.funatwork.core.exception.NetworkConnectionException
@@ -16,7 +17,7 @@ class StatsRestApiImpl(val connectionUtils: ConnectionUtils) : StatsRestApi {
             Observable.create<List<PlayerStatsEntity>> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_STATS_PLAYER.httpGet().responseObject(PlayerStatsListDeserializer())
+                        val (_, _, result) = RestApiData.API_URL_STATS_PLAYER.httpGet().responseObject(PlayerStatsListDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()
@@ -35,7 +36,7 @@ class StatsRestApiImpl(val connectionUtils: ConnectionUtils) : StatsRestApi {
             Observable.create<List<TeamStatsEntity>> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (request, response, result) = RestApiData.API_URL_STATS_TEAM.httpGet().responseObject(TeamStatsListDeserializer())
+                        val (_, _, result) = RestApiData.API_URL_STATS_TEAM.httpGet().responseObject(TeamStatsListDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()

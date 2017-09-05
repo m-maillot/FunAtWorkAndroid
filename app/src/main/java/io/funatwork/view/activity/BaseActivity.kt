@@ -17,6 +17,7 @@ abstract class BaseActivity : AppCompatActivity() {
     val navigator = Navigator()
     var dialog: ProgressDialog? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         super.onCreate(savedInstanceState)
