@@ -4,10 +4,10 @@ import io.funatwork.domain.model.Player
 import io.funatwork.domain.model.UserAuth
 
 fun Player.toModel() =
-        PlayerModel(id = id, name = name, avatar = avatar)
+        PlayerModel(id = id, login = login, name = name, surname = surname, avatar = avatar)
 
 fun PlayerModel.toBo() =
-        Player(id = id, name = name, avatar = avatar)
+        Player(id = id, login = login, name = name, surname = surname, avatar = avatar)
 
 fun UserAuth.toModel() =
         UserAuthModel(player = player.toModel())

@@ -44,19 +44,19 @@ class GameListPresenter(val gameListView: GameListView, val getGameList: GetGame
             gameListView.hideLoading()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             gameListView.hideLoading()
-            gameListView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            gameListView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(games: List<Game>) {
-            val currentGames = games.map(Game::toModel).filter { it.status == 1 }
+        override fun onNext(element: List<Game>) {
+            val currentGames = element.map(Game::toModel).filter { it.status == 1 }
             if (currentGames.isNotEmpty()) {
                 gameListView.renderCurrentGame(currentGames[0])
             } else {
                 gameListView.renderCurrentGame(null)
             }
-            gameListView.renderGameFinishedList(games.map(Game::toModel).filter { it.status != 1 })
+            gameListView.renderGameFinishedList(element.map(Game::toModel).filter { it.status != 1 })
         }
     }
 }

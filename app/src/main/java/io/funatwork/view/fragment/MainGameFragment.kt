@@ -121,13 +121,13 @@ class MainGameFragment : BaseFragment(), GameListView, GameAdapter.OnItemClickLi
                 editBtn.setOnClickListener {
                     initGameListener?.onEditGame(game, imgRedAttack, imgRedDefense, imgBlueAttack, imgBlueDefense)
                 }
-                flipperView.displayedChild = 0
+                flipperView.displayedChild = 1
             } else {
                 val btnStart = currentView.findViewById<Button>(R.id.btn_start_new_game)
                 btnStart.setOnClickListener {
                     initGameListener?.onNewGame()
                 }
-                flipperView.displayedChild = 1
+                flipperView.displayedChild = 0
             }
         }
     }
