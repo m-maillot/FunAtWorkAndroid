@@ -55,5 +55,8 @@
     <string name="account_title">Profile</string>
     <string name="account_input_login">Login</string>
     <string name="account_button_signin">Signin</string>
+    <string name="login_hint_login_form">Login</string>
+    <string name="login_hint_password_form">Password</string>
+    <string name="login_sign_in">Sign in</string>
 
 </resources>
