@@ -102,7 +102,6 @@ class SelectPlayerActivity : BaseActivity(), SelectPlayersView {
         return true
     }
 
-
     override fun renderPlayerList(playerModelList: List<PlayerModel>) {
         recyclerPlayers.adapter = PlayerAdapter(this, playerModelList, presenter)
         playerModelList.find { it.id == playerRedAttackId }?.let {

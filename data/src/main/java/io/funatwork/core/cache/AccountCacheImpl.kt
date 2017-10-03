@@ -1,5 +1,6 @@
 package io.funatwork.core.cache
 
+import com.github.kittinunf.fuel.core.FuelManager
 import com.google.gson.reflect.TypeToken
 import io.funatwork.core.cache.serializer.Serializer
 import io.funatwork.core.entity.UserAuthEntity
@@ -35,6 +36,7 @@ class AccountCacheImpl(private val cacheDir: File,
             val fileContent = fileManager.readFileContent(buildFile())
             val userAuth = serializer.deserialize(fileContent, object : TypeToken<UserAuthEntity>() {}.type)
             if (userAuth != null) {
+                FuelManager.instance.baseHeaders = mapOf("Authorization" to userAuth.token)
                 return userAuth
             }
         }

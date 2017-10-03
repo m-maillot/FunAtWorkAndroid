@@ -14,7 +14,7 @@ import io.funatwork.view.adapter.PlayerAdapter
 
 class SelectPlayersPresenter(val selectPlayersView: SelectPlayersView, val getPlayerList: GetPlayerList) : Presenter, PlayerAdapter.OnItemClickListener {
 
-    val undefinedPlayer = PlayerModel(-1, "unknown", "", "", "")
+    val undefinedPlayer = PlayerModel(-1, "unknown", "unknown", "")
     var playerRedAttack = undefinedPlayer
     var playerRedDefense = undefinedPlayer
     var playerBlueAttack = undefinedPlayer

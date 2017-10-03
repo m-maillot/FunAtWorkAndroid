@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Baby.ActionBar"
         tools:replace="android:icon, android:allowBackup">
         <activity
-            android:name=".SplashscreenActivity"
+            android:name=".view.activity.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Baby.SplashScreen">
             <intent-filter>
