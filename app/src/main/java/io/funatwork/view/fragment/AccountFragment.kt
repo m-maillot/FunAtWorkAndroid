@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ViewFlipper
+import android.widget.TextView
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
 import io.funatwork.core.cache.AccountCacheImpl
 import io.funatwork.core.cache.FileManager
@@ -15,7 +15,6 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.AccountDataRepository
 import io.funatwork.core.repository.datasource.login.AccountDataStoreFactory
 import io.funatwork.domain.interactor.GetUserAuth
-import io.funatwork.domain.interactor.Signin
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.UserAuthModel
 import io.funatwork.presenter.AccountPresenter
@@ -40,34 +39,13 @@ class AccountFragment : BaseFragment(), AccountView {
                                         serializer = Serializer()
                                 ))),
                         postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor),
-                signin = Signin(
-                        accountRepository = AccountDataRepository(accountDataStoreFactory =
-                        AccountDataStoreFactory(
-                                connectionUtils = ConnectionUtils(activity.getConnectivityManager()),
-                                accountCache = AccountCacheImpl(
-                                        cacheDir = context.cacheDir,
-                                        fileManager = FileManager(),
-                                        serializer = Serializer()
-                                ))),
-                        postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor
-                )
+                        threadExecutor = fwtApplication.jobExecutor)
         )
     }
 
-    private var signing: Button? = null
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater?.inflate(R.layout.fragment_account, container, false)
-        signing = view?.findViewById(R.id.btn_signin)
-        signing?.setOnClickListener {
-            val login = view?.findViewById<EditText>(R.id.et_login)?.text?.toString() ?: ""
-            val password = view?.findViewById<EditText>(R.id.et_password)?.text?.toString() ?: ""
-            presenter.signin(login, password)
-        }
-        return view
+        return inflater?.inflate(R.layout.fragment_account, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -91,19 +69,13 @@ class AccountFragment : BaseFragment(), AccountView {
         super.onDetach()
     }
 
-    override fun renderNotConnected() {
-        val currentView = view
-        if (currentView != null) {
-            val flipperView = currentView.findViewById<ViewFlipper>(R.id.vf_account_status)
-            flipperView.displayedChild = 0
-        }
-    }
-
     override fun renderAccount(userAuth: UserAuthModel) {
         val currentView = view
         if (currentView != null) {
-            val flipperView = currentView.findViewById<ViewFlipper>(R.id.vf_account_status)
-            flipperView.displayedChild = 1
+            val avatar = currentView.findViewById<CircleImageView>(R.id.img_account_player_avatar)
+            val name = currentView.findViewById<TextView>(R.id.tv_account_player_name)
+            Picasso.with(context).load(userAuth.player.avatar).into(avatar)
+            name.text = "${userAuth.player.name} ${userAuth.player.surname}"
         }
     }
 }
