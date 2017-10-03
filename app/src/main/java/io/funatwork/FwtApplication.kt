@@ -16,18 +16,7 @@ class FwtApplication : Application() {
     val jobExecutor = JobExecutor()
     val sequentialJobExecutor = SequentialJobExecutor()
 
-    val accountRepository by lazy {
-        AccountCacheImpl(
-                cacheDir = cacheDir,
-                fileManager = FileManager(),
-                serializer = Serializer()
-        )
-    }
-
-    var userAuth: UserAuthModel? = null
-
     override fun onCreate() {
         super.onCreate()
-        userAuth = accountRepository.getUserAuth()?.toBo()?.toModel()
     }
 }

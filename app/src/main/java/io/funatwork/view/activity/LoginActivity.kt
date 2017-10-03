@@ -53,7 +53,6 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     override fun onLoginSuccessful(userAuthModel: UserAuthModel) {
-        fwtApplication.userAuth = userAuthModel
         navigator.navigateToHome(this, FLAG_ACTIVITY_CLEAR_TOP)
     }
 

@@ -56,7 +56,6 @@
         </service>
 
         <activity android:name=".view.activity.LoginActivity" />
-        <activity android:name=".view.activity.InitActivity"></activity>
     </application>
 
 </manifest>
