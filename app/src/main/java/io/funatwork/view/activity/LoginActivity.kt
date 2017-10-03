@@ -2,6 +2,8 @@ package io.funatwork.view.activity
 
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import io.funatwork.R
@@ -49,11 +51,14 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     override fun onLoginFailed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val snackbar = Snackbar.make(findViewById<View>(R.id.login_main_layout), R.string.login_sign_in_fail, Snackbar.LENGTH_LONG)
+        snackbar.setAction(R.string.login_snackbar_close, {snackbar.dismiss()})
+        snackbar.show()
     }
 
     override fun onLoginSuccessful(userAuthModel: UserAuthModel) {
         navigator.navigateToHome(this, FLAG_ACTIVITY_CLEAR_TOP)
+        finish()
     }
 
 }

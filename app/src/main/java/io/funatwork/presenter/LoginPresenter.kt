@@ -13,9 +13,7 @@ class LoginPresenter(private val loginView: LoginView, private val signin: Signi
 
     override fun pause() {}
 
-    override fun destroy() {
-
-    }
+    override fun destroy() {}
 
     fun signin(login: String, password: String) {
         loginView.showLoading()
@@ -30,7 +28,7 @@ class LoginPresenter(private val loginView: LoginView, private val signin: Signi
 
         override fun onError(exception: Throwable?) {
             loginView.hideLoading()
-            loginView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
+            loginView.onLoginFailed()
         }
 
         override fun onNext(element: UserAuth) {

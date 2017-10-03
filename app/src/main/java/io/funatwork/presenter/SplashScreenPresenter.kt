@@ -36,7 +36,7 @@ class SplashScreenPresenter(val splashScreenView: SplashScreenView, private val 
         }
 
         override fun onNext(element: UserAuth) {
-            if (element.expire_at > System.currentTimeMillis()) {
+            if (element.expire_at > (System.currentTimeMillis() / 1000)) {
                 splashScreenView.goToMainScreen()
             } else {
                 splashScreenView.goToLoginScreen()
