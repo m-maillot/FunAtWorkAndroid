@@ -7,9 +7,8 @@ import io.funatwork.domain.model.babyfoot.Game
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.toModel
 import io.funatwork.view.GameListView
-import io.funatwork.view.adapter.GameAdapter
 
-class GameListPresenter(val gameListView: GameListView, val getGameList: GetGameList) : Presenter, GameAdapter.OnItemClickListener {
+class GameListPresenter(val gameListView: GameListView, val getGameList: GetGameList) : Presenter {
 
     override fun resume() {}
 
@@ -32,10 +31,6 @@ class GameListPresenter(val gameListView: GameListView, val getGameList: GetGame
     private fun loadGames() {
         gameListView.showLoading()
         getGameList.execute(GameListObserver(gameListView), NoParams())
-    }
-
-    override fun onGameItemClicked(game: GameModel) {
-        // TODO("not implemented")
     }
 
     private class GameListObserver(val gameListView: GameListView) : DefaultObserver<List<Game>>() {

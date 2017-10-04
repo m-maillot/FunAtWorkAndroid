@@ -25,7 +25,7 @@ import io.funatwork.presenter.GameListPresenter
 import io.funatwork.view.GameListView
 import io.funatwork.view.adapter.GameAdapter
 
-class MainGameFragment : BaseFragment(), GameListView, GameAdapter.OnItemClickListener {
+class MainGameFragment : BaseFragment(), GameListView {
 
     init {
         retainInstance = true
@@ -133,15 +133,13 @@ class MainGameFragment : BaseFragment(), GameListView, GameAdapter.OnItemClickLi
     }
 
     override fun renderGameFinishedList(games: List<GameModel>) {
-        recyclerGames?.adapter = GameAdapter(activity, games, this)
+        val adapter = GameAdapter(games)
+        recyclerGames?.adapter = adapter
+        adapter.addHeaderView((context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
     }
 
     override fun onDetach() {
         super.onDetach()
         initGameListener = null
-    }
-
-    override fun onGameItemClicked(game: GameModel) {
-        // TODO not implemented
     }
 }
