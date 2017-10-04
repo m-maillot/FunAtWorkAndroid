@@ -3,6 +3,7 @@ package io.funatwork.core.entity.babyfoot
 import io.funatwork.core.entity.toBo
 import io.funatwork.core.entity.toEntity
 import io.funatwork.domain.model.babyfoot.*
+import org.joda.time.format.ISODateTimeFormat.dateTimeNoMillis
 
 fun TeamEntity.toBo() =
         Team(id = id,
@@ -21,14 +22,15 @@ fun GoalEntity.toBo() =
 
 fun GameEntity.toBo() =
         Game(id = id,
-                beginTimestampInSeconds = beginTimestampInSeconds,
-                blueTeam = blueTeam.toBo(),
-                redTeam = redTeam.toBo(),
+                startedDate = startedDate?.let { dateTimeNoMillis().parseDateTime(it) },
+                blueTeam = blueTeam?.toBo(),
+                redTeam = redTeam?.toBo(),
                 blueTeamGoal = blueTeamGoal,
                 redTeamGoal = redTeamGoal,
-                ended = ended,
+                endedDate = endedDate?.let { dateTimeNoMillis().parseDateTime(it) },
                 goals = goals.map { it.toBo() },
-                status = status)
+                status = status,
+                plannedDate = plannedDate?.let { dateTimeNoMillis().parseDateTime(it) })
 
 fun PlayerStatsEntity.toBo() =
         PlayerStats(player = player.toBo(),

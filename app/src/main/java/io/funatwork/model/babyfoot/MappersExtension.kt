@@ -1,8 +1,10 @@
 package io.funatwork.model.babyfoot
 
 import io.funatwork.domain.model.babyfoot.*
+import io.funatwork.model.PlayerModel
 import io.funatwork.model.toBo
 import io.funatwork.model.toModel
+import org.joda.time.DateTime
 
 fun Team.toModel() =
         TeamModel(id = id,
@@ -21,25 +23,27 @@ fun GoalModel.toBo() =
 
 fun Game.toModel() =
         GameModel(id = id,
-                beginTimestampInSeconds = beginTimestampInSeconds,
-                blueTeam = blueTeam.toModel(),
-                redTeam = redTeam.toModel(),
-                blueTeamGoal = blueTeamGoal,
-                redTeamGoal = redTeamGoal,
-                ended = ended,
+                startedDate = startedDate ?: DateTime(0L),
+                blueTeam = blueTeam?.toModel() ?: generateUnknownTeam(),
+                redTeam = redTeam?.toModel() ?: generateUnknownTeam(),
+                blueTeamGoal = blueTeamGoal ?: -1,
+                redTeamGoal = redTeamGoal ?: -1,
+                endedDate = endedDate ?: DateTime(0L),
                 goals = goals.map(Goal::toModel),
-                status = status)
+                status = status,
+                plannedDate = plannedDate ?: DateTime(0L))
 
 fun GameModel.toBo() =
         Game(id = id,
-                beginTimestampInSeconds = beginTimestampInSeconds,
+                startedDate = startedDate,
                 blueTeam = blueTeam.toBo(),
                 redTeam = redTeam.toBo(),
                 blueTeamGoal = blueTeamGoal,
                 redTeamGoal = redTeamGoal,
-                ended = ended,
+                endedDate = endedDate,
                 goals = goals.map(GoalModel::toBo),
-                status = status)
+                status = status,
+                plannedDate = plannedDate)
 
 fun TeamModel.toBo() =
         Team(id = id,
@@ -62,3 +66,9 @@ fun PlayerStats.toModel() =
                 goalAverage = goalAverage,
                 loose = loose,
                 victory = victory)
+
+fun generateUnknownTeam() = TeamModel(id = -1,
+        attackPlayer = generateUnknownPlayer(),
+        defensePlayer = generateUnknownPlayer())
+
+fun generateUnknownPlayer() = PlayerModel(-1, "", "", "")

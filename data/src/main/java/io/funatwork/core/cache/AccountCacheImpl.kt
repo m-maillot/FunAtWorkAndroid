@@ -36,7 +36,6 @@ class AccountCacheImpl(private val cacheDir: File,
             val fileContent = fileManager.readFileContent(buildFile())
             val userAuth = serializer.deserialize(fileContent, object : TypeToken<UserAuthEntity>() {}.type)
             if (userAuth != null) {
-                FuelManager.instance.baseHeaders = mapOf("Authorization" to userAuth.token)
                 return userAuth
             }
         }

@@ -71,13 +71,13 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
             gameView.hideLoading()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             gameView.hideLoading()
-            gameView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            gameView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(game: Game) {
-            gameView.renderGame(game.toModel())
+        override fun onNext(element: Game) {
+            gameView.renderGame(element.toModel())
         }
     }
 
@@ -87,15 +87,16 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
             gameView.dismissNewGoalProcessing()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             gameView.dismissNewGoalProcessing()
-            gameView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            gameView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(game: Game) {
+        override fun onNext(element: Game) {
+            val game = element.toModel()
             gameView.renderGoal(game.blueTeamGoal, game.redTeamGoal)
-            if (game.status == game.GAME_OVER) {
-                gameView.renderGameFinished(game.toModel())
+            if (element.status == element.GAME_OVER) {
+                gameView.renderGameFinished(element.toModel())
             }
         }
     }
@@ -106,12 +107,12 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
             gameView.hideLoading()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             gameView.hideLoading()
-            gameView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            gameView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(game: Game) {
+        override fun onNext(element: Game) {
             gameView.renderGameCanceled()
         }
     }

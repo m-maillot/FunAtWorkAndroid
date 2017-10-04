@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import io.funatwork.R
-import io.funatwork.extensions.showHumanDateFromSeconds
+import io.funatwork.extensions.showHumanDateFromMillis
 import io.funatwork.model.babyfoot.GameModel
 
 class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
@@ -37,7 +37,7 @@ class GameAdapter(val context: Context, val gameEntities: List<GameModel>, val o
         Picasso.with(context).load(game.blueTeam.defensePlayer.avatar).into(holder?.imgDefenseBlue)
         holder?.tvRedScore?.text = game.redTeamGoal.toString()
         holder?.tvBlueScore?.text = game.blueTeamGoal.toString()
-        holder?.tvDate?.text = game.beginTimestampInSeconds.showHumanDateFromSeconds()
+        holder?.tvDate?.text = game.startedDate.millis.showHumanDateFromMillis()
         holder?.tvStatus?.text = if (game.status == 2) context.getString(R.string.game_state_finished) else context.getString(R.string.game_state_canceled)
         holder?.itemView?.setOnClickListener { onItemClickListener.onGameItemClicked(game) }
     }
