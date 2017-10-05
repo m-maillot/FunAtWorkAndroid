@@ -29,6 +29,7 @@
     <!-- Bottom bar -->
     <string name="menu_matchs">Matchs</string>
     <string name="menu_standings">Standings</string>
+    <string name="menu_tournament">Cup</string>
     <string name="menu_account">Profile</string>
     <string name="img_no_description">No description</string>
 
@@ -60,5 +61,8 @@
     <string name="login_sign_in">Sign in</string>
     <string name="login_sign_in_fail">Login failed, are you sure to set the right login/password ?</string>
     <string name="login_snackbar_close">close</string>
+
+    <!-- Tournament -->
+    <string name="tournament_title">Cup</string>
 
 </resources>

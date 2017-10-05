@@ -11,6 +11,7 @@ import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.view.fragment.AccountFragment
 import io.funatwork.view.fragment.MainGameFragment
 import io.funatwork.view.fragment.StandingsFragment
+import io.funatwork.view.fragment.TournamentFragment
 
 class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
 
@@ -56,6 +57,13 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
                         supportActionBar?.show()
                         supportActionBar?.title = getString(R.string.account_title)
                         addFragment(R.id.fragmentContainer, AccountFragment())
+                    }
+                }
+                R.id.action_tournament -> {
+                    if (bottomNavigationView.selectedItemId != R.id.action_tournament) {
+                        supportActionBar?.show()
+                        supportActionBar?.title = getString(R.string.tournament_title)
+                        addFragment(R.id.fragmentContainer, TournamentFragment())
                     }
                 }
             }
