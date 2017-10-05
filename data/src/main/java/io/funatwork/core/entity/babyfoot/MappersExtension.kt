@@ -49,3 +49,13 @@ fun TeamStatsEntity.toBo() =
                 gamePlayed = gamePlayed,
                 player2 = player2.toBo()
         )
+
+
+fun TournamentEntity.toBo() =
+        Tournament(id = id,
+                name = name,
+                rounds = rounds.map { it.toBo() },
+                startDate = dateTimeNoMillis().parseDateTime(startDate))
+
+fun RoundEntity.toBo() =
+        Round(index = index, games = games.map { it.toBo() })
