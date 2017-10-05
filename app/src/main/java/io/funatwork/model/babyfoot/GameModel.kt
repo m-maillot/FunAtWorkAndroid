@@ -12,4 +12,9 @@ data class GameModel(val id: Int,
                      val blueTeamGoal: Int,
                      val goals: List<GoalModel>,
                      val status: Int,
-                     val endedDate: DateTime) : Serializable
+                     val endedDate: DateTime) : Serializable {
+    val GAME_PLANNED = 0
+    val GAME_STARTED = 1
+    val GAME_OVER = 2
+    val GAME_CANCELED = 3
+}

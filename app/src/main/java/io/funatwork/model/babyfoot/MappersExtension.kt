@@ -29,7 +29,7 @@ fun Game.toModel() =
                 blueTeamGoal = blueTeamGoal ?: -1,
                 redTeamGoal = redTeamGoal ?: -1,
                 endedDate = endedDate ?: DateTime(0L),
-                goals = goals.map(Goal::toModel),
+                goals = goals.map { it.toModel() },
                 status = status,
                 plannedDate = plannedDate ?: DateTime(0L))
 
@@ -66,6 +66,16 @@ fun PlayerStats.toModel() =
                 goalAverage = goalAverage,
                 loose = loose,
                 victory = victory)
+
+fun Tournament.toModel() =
+        TournamentModel(id = id,
+                startDate = startDate,
+                name = name,
+                rounds = rounds.map { it.toModel() })
+
+fun Round.toModel() =
+        RoundModel(index = index, games = games.map { it.toModel() })
+
 
 fun generateUnknownTeam() = TeamModel(id = -1,
         attackPlayer = generateUnknownPlayer(),
