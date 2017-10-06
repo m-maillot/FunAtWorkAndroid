@@ -19,8 +19,10 @@ import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TournamentModel
 import io.funatwork.presenter.TournamentPresenter
 import io.funatwork.view.TournamentView
-import io.funatwork.view.adapter.GameAdapter
-import io.funatwork.view.adapter.MultipleGameItem
+import io.funatwork.view.adapter.TournamentGameAdapter
+import io.funatwork.view.adapter.item.Game
+import io.funatwork.view.adapter.item.GameItem
+import io.funatwork.view.adapter.item.Header
 
 class TournamentFragment : BaseFragment(), TournamentView {
 
@@ -101,30 +103,29 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     override fun renderCurrentTournament(tournament: TournamentModel) {
-        val flatGames = tournament.rounds.flatMap { it.games }
-        val adapter = GameAdapter(flatGames.map { MultipleGameItem(game = it) })
-        adapter.setOnItemClickListener { _, _, position ->
-            (recyclerGames?.adapter as? GameAdapter)?.apply {
-                gameItems = flatGames.mapIndexed { index, it ->
-                    MultipleGameItem(
-                            game = it,
-                            selected = index == position)
-                }
-                notifyDataSetChanged()
-            }
-        }
-
+        val adapter = TournamentGameAdapter(createTournament(tournament))
         adapter.setOnItemChildClickListener { _, _, position ->
-            presenter.startGame(adapter.data[position].game)
+            val item = adapter.gameItems[position] as Game
+            presenter.startGame(item.game)
         }
         recyclerGames?.adapter = adapter
-        adapter.addHeaderView((context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-                .inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
     }
 
     override fun startGame(game: GameModel) {
         startGameListener?.startGame(game)
     }
 
+    private fun createTournament(tournament: TournamentModel): List<GameItem> {
+        val element = mutableListOf<GameItem>()
+        var currentRound = -1
+        tournament.rounds.forEach({
+            if (currentRound != it.index) {
+                element.add(Header(it.index))
+                currentRound = it.index
+            }
+            element.addAll(it.games.map { Game(it) })
+        })
+        return element.toList()
+    }
 
 }

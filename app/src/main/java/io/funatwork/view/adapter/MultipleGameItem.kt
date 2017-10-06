@@ -24,6 +24,4 @@ class MultipleGameItem(val game: GameModel, private val selected: Boolean = fals
 
     override fun getItemType() =
             LIGHT
-
-
 }
