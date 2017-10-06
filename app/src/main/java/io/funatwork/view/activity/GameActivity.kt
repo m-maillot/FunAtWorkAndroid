@@ -3,7 +3,8 @@ package io.funatwork.view.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation
+import android.support.v4.util.Pair.create
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -29,7 +30,7 @@ import xyz.hanks.library.SmallBang
 
 class GameActivity : BaseActivity(), GameView {
 
-    val presenter by lazy {
+    private val presenter by lazy {
         GamePresenter(
                 gameView = this,
                 loadGame = LoadGame(
@@ -59,53 +60,53 @@ class GameActivity : BaseActivity(), GameView {
         )
     }
 
-    val imgRedPlayerAttack by lazy {
+    private val imgRedPlayerAttack by lazy {
         findViewById<CircleImageView>(R.id.img_player_red_attack)
     }
-    val imgRedPlayerDefense by lazy {
+    private val imgRedPlayerDefense by lazy {
         findViewById<CircleImageView>(R.id.img_player_red_defense)
     }
-    val imgBluePlayerAttack by lazy {
+    private val imgBluePlayerAttack by lazy {
         findViewById<CircleImageView>(R.id.img_player_blue_attack)
     }
-    val imgBluePlayerDefense by lazy {
+    private val imgBluePlayerDefense by lazy {
         findViewById<CircleImageView>(R.id.img_player_blue_defense)
     }
 
-    val imgGoalRedAttack by lazy {
+    private val imgGoalRedAttack by lazy {
         findViewById<TextView>(R.id.tv_red_attack_gamelle)
     }
-    val imgGoalRedDefense by lazy {
+    private val imgGoalRedDefense by lazy {
         findViewById<TextView>(R.id.tv_red_defense_gamelle)
     }
-    val imgGoalBlueAttack by lazy {
+    private val imgGoalBlueAttack by lazy {
         findViewById<TextView>(R.id.tv_blue_attack_gamelle)
     }
-    val imgGoalBlueDefense by lazy {
+    private val imgGoalBlueDefense by lazy {
         findViewById<TextView>(R.id.tv_blue_defense_gamelle)
     }
 
-    val tvScoreBlue by lazy {
+    private val tvScoreBlue by lazy {
         findViewById<TextView>(R.id.tv_score_blue)
     }
 
-    val tvScoreRed by lazy {
+    private val tvScoreRed by lazy {
         findViewById<TextView>(R.id.tv_score_red)
     }
 
-    val imgGoal by lazy {
+    private val imgGoal by lazy {
         findViewById<ImageView>(R.id.img_goal)
     }
 
-    val backgroundGoal by lazy {
+    private val backgroundGoal by lazy {
         findViewById<LinearLayout>(R.id.background_goal)
     }
 
-    val smallBang: SmallBang by lazy {
+    private val smallBang: SmallBang by lazy {
         SmallBang.attach2Window(this)
     }
 
-    val zoomInAnimation by lazy {
+    private val zoomInAnimation by lazy {
         AnimationUtils.loadAnimation(this, R.anim.zoomin)
     }
 
@@ -169,13 +170,28 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun renderGameFinished(game: GameModel) {
-        val p1 = android.support.v4.util.Pair.create(imgRedPlayerAttack as View, "redAttackPlayer")
-        val p2 = android.support.v4.util.Pair.create(imgRedPlayerDefense as View, "redDefensePlayer")
-        val p3 = android.support.v4.util.Pair.create(imgBluePlayerAttack as View, "blueAttackPlayer")
-        val p4 = android.support.v4.util.Pair.create(imgBluePlayerDefense as View, "blueDefensePlayer")
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4)
+        val animations = animateWinner(game) + animateLooser(game)
+        val options = makeSceneTransitionAnimation(this, animations[0], animations[1], animations[2], animations[3])
         navigator.navigateToGameOver(this, game, options)
     }
+
+    private fun animateWinner(game: GameModel): List<android.support.v4.util.Pair<View, String>> =
+            if (game.isRedTeamWin()) {
+                listOf(create(imgRedPlayerAttack as View, "winnerAttackPlayer"),
+                        create(imgRedPlayerDefense as View, "winnerDefensePlayer"))
+            } else {
+                listOf(create(imgBluePlayerAttack as View, "winnerAttackPlayer"),
+                        create(imgBluePlayerDefense as View, "winnerDefensePlayer"))
+            }
+
+    private fun animateLooser(game: GameModel): List<android.support.v4.util.Pair<View, String>> =
+            if (!game.isRedTeamWin()) {
+                listOf(create(imgRedPlayerAttack as View, "looserAttackPlayer"),
+                        create(imgRedPlayerDefense as View, "looserDefensePlayer"))
+            } else {
+                listOf(create(imgBluePlayerAttack as View, "looserAttackPlayer"),
+                        create(imgBluePlayerDefense as View, "looserDefensePlayer"))
+            }
 
 
     override fun renderGameCanceled() {

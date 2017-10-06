@@ -3,6 +3,7 @@ package io.funatwork.view.activity
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.getColor
 import android.widget.Button
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -15,36 +16,36 @@ import nl.dionsegijn.konfetti.models.Size
 
 class GameOverActivity : BaseActivity() {
 
-    val btnRestart by lazy {
+    private val btnRestart by lazy {
         findViewById<Button>(R.id.btn_new_game)
     }
 
-    val btnDone by lazy {
+    private val btnDone by lazy {
         findViewById<Button>(R.id.btn_done)
     }
 
-    val imgRedPlayerAttack by lazy {
-        findViewById<CircleImageView>(R.id.img_player_red_attack)
+    private val imgWinnerPlayerAttack by lazy {
+        findViewById<CircleImageView>(R.id.img_player_winner_attack)
     }
-    val imgRedPlayerDefense by lazy {
-        findViewById<CircleImageView>(R.id.img_player_red_defense)
+    private val imgWinnerPlayerDefense by lazy {
+        findViewById<CircleImageView>(R.id.img_player_winner_defense)
     }
-    val imgBluePlayerAttack by lazy {
-        findViewById<CircleImageView>(R.id.img_player_blue_attack)
+    private val imgLooserPlayerAttack by lazy {
+        findViewById<CircleImageView>(R.id.img_player_looser_attack)
     }
-    val imgBluePlayerDefense by lazy {
-        findViewById<CircleImageView>(R.id.img_player_blue_defense)
+    private val imgLooserPlayerDefense by lazy {
+        findViewById<CircleImageView>(R.id.img_player_looser_defense)
     }
 
-    val viewKonfetti by lazy {
+    private val viewKonfetti by lazy {
         findViewById<KonfettiView>(R.id.viewKonfetti)
     }
 
-    val tvScoreRed by lazy {
-        findViewById<TextView>(R.id.tv_score_red)
+    private val tvScoreWinner by lazy {
+        findViewById<TextView>(R.id.tv_score_winner)
     }
-    val tvScoreBlue by lazy {
-        findViewById<TextView>(R.id.tv_score_blue)
+    private val tvScoreLooser by lazy {
+        findViewById<TextView>(R.id.tv_score_looser)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,13 +60,20 @@ class GameOverActivity : BaseActivity() {
         }
 
         val game = intent.extras.getSerializable("GAME") as GameModel
-        Picasso.with(this).load(game.blueTeam.attackPlayer.avatar).into(imgBluePlayerAttack)
-        Picasso.with(this).load(game.blueTeam.defensePlayer.avatar).into(imgBluePlayerDefense)
-        Picasso.with(this).load(game.redTeam.attackPlayer.avatar).into(imgRedPlayerAttack)
-        Picasso.with(this).load(game.redTeam.defensePlayer.avatar).into(imgRedPlayerDefense)
 
-        tvScoreBlue.text = game.blueTeamGoal.toString()
-        tvScoreRed.text = game.redTeamGoal.toString()
+        val winnerColorTeam = if (game.isRedTeamWin()) getColor(this, R.color.colorRedTeam5) else getColor(this, R.color.colorBlueTeam5)
+        val looserColorTeam = if (game.isRedTeamWin()) getColor(this, R.color.colorBlueTeam5) else getColor(this, R.color.colorRedTeam5)
+        imgWinnerPlayerAttack.borderColor = winnerColorTeam
+        imgWinnerPlayerDefense.borderColor = winnerColorTeam
+        imgLooserPlayerAttack.borderColor = looserColorTeam
+        imgLooserPlayerDefense.borderColor = looserColorTeam
+        Picasso.with(this).load(game.winnerTeam.attackPlayer.avatar).into(imgWinnerPlayerAttack)
+        Picasso.with(this).load(game.winnerTeam.defensePlayer.avatar).into(imgWinnerPlayerDefense)
+        Picasso.with(this).load(game.looserTeam.attackPlayer.avatar).into(imgLooserPlayerAttack)
+        Picasso.with(this).load(game.looserTeam.defensePlayer.avatar).into(imgLooserPlayerDefense)
+
+        tvScoreWinner.text = game.winnerScore.toString()
+        tvScoreLooser.text = game.looserScore.toString()
 
         btnRestart.setOnClickListener {
             navigator.navigateToMain(this, FLAG_ACTIVITY_CLEAR_TOP)

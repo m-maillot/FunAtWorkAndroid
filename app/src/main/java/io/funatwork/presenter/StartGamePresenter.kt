@@ -9,9 +9,6 @@ import io.funatwork.model.babyfoot.toBo
 import io.funatwork.model.babyfoot.toModel
 import io.funatwork.view.StartGameView
 
-/**
- * Created by mmaillot on 4/18/17.
- */
 class StartGamePresenter(val startGameView: StartGameView, val startGame: StartGame) : Presenter {
     override fun resume() {}
 
@@ -31,13 +28,13 @@ class StartGamePresenter(val startGameView: StartGameView, val startGame: StartG
             startGameView.hideLoading()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             startGameView.hideLoading()
-            startGameView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            startGameView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(game: Game) {
-            startGameView.onGameStarted(game.toModel())
+        override fun onNext(element: Game) {
+            startGameView.onGameStarted(element.toModel())
         }
     }
 }
