@@ -1,39 +1,33 @@
 # Java Gradle CircleCI 2.0 configuration file
-version: 2
+version: 2.0
+
+defaults: &defaults
+  docker:
+    - image: circleci/android:api-26-alpha
+  working_directory: ~/funatwork
+  environment:
+    _JAVA_OPTIONS: "-Xmx1400m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2"
+    TERM: dumb
+    BABYFOOT_APP_BASE_URL: http://localhost
+
 jobs:
-  build:
-    working_directory: ~/code
-    docker:
-      # specify the version you desire here
-      - image: circleci/android:api-26-alpha
-
-    environment:
-      JVM_OPTS: -Xmx3200m
-
-    steps:
-      - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-      # run tests!
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
-
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
-
-      - store_test_results:
-          path: app/build/test-results
+  <<: *defaults
+  steps:
+    - checkout
+    - restore_cache:
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
+    - save_cache:
+        paths:
+          - ~/.gradle
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    - run:
+        name: Run Lint
+        command: ./gradlew lint
+    - store_artifacts:
+        path: app/build/reports
+        destination: reports
+    - store_test_results:
+        path: app/build/test-results
