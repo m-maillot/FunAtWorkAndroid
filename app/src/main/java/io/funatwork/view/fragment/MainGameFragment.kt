@@ -24,6 +24,7 @@ import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.presenter.GameListPresenter
 import io.funatwork.view.GameListView
 import io.funatwork.view.adapter.GameAdapter
+import io.funatwork.view.adapter.MultipleGameItem
 
 class MainGameFragment : BaseFragment(), GameListView {
 
@@ -133,7 +134,7 @@ class MainGameFragment : BaseFragment(), GameListView {
     }
 
     override fun renderGameFinishedList(games: List<GameModel>) {
-        val adapter = GameAdapter(games)
+        val adapter = GameAdapter(ArrayList(games.map { MultipleGameItem(game = it) }))
         recyclerGames?.adapter = adapter
         adapter.addHeaderView((context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
     }

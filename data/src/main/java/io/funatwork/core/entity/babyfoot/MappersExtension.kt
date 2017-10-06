@@ -30,7 +30,8 @@ fun GameEntity.toBo() =
                 endedDate = endedDate?.let { dateTimeNoMillis().parseDateTime(it) },
                 goals = goals.map { it.toBo() },
                 status = status,
-                plannedDate = plannedDate?.let { dateTimeNoMillis().parseDateTime(it) })
+                plannedDate = plannedDate?.let { dateTimeNoMillis().parseDateTime(it) },
+                tournamentId = tournamentId)
 
 fun PlayerStatsEntity.toBo() =
         PlayerStats(player = player.toBo(),

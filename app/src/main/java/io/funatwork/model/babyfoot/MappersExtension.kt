@@ -31,7 +31,8 @@ fun Game.toModel() =
                 endedDate = endedDate ?: DateTime(0L),
                 goals = goals.map { it.toModel() },
                 status = status,
-                plannedDate = plannedDate ?: DateTime(0L))
+                plannedDate = plannedDate ?: DateTime(0L),
+                tournamentId = tournamentId ?: -1)
 
 fun GameModel.toBo() =
         Game(id = id,
@@ -43,7 +44,8 @@ fun GameModel.toBo() =
                 endedDate = endedDate,
                 goals = goals.map(GoalModel::toBo),
                 status = status,
-                plannedDate = plannedDate)
+                plannedDate = plannedDate,
+                tournamentId = tournamentId)
 
 fun TeamModel.toBo() =
         Team(id = id,

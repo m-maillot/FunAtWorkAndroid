@@ -1,5 +1,6 @@
 package io.funatwork.core.repository.datasource.tournament
 
+import io.funatwork.core.entity.babyfoot.GameEntity
 import io.funatwork.core.entity.babyfoot.TournamentEntity
 import io.reactivex.Observable
 
@@ -9,4 +10,6 @@ import io.reactivex.Observable
 interface TournamentDataStore {
 
     fun currentTournament(): Observable<TournamentEntity>
+
+    fun startGame(gameId: Int): Observable<GameEntity>
 }

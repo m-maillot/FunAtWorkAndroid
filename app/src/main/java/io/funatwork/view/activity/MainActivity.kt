@@ -13,7 +13,7 @@ import io.funatwork.view.fragment.MainGameFragment
 import io.funatwork.view.fragment.StandingsFragment
 import io.funatwork.view.fragment.TournamentFragment
 
-class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
+class MainActivity : BaseActivity(), MainGameFragment.InitNewGame, TournamentFragment.StartGame {
 
     private val bottomNavigationView by lazy {
         findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -24,7 +24,8 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
         setContentView(R.layout.activity_bottom_nav)
         supportActionBar?.hide()
         supportActionBar?.title = getString(R.string.game_title)
-        addFragment(R.id.fragmentContainer, MainGameFragment())
+        val action = intent.extras.getInt("SECTION", R.id.action_play)
+        loadFragment(action)
     }
 
     override fun onStart() {
@@ -37,37 +38,41 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
         menuNav.findItem(R.id.action_account).isEnabled = true
         menuNav.findItem(R.id.action_standings).isEnabled = true
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.action_play -> {
-                    if (bottomNavigationView.selectedItemId != R.id.action_play) {
-                        supportActionBar?.hide()
-                        supportActionBar?.title = getString(R.string.game_title)
-                        addFragment(R.id.fragmentContainer, MainGameFragment())
-                    }
-                }
-                R.id.action_standings -> {
-                    if (bottomNavigationView.selectedItemId != R.id.action_standings) {
-                        supportActionBar?.show()
-                        supportActionBar?.title = getString(R.string.standings_title)
-                        addFragment(R.id.fragmentContainer, StandingsFragment())
-                    }
-                }
-                R.id.action_account -> {
-                    if (bottomNavigationView.selectedItemId != R.id.action_account) {
-                        supportActionBar?.show()
-                        supportActionBar?.title = getString(R.string.account_title)
-                        addFragment(R.id.fragmentContainer, AccountFragment())
-                    }
-                }
-                R.id.action_tournament -> {
-                    if (bottomNavigationView.selectedItemId != R.id.action_tournament) {
-                        supportActionBar?.show()
-                        supportActionBar?.title = getString(R.string.tournament_title)
-                        addFragment(R.id.fragmentContainer, TournamentFragment())
-                    }
+            loadFragment(item.itemId)
+            true
+        }
+    }
+
+    private fun loadFragment(action: Int) {
+        when (action) {
+            R.id.action_play -> {
+                if (bottomNavigationView.selectedItemId != R.id.action_play) {
+                    supportActionBar?.hide()
+                    supportActionBar?.title = getString(R.string.game_title)
+                    addFragment(R.id.fragmentContainer, MainGameFragment())
                 }
             }
-            true
+            R.id.action_standings -> {
+                if (bottomNavigationView.selectedItemId != R.id.action_standings) {
+                    supportActionBar?.show()
+                    supportActionBar?.title = getString(R.string.standings_title)
+                    addFragment(R.id.fragmentContainer, StandingsFragment())
+                }
+            }
+            R.id.action_account -> {
+                if (bottomNavigationView.selectedItemId != R.id.action_account) {
+                    supportActionBar?.show()
+                    supportActionBar?.title = getString(R.string.account_title)
+                    addFragment(R.id.fragmentContainer, AccountFragment())
+                }
+            }
+            R.id.action_tournament -> {
+                if (bottomNavigationView.selectedItemId != R.id.action_tournament) {
+                    supportActionBar?.show()
+                    supportActionBar?.title = getString(R.string.tournament_title)
+                    addFragment(R.id.fragmentContainer, TournamentFragment())
+                }
+            }
         }
     }
 
@@ -77,6 +82,8 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame {
     override fun onEditGame(game: GameModel, redAttack: View, redDefense: View, blueAttack: View, blueDefense: View) =
             navigator.navigateToGame(this, game, generateTransition(redAttack, redDefense, blueAttack, blueDefense))
 
+    override fun startGame(game: GameModel) =
+            navigator.navigateToGame(this, game)
 
     private fun generateTransition(redAttack: View, redDefense: View, blueAttack: View, blueDefense: View): ActivityOptionsCompat {
         val p1 = create(redAttack, "redAttackPlayer")

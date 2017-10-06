@@ -99,13 +99,13 @@ class SelectPlayersPresenter(val selectPlayersView: SelectPlayersView, val getPl
             selectPlayersView.hideLoading()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             selectPlayersView.hideLoading()
-            selectPlayersView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            selectPlayersView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(players: List<Player>) {
-            selectPlayersView.renderPlayerList(players.map(Player::toModel))
+        override fun onNext(element: List<Player>) {
+            selectPlayersView.renderPlayerList(element.map(Player::toModel))
         }
     }
 }

@@ -13,11 +13,14 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.TournamentDataRepository
 import io.funatwork.core.repository.datasource.tournament.TournamentDataStoreFactory
 import io.funatwork.domain.interactor.GetCurrentTournament
+import io.funatwork.domain.interactor.StartTournamentGame
 import io.funatwork.extensions.getConnectivityManager
+import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TournamentModel
 import io.funatwork.presenter.TournamentPresenter
 import io.funatwork.view.TournamentView
 import io.funatwork.view.adapter.GameAdapter
+import io.funatwork.view.adapter.MultipleGameItem
 
 class TournamentFragment : BaseFragment(), TournamentView {
 
@@ -26,6 +29,15 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     private var recyclerGames: RecyclerView? = null
+
+    /**
+     * Interface for listening when start a game
+     */
+    interface StartGame {
+        fun startGame(game: GameModel)
+    }
+
+    private var startGameListener: StartGame? = null
 
     val presenter by lazy {
         TournamentPresenter(
@@ -37,8 +49,23 @@ class TournamentFragment : BaseFragment(), TournamentView {
                                 )
                         ),
                         postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor)
+                        threadExecutor = fwtApplication.jobExecutor),
+                startTournamentGame = StartTournamentGame(
+                        tournamentRepository = TournamentDataRepository(
+                                tournamentDataStoreFactory = TournamentDataStoreFactory(
+                                        connectionUtils = ConnectionUtils(activity.getConnectivityManager())
+                                )
+                        ),
+                        postExecutionThread = fwtApplication.uiThread,
+                        threadExecutor = fwtApplication.jobExecutor
+                )
         )
+    }
+
+    override fun onAttachToContext(context: Context?) {
+        if (context is StartGame) {
+            this.startGameListener = context
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -58,6 +85,11 @@ class TournamentFragment : BaseFragment(), TournamentView {
         }
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        startGameListener = null
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         recyclerGames?.adapter = null
@@ -69,9 +101,30 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     override fun renderCurrentTournament(tournament: TournamentModel) {
-        val adapter = GameAdapter(tournament.rounds.flatMap { it.games })
+        val flatGames = tournament.rounds.flatMap { it.games }
+        val adapter = GameAdapter(ArrayList(flatGames.map { MultipleGameItem(game = it) }))
+        adapter.setOnItemClickListener { _, _, position ->
+            (recyclerGames?.adapter as? GameAdapter)?.apply {
+                data.clear()
+                data.addAll(ArrayList(flatGames.mapIndexed { index, it ->
+                    MultipleGameItem(
+                            game = it,
+                            selected = index == position)
+                }))
+                notifyDataSetChanged()
+            }
+        }
+
+        adapter.setOnItemChildClickListener { _, _, position ->
+            presenter.startGame(adapter.data[position].game)
+        }
         recyclerGames?.adapter = adapter
-        adapter.addHeaderView((context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
+        adapter.addHeaderView((context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+                .inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
+    }
+
+    override fun startGame(game: GameModel) {
+        startGameListener?.startGame(game)
     }
 
 

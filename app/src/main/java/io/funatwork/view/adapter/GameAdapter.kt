@@ -1,7 +1,7 @@
 package io.funatwork.view.adapter
 
 import android.widget.ImageView
-import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.squareup.picasso.Picasso
 import io.funatwork.R
@@ -9,18 +9,26 @@ import io.funatwork.extensions.showHumanDateFromMillis
 import io.funatwork.model.babyfoot.GameModel
 import jp.wasabeef.picasso.transformations.GrayscaleTransformation
 
-class GameAdapter(data: List<GameModel>) : BaseQuickAdapter<GameModel, BaseViewHolder>(R.layout.game_item, data) {
+class GameAdapter(val data: ArrayList<MultipleGameItem>) : BaseMultiItemQuickAdapter<MultipleGameItem, BaseViewHolder>(data) {
 
-    override fun convert(helper: BaseViewHolder, item: GameModel) {
-        when (item.status) {
-            item.GAME_PLANNED -> convertGamePlanned(helper, item)
-            item.GAME_STARTED -> convertGameStarted(helper, item)
-            item.GAME_OVER -> convertGameOver(helper, item)
-            item.GAME_CANCELED -> convertGameCanceled(helper, item)
+    init {
+        addItemType(MultipleGameItem.LIGHT, R.layout.game_item)
+        addItemType(MultipleGameItem.FULL_PENDING, R.layout.game_pending_expand_item)
+    }
+
+    override fun convert(helper: BaseViewHolder, item: MultipleGameItem) {
+        when (item.itemTypeEntity) {
+            MultipleGameItem.LIGHT -> when (item.game.status) {
+                GameModel.PLANNED -> convertGamePlanned(helper, item.game)
+                GameModel.STARTED -> convertGameStarted(helper, item.game)
+                GameModel.GAME_OVER -> convertGameOver(helper, item.game)
+                GameModel.CANCELED -> convertGameCanceled(helper, item.game)
+            }
+            MultipleGameItem.FULL_PENDING -> convertFullGamePlanned(helper, item.game)
         }
     }
 
-    fun convertGamePlanned(helper: BaseViewHolder, item: GameModel) {
+    private fun convertGamePlanned(helper: BaseViewHolder, item: GameModel) {
         helper.setText(R.id.tv_score_blue, mContext.getString(R.string.game_no_score))
         helper.setText(R.id.tv_score_red, mContext.getString(R.string.game_no_score))
         helper.setText(R.id.tv_game_date, item.plannedDate.millis.showHumanDateFromMillis())
@@ -28,7 +36,12 @@ class GameAdapter(data: List<GameModel>) : BaseQuickAdapter<GameModel, BaseViewH
         loadAvatar(helper, item)
     }
 
-    fun convertGameStarted(helper: BaseViewHolder, item: GameModel) {
+    private fun convertFullGamePlanned(helper: BaseViewHolder, item: GameModel) {
+        convertGamePlanned(helper, item)
+        helper.addOnClickListener(R.id.btn_start_game)
+    }
+
+    private fun convertGameStarted(helper: BaseViewHolder, item: GameModel) {
         helper.setText(R.id.tv_score_blue, item.blueTeamGoal.toString())
         helper.setText(R.id.tv_score_red, item.redTeamGoal.toString())
         helper.setText(R.id.tv_game_date, item.startedDate.millis.showHumanDateFromMillis())
@@ -36,7 +49,7 @@ class GameAdapter(data: List<GameModel>) : BaseQuickAdapter<GameModel, BaseViewH
         loadAvatar(helper, item)
     }
 
-    fun convertGameOver(helper: BaseViewHolder, item: GameModel) {
+    private fun convertGameOver(helper: BaseViewHolder, item: GameModel) {
         helper.setText(R.id.tv_score_blue, item.blueTeamGoal.toString())
         helper.setText(R.id.tv_score_red, item.redTeamGoal.toString())
         helper.setText(R.id.tv_game_date, item.startedDate.millis.showHumanDateFromMillis())
@@ -66,7 +79,7 @@ class GameAdapter(data: List<GameModel>) : BaseQuickAdapter<GameModel, BaseViewH
         }
     }
 
-    fun convertGameCanceled(helper: BaseViewHolder, item: GameModel) {
+    private fun convertGameCanceled(helper: BaseViewHolder, item: GameModel) {
         helper.setText(R.id.tv_score_blue, item.blueTeamGoal.toString())
         helper.setText(R.id.tv_score_red, item.redTeamGoal.toString())
         helper.setText(R.id.tv_game_date, item.startedDate.millis.showHumanDateFromMillis())
@@ -74,7 +87,7 @@ class GameAdapter(data: List<GameModel>) : BaseQuickAdapter<GameModel, BaseViewH
         loadAvatar(helper, item)
     }
 
-    fun loadAvatar(helper: BaseViewHolder, item: GameModel) {
+    private fun loadAvatar(helper: BaseViewHolder, item: GameModel) {
         if (item.redTeam.id >= 0) {
             Picasso.with(mContext).load(item.redTeam.attackPlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_red_attack))
             Picasso.with(mContext).load(item.redTeam.defensePlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_red_defense))

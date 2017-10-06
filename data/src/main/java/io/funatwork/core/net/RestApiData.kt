@@ -16,4 +16,5 @@ object RestApiData {
     val API_URL_STATS_PLAYER = API_BASE_URL + "/api/v1/babyfoot/stats/player"
     val API_URL_STATS_TEAM = API_BASE_URL + "/api/v1/babyfoot/stats/team"
     val API_URL_CURRENT_TOURNAMENT = API_BASE_URL + "/api/v1/babyfoot/tournaments/current"
+    val API_URL_START_TOURNAMENT_GAME = API_BASE_URL + "/api/v1/babyfoot/tournaments/startGame"
 }

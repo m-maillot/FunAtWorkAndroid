@@ -67,5 +67,6 @@
 
     <!-- Tournament -->
     <string name="tournament_title">Cup</string>
+    <string name="tournament_start_game">Start game</string>
 
 </resources>

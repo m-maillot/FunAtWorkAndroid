@@ -8,6 +8,6 @@ class TournamentDataStoreFactory(val connectionUtils: ConnectionUtils) {
     fun create() =
             createCloudDataStore()
 
-    fun createCloudDataStore() =
+    private fun createCloudDataStore() =
             CloudTournamentDataStore(TournamentRestApiImpl(connectionUtils))
 }
