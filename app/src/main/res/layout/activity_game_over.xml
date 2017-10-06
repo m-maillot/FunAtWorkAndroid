@@ -10,67 +10,116 @@
     <nl.dionsegijn.konfetti.KonfettiView
         android:id="@+id/viewKonfetti"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/img_trophy"
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="199dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:contentDescription="@string/img_no_description"
-        app:layout_constraintBottom_toTopOf="@+id/layout_winners"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/img_player_winner_attack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_world_cup" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_player_winner_attack"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/img_no_description"
+        android:src="@drawable/ic_user"
+        android:transitionName="winnerAttackPlayer"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_winners"
+        app:layout_constraintEnd_toStartOf="@+id/img_player_winner_defense"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_trophy" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_player_winner_defense"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/img_no_description"
+        android:src="@drawable/ic_user"
+        android:transitionName="winnerDefensePlayer"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_winner_attack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/img_player_winner_attack"
+        app:layout_constraintTop_toTopOf="@+id/img_player_winner_attack" />
+
+    <android.support.constraint.Group
+        android:id="@+id/looser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="img_player_looser_attack,img_player_looser_defense" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_player_looser_attack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/img_no_description"
+        android:src="@drawable/ic_user"
+        android:transitionName="looserAttackPlayer"
+        app:civ_border_width="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_new_game"
+        app:layout_constraintEnd_toStartOf="@+id/img_player_looser_defense"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_winners" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_player_looser_defense"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/img_no_description"
+        android:src="@drawable/ic_user"
+        android:transitionName="looserDefensePlayer"
+        app:civ_border_width="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_looser_attack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/img_player_looser_attack"
+        app:layout_constraintTop_toTopOf="@+id/img_player_looser_attack" />
 
     <LinearLayout
         android:id="@+id/layout_winners"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btn_new_game"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_trophy">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_player_red_attack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="5dp"
-                android:contentDescription="@string/img_no_description"
-                android:transitionName="redAttackPlayer"
-                app:civ_border_width="0dp"
-                android:src="@drawable/ic_user" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_player_red_defense"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/img_no_description"
-                android:transitionName="redDefensePlayer"
-                app:civ_border_width="0dp"
-                android:src="@drawable/ic_user" />
-        </LinearLayout>
+        app:layout_constraintBottom_toTopOf="@+id/img_player_looser_attack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_player_winner_attack">
 
         <TextView
-            android:id="@+id/tv_score_red"
+            android:id="@+id/tv_score_winner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_over_initial_score"
@@ -89,7 +138,7 @@
             android:textSize="50sp" />
 
         <TextView
-            android:id="@+id/tv_score_blue"
+            android:id="@+id/tv_score_looser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_over_initial_score"
@@ -97,58 +146,26 @@
             android:textColor="@color/colorPrimary"
             android:textSize="50sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_player_blue_attack"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="5dp"
-                android:contentDescription="@string/img_no_description"
-                android:transitionName="blueAttackPlayer"
-                app:civ_border_width="0dp"
-                android:src="@drawable/ic_user" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_player_blue_defense"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/img_no_description"
-                android:transitionName="blueDefensePlayer"
-                app:civ_border_width="0dp"
-                android:src="@drawable/ic_user" />
-        </LinearLayout>
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_new_game"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/colorAccent"
+        android:layout_marginStart="8dp"
         android:text="@string/game_over_done"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_done"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/colorAccent"
+        android:layout_marginEnd="8dp"
         android:text="@string/game_over_new_game"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp" />
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="horizontal" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
