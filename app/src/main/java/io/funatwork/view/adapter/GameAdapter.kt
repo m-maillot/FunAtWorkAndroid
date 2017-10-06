@@ -9,7 +9,7 @@ import io.funatwork.extensions.showHumanDateFromMillis
 import io.funatwork.model.babyfoot.GameModel
 import jp.wasabeef.picasso.transformations.GrayscaleTransformation
 
-class GameAdapter(val data: ArrayList<MultipleGameItem>) : BaseMultiItemQuickAdapter<MultipleGameItem, BaseViewHolder>(data) {
+class GameAdapter(var gameItems: List<MultipleGameItem>) : BaseMultiItemQuickAdapter<MultipleGameItem, BaseViewHolder>(gameItems) {
 
     init {
         addItemType(MultipleGameItem.LIGHT, R.layout.game_item)
@@ -34,6 +34,8 @@ class GameAdapter(val data: ArrayList<MultipleGameItem>) : BaseMultiItemQuickAda
         helper.setText(R.id.tv_game_date, item.plannedDate.millis.showHumanDateFromMillis())
         helper.setText(R.id.tv_game_state, mContext.getString(R.string.game_state_planned))
         loadAvatar(helper, item)
+        helper.setVisible(R.id.btn_tournament_stat_game, true)
+        helper.addOnClickListener(R.id.btn_tournament_stat_game)
     }
 
     private fun convertFullGamePlanned(helper: BaseViewHolder, item: GameModel) {

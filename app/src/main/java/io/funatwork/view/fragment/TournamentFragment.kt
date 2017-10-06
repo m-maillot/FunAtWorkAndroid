@@ -102,15 +102,14 @@ class TournamentFragment : BaseFragment(), TournamentView {
 
     override fun renderCurrentTournament(tournament: TournamentModel) {
         val flatGames = tournament.rounds.flatMap { it.games }
-        val adapter = GameAdapter(ArrayList(flatGames.map { MultipleGameItem(game = it) }))
+        val adapter = GameAdapter(flatGames.map { MultipleGameItem(game = it) })
         adapter.setOnItemClickListener { _, _, position ->
             (recyclerGames?.adapter as? GameAdapter)?.apply {
-                data.clear()
-                data.addAll(ArrayList(flatGames.mapIndexed { index, it ->
+                gameItems = flatGames.mapIndexed { index, it ->
                     MultipleGameItem(
                             game = it,
                             selected = index == position)
-                }))
+                }
                 notifyDataSetChanged()
             }
         }

@@ -23,7 +23,7 @@ class MultipleGameItem(val game: GameModel, private val selected: Boolean = fals
     }
 
     override fun getItemType() =
-            if (selected) itemTypeEntity else LIGHT
+            LIGHT
 
 
 }
