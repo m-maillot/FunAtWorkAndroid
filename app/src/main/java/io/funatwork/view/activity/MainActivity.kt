@@ -24,8 +24,8 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame, TournamentFra
         setContentView(R.layout.activity_bottom_nav)
         supportActionBar?.hide()
         supportActionBar?.title = getString(R.string.game_title)
-        val action = intent.extras.getInt("SECTION", R.id.action_play)
-        loadFragment(action)
+        val action = intent?.extras?.getInt("SECTION", R.id.action_play) ?: R.id.action_play
+        loadFragment(action, true)
     }
 
     override fun onStart() {
@@ -34,41 +34,34 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame, TournamentFra
     }
 
     private fun initTab() {
-        val menuNav = bottomNavigationView.menu
-        menuNav.findItem(R.id.action_account).isEnabled = true
-        menuNav.findItem(R.id.action_standings).isEnabled = true
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            loadFragment(item.itemId)
+            loadFragment(item.itemId, false)
             true
         }
     }
 
-    private fun loadFragment(action: Int) {
+    private fun loadFragment(action: Int, forced: Boolean) {
         when (action) {
             R.id.action_play -> {
-                if (bottomNavigationView.selectedItemId != R.id.action_play) {
-                    supportActionBar?.hide()
+                if (forced || bottomNavigationView.selectedItemId != R.id.action_play) {
                     supportActionBar?.title = getString(R.string.game_title)
                     addFragment(R.id.fragmentContainer, MainGameFragment())
                 }
             }
             R.id.action_standings -> {
-                if (bottomNavigationView.selectedItemId != R.id.action_standings) {
-                    supportActionBar?.show()
+                if (forced || bottomNavigationView.selectedItemId != R.id.action_standings) {
                     supportActionBar?.title = getString(R.string.standings_title)
                     addFragment(R.id.fragmentContainer, StandingsFragment())
                 }
             }
             R.id.action_account -> {
-                if (bottomNavigationView.selectedItemId != R.id.action_account) {
-                    supportActionBar?.show()
+                if (forced || bottomNavigationView.selectedItemId != R.id.action_account) {
                     supportActionBar?.title = getString(R.string.account_title)
                     addFragment(R.id.fragmentContainer, AccountFragment())
                 }
             }
             R.id.action_tournament -> {
-                if (bottomNavigationView.selectedItemId != R.id.action_tournament) {
-                    supportActionBar?.show()
+                if (forced || bottomNavigationView.selectedItemId != R.id.action_tournament) {
                     supportActionBar?.title = getString(R.string.tournament_title)
                     addFragment(R.id.fragmentContainer, TournamentFragment())
                 }
