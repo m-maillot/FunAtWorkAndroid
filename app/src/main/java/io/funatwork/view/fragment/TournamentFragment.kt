@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import io.funatwork.R
 import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.TournamentDataRepository
@@ -24,6 +25,7 @@ import io.funatwork.view.adapter.item.Game
 import io.funatwork.view.adapter.item.GameItem
 import io.funatwork.view.adapter.item.Header
 
+
 class TournamentFragment : BaseFragment(), TournamentView {
 
     init {
@@ -31,6 +33,9 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     private var recyclerGames: RecyclerView? = null
+
+
+    val adapter = TournamentGameAdapter(emptyList())
 
     /**
      * Interface for listening when start a game
@@ -77,6 +82,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
         recyclerGames = view?.findViewById(R.id.rv_tournament_games)
         recyclerGames?.setHasFixedSize(true)
         recyclerGames?.layoutManager = LinearLayoutManager(activity)
+        recyclerGames?.adapter = adapter
         return view
     }
 
@@ -84,6 +90,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
             presenter.initialize()
+            adapter.openLoadAnimation()
         }
     }
 
@@ -103,12 +110,13 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     override fun renderCurrentTournament(tournament: TournamentModel) {
-        val adapter = TournamentGameAdapter(createTournament(tournament))
-        adapter.setOnItemChildClickListener { _, _, position ->
-            val item = adapter.gameItems[position] as Game
-            presenter.startGame(item.game)
+        (recyclerGames?.adapter as? TournamentGameAdapter)?.let {
+            it.setNewData(createTournament(tournament))
+            it.setOnItemChildClickListener { _, _, position ->
+                val item = it.gameItems[position] as Game
+                presenter.startGame(item.game)
+            }
         }
-        recyclerGames?.adapter = adapter
     }
 
     override fun startGame(game: GameModel) {
@@ -128,4 +136,17 @@ class TournamentFragment : BaseFragment(), TournamentView {
         return element.toList()
     }
 
+    override fun showLoading() {
+        adapter.setEmptyView(R.layout.list_games_loading, recyclerGames?.parent as ViewGroup)
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun showError(title: String, message: String) {
+        val errorView = LayoutInflater.from(context).inflate(R.layout.list_games_error, recyclerGames?.parent as ViewGroup, false)
+        val errorMsg = errorView.findViewById<TextView>(R.id.tv_list_game_error_msg)
+        errorMsg.text = "$title: $message"
+        adapter.emptyView = errorView
+    }
 }
