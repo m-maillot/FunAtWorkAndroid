@@ -14,6 +14,6 @@ data class Game(val game: GameModel) : GameItem() {
     override fun getItemType() = GAME
 }
 
-data class Header(val roundIndex: Int) : GameItem() {
+data class Header(val roundIndex: Int, val roundIndexInversed: Int) : GameItem() {
     override fun getItemType() = HEADER
 }

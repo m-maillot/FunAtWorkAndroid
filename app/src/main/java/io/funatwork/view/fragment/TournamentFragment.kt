@@ -120,7 +120,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
         var currentRound = -1
         tournament.rounds.forEach({
             if (currentRound != it.index) {
-                element.add(Header(it.index))
+                element.add(Header(it.index, tournament.rounds.size - it.index))
                 currentRound = it.index
             }
             element.addAll(it.games.map { Game(it) })

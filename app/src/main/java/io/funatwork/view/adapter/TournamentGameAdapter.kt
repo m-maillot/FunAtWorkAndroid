@@ -22,8 +22,17 @@ class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickA
     override fun convert(helper: BaseViewHolder, item: GameItem) {
         when (item) {
             is Game -> convertGame(helper, item.game)
-            is Header -> helper.setText(R.id.tv_tournament_header_round,
+            is Header -> convertHeader(helper, item)
+        }
+    }
+
+    private fun convertHeader(helper: BaseViewHolder, item: Header) {
+        if (item.roundIndexInversed == 0) {
+            helper.setText(R.id.tv_tournament_header_round, "Final")
+        } else {
+            helper.setText(R.id.tv_tournament_header_round,
                     mContext.getString(R.string.tournament_item_header_round, item.roundIndex.toString()))
+
         }
     }
 
