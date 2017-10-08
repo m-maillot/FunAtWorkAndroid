@@ -29,6 +29,7 @@
     <!-- Bottom bar -->
     <string name="menu_matchs">Matchs</string>
     <string name="menu_standings">Standings</string>
+    <string name="menu_tournament">Cup</string>
     <string name="menu_account">Profile</string>
     <string name="img_no_description">No description</string>
 
@@ -38,6 +39,9 @@
     <string name="games_stadium_">V3D Stadium, Lyon</string>
     <string name="games_ready_to_rumble">Ready to rumble?</string>
     <string name="games_start_a_new_game">\u26BD\uFE0E Start a new game \u26BD\uFE0E</string>
+    <string name="game_no_score">-</string>
+    <string name="game_state_planned">Upcommming</string>
+    <string name="game_state_started">Running</string>
     <string name="game_state_finished">Finished</string>
     <string name="game_state_canceled">Canceled</string>
     <string name="matchs_last_games">Last games</string>
@@ -60,5 +64,10 @@
     <string name="login_sign_in">Sign in</string>
     <string name="login_sign_in_fail">Login failed, are you sure to set the right login/password ?</string>
     <string name="login_snackbar_close">close</string>
+
+    <!-- Tournament -->
+    <string name="tournament_title">Cup</string>
+    <string name="tournament_start_game">Start game</string>
+    <string name="tournament_item_header_round">Round %1$s</string>
 
 </resources>

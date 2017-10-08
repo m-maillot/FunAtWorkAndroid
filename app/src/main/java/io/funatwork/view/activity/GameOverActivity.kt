@@ -4,6 +4,7 @@ import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat.getColor
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -75,14 +76,20 @@ class GameOverActivity : BaseActivity() {
         tvScoreWinner.text = game.winnerScore.toString()
         tvScoreLooser.text = game.looserScore.toString()
 
-        btnRestart.setOnClickListener {
-            navigator.navigateToMain(this, FLAG_ACTIVITY_CLEAR_TOP)
-        }
+        if (game.tournamentId >= 0) {
+            btnRestart.visibility = View.GONE
+            btnDone.setOnClickListener {
+                navigator.navigateToTournament(this, FLAG_ACTIVITY_CLEAR_TOP)
+            }
+        } else {
+            btnRestart.setOnClickListener {
+                navigator.navigateToMain(this, FLAG_ACTIVITY_CLEAR_TOP)
+            }
 
-        btnDone.setOnClickListener {
-            navigator.navigateToCreateGame(this, FLAG_ACTIVITY_CLEAR_TOP, game.redTeam, game.blueTeam)
+            btnDone.setOnClickListener {
+                navigator.navigateToCreateGame(this, FLAG_ACTIVITY_CLEAR_TOP, game.redTeam, game.blueTeam)
+            }
         }
-
     }
 
     override fun onEnterAnimationComplete() {

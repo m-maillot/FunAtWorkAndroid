@@ -41,13 +41,13 @@ class StandingsPresenter(val standingsView: StandingsView, val getTeamStats: Get
             standingsView.hideLoading()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             standingsView.hideLoading()
-            standingsView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            standingsView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(teamStats: List<TeamStats>) {
-            standingsView.renderTeamStats(teamStats.map(TeamStats::toModel))
+        override fun onNext(element: List<TeamStats>) {
+            standingsView.renderTeamStats(element.map(TeamStats::toModel))
         }
     }
 
@@ -57,13 +57,13 @@ class StandingsPresenter(val standingsView: StandingsView, val getTeamStats: Get
             standingsView.hideLoading()
         }
 
-        override fun onError(e: Throwable?) {
+        override fun onError(exception: Throwable?) {
             standingsView.hideLoading()
-            standingsView.showError(title = "Error happen", message = e?.message ?: "Unknown Error")
+            standingsView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
-        override fun onNext(playerStats: List<PlayerStats>) {
-            standingsView.renderPlayerStats(playerStats.map(PlayerStats::toModel))
+        override fun onNext(element: List<PlayerStats>) {
+            standingsView.renderPlayerStats(element.map(PlayerStats::toModel))
         }
     }
 }

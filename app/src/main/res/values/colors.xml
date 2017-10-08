@@ -15,6 +15,8 @@
     <color name="colorBottomNacActive">#37C371</color>
     <color name="colorBottomNacInactive">#979797</color>
 
+    <color name="colorListHeaderBackground">#D4D5D4</color>
+
     <!--
     <color name="colorPrimary">#8BC34A</color>
     <color name="colorPrimaryDark">#689F38</color>

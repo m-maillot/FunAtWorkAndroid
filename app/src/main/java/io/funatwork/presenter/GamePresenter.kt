@@ -95,7 +95,7 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
         override fun onNext(element: Game) {
             val game = element.toModel()
             gameView.renderGoal(game.blueTeamGoal, game.redTeamGoal)
-            if (element.status == element.GAME_OVER) {
+            if (game.status == GameModel.GAME_OVER) {
                 gameView.renderGameFinished(element.toModel())
             }
         }

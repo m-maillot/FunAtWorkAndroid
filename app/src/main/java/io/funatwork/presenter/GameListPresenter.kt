@@ -4,7 +4,6 @@ import io.funatwork.domain.interactor.DefaultObserver
 import io.funatwork.domain.interactor.GetGameList
 import io.funatwork.domain.interactor.params.NoParams
 import io.funatwork.domain.model.babyfoot.Game
-import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.toModel
 import io.funatwork.view.GameListView
 

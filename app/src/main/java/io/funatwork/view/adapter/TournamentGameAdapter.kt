@@ -7,24 +7,41 @@ import com.squareup.picasso.Picasso
 import io.funatwork.R
 import io.funatwork.extensions.showHumanDateFromMillis
 import io.funatwork.model.babyfoot.GameModel
+import io.funatwork.view.adapter.item.Game
+import io.funatwork.view.adapter.item.GameItem
+import io.funatwork.view.adapter.item.Header
 import jp.wasabeef.picasso.transformations.GrayscaleTransformation
 
-class GameAdapter(var gameItems: List<MultipleGameItem>) : BaseMultiItemQuickAdapter<MultipleGameItem, BaseViewHolder>(gameItems) {
+class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickAdapter<GameItem, BaseViewHolder>(gameItems) {
 
     init {
-        addItemType(MultipleGameItem.LIGHT, R.layout.game_item)
-        addItemType(MultipleGameItem.FULL_PENDING, R.layout.game_pending_expand_item)
+        addItemType(GameItem.GAME, R.layout.game_item)
+        addItemType(GameItem.HEADER, R.layout.game_tournament_round_header)
     }
 
-    override fun convert(helper: BaseViewHolder, item: MultipleGameItem) {
-        when (item.itemTypeEntity) {
-            MultipleGameItem.LIGHT -> when (item.game.status) {
-                GameModel.PLANNED -> convertGamePlanned(helper, item.game)
-                GameModel.STARTED -> convertGameStarted(helper, item.game)
-                GameModel.GAME_OVER -> convertGameOver(helper, item.game)
-                GameModel.CANCELED -> convertGameCanceled(helper, item.game)
-            }
-            MultipleGameItem.FULL_PENDING -> convertFullGamePlanned(helper, item.game)
+    override fun convert(helper: BaseViewHolder, item: GameItem) {
+        when (item) {
+            is Game -> convertGame(helper, item.game)
+            is Header -> convertHeader(helper, item)
+        }
+    }
+
+    private fun convertHeader(helper: BaseViewHolder, item: Header) {
+        if (item.roundIndexInversed == 0) {
+            helper.setText(R.id.tv_tournament_header_round, "Final")
+        } else {
+            helper.setText(R.id.tv_tournament_header_round,
+                    mContext.getString(R.string.tournament_item_header_round, item.roundIndex.toString()))
+
+        }
+    }
+
+    private fun convertGame(helper: BaseViewHolder, item: GameModel) {
+        when (item.status) {
+            GameModel.PLANNED -> convertGamePlanned(helper, item)
+            GameModel.STARTED -> convertGameStarted(helper, item)
+            GameModel.GAME_OVER -> convertGameOver(helper, item)
+            GameModel.CANCELED -> convertGameCanceled(helper, item)
         }
     }
 
@@ -36,11 +53,6 @@ class GameAdapter(var gameItems: List<MultipleGameItem>) : BaseMultiItemQuickAda
         loadAvatar(helper, item)
         helper.setVisible(R.id.btn_tournament_stat_game, true)
         helper.addOnClickListener(R.id.btn_tournament_stat_game)
-    }
-
-    private fun convertFullGamePlanned(helper: BaseViewHolder, item: GameModel) {
-        convertGamePlanned(helper, item)
-        helper.addOnClickListener(R.id.btn_start_game)
     }
 
     private fun convertGameStarted(helper: BaseViewHolder, item: GameModel) {
