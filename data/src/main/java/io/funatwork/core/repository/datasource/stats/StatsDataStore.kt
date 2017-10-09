@@ -10,4 +10,6 @@ interface StatsDataStore {
 
     fun teamStatsEntityList(): Observable<List<TeamStatsEntity>>
 
+    fun playerStatsEntity(playerId: Int): Observable<PlayerStatsEntity>
+
 }

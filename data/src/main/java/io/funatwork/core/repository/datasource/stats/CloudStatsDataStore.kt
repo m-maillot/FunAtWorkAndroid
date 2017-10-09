@@ -13,5 +13,6 @@ class CloudStatsDataStore(val statsRestApi: StatsRestApi) : StatsDataStore {
     override fun teamStatsEntityList(): Observable<List<TeamStatsEntity>> =
             statsRestApi.byTeamEntity()
 
-
+    override fun playerStatsEntity(playerId: Int): Observable<PlayerStatsEntity> =
+            statsRestApi.byPlayer(playerId)
 }

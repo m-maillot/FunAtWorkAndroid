@@ -8,10 +8,13 @@ import io.funatwork.domain.repository.StatsRepository
 import io.reactivex.Observable
 
 class StatsDataRepository(val statsDataStoreFactory: StatsDataStoreFactory) : StatsRepository {
+
     override fun byPlayers(): Observable<List<PlayerStats>> =
             statsDataStoreFactory.createCloudDataStore().playerStatsEntityList().map { it.map { it.toBo() } }
 
     override fun byTeams(): Observable<List<TeamStats>> =
             statsDataStoreFactory.createCloudDataStore().teamStatsEntityList().map { it.map { it.toBo() } }
 
+    override fun byPlayer(playerId: Int): Observable<PlayerStats> =
+            statsDataStoreFactory.createCloudDataStore().playerStatsEntity(playerId).map { it.toBo() }
 }

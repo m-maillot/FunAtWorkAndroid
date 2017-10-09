@@ -11,7 +11,7 @@ import io.funatwork.R
 import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.StatsDataRepository
 import io.funatwork.core.repository.datasource.stats.StatsDataStoreFactory
-import io.funatwork.domain.interactor.GetPlayerStats
+import io.funatwork.domain.interactor.GetPlayersStats
 import io.funatwork.domain.interactor.GetTeamStats
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.PlayerStatsModel
@@ -49,7 +49,7 @@ class StandingsFragment : BaseFragment(), StandingsView {
                         ),
                         postExecutionThread = fwtApplication.uiThread,
                         threadExecutor = fwtApplication.jobExecutor),
-                getPlayerStats = GetPlayerStats(
+                getPlayersStats = GetPlayersStats(
                         statsRepository = StatsDataRepository(
                                 statsDataStoreFactory = StatsDataStoreFactory(
                                         connectionUtils = ConnectionUtils(activity.getConnectivityManager())
