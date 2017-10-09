@@ -69,4 +69,9 @@
     <string name="tournament_start_game">Start game</string>
     <string name="tournament_item_header_round">Round %1$s</string>
 
+    <!-- Standings -->
+    <string name="standings_third_name">3. %1$s</string>
+    <string name="standings_second_name">2. %1$s</string>
+    <string name="standings_first_name">1. %1$s</string>
+
 </resources>
