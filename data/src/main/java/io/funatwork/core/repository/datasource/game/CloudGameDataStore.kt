@@ -1,9 +1,10 @@
 package io.funatwork.core.repository.datasource.game
 
 import io.funatwork.core.entity.PlayerEntity
-import io.funatwork.core.entity.UserAuthEntity
+import io.funatwork.core.entity.babyfoot.GameEntity
 import io.funatwork.core.entity.babyfoot.TeamEntity
 import io.funatwork.core.net.game.GameRestApi
+import io.reactivex.Observable
 
 class CloudGameDataStore(val gameRestApi: GameRestApi) : GameDataStore {
 
@@ -21,4 +22,7 @@ class CloudGameDataStore(val gameRestApi: GameRestApi) : GameDataStore {
 
     override fun stopGame(gameId: Int, cancelled: Boolean) =
             gameRestApi.stopGame(gameId, cancelled)
+
+    override fun currentGameEntity(): Observable<GameEntity> =
+            gameRestApi.currentGameEntity()
 }

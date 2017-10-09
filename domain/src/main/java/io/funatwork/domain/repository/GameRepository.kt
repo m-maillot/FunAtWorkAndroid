@@ -16,4 +16,6 @@ interface GameRepository {
     fun addGoal(gameId: Int, striker: Player, gamelle: Boolean): Observable<Game>
 
     fun stopGame(gameId: Int, cancelled: Boolean): Observable<Game>
+
+    fun currentGame(): Observable<Game>
 }

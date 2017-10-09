@@ -19,6 +19,7 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.GameDataRepository
 import io.funatwork.core.repository.datasource.game.GameDataStoreFactory
 import io.funatwork.domain.interactor.GetGameList
+import io.funatwork.domain.interactor.LoadCurrentGame
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.presenter.GameListPresenter
@@ -44,7 +45,16 @@ class MainGameFragment : BaseFragment(), GameListView {
                                 )
                         ),
                         postExecutionThread = fwtApplication.uiThread,
-                        threadExecutor = fwtApplication.jobExecutor)
+                        threadExecutor = fwtApplication.jobExecutor),
+                loadCurrentGame = LoadCurrentGame(
+                        gameRepository = GameDataRepository(
+                                gameDataStoreFactory = GameDataStoreFactory(
+                                        connectionUtils = ConnectionUtils(activity.getConnectivityManager())
+                                )
+                        ),
+                        postExecutionThread = fwtApplication.uiThread,
+                        threadExecutor = fwtApplication.jobExecutor
+                )
         )
     }
 
@@ -72,6 +82,8 @@ class MainGameFragment : BaseFragment(), GameListView {
         recyclerGames = view?.findViewById(R.id.rv_games)
         recyclerGames?.setHasFixedSize(true)
         recyclerGames?.layoutManager = LinearLayoutManager(activity)
+        val adapter = GameAdapter(emptyList())
+        recyclerGames?.adapter = adapter
         return view
     }
 
@@ -92,51 +104,75 @@ class MainGameFragment : BaseFragment(), GameListView {
         this.presenter.destroy()
     }
 
-    override fun renderCurrentGame(game: GameModel?) {
+    override fun renderCurrentGame(game: GameModel) {
         val currentView = view
-        if (currentView != null) {
-            val flipperView = currentView.findViewById<ViewFlipper>(R.id.vf_current_match_header)
-            if (game != null) {
-                val imgRedAttack = currentView.findViewById<ImageView>(R.id.img_player_red_attack)
-                val imgRedDefense = currentView.findViewById<ImageView>(R.id.img_player_red_defense)
-                val imgBlueAttack = currentView.findViewById<ImageView>(R.id.img_player_blue_attack)
-                val imgBlueDefense = currentView.findViewById<ImageView>(R.id.img_player_blue_defense)
-                val tvRedAttack = currentView.findViewById<TextView>(R.id.tv_player_red_attack_name)
-                val tvRedDefense = currentView.findViewById<TextView>(R.id.tv_player_red_defense_name)
-                val tvBlueAttack = currentView.findViewById<TextView>(R.id.tv_player_blue_attack_name)
-                val tvBlueDefense = currentView.findViewById<TextView>(R.id.tv_player_blue_defense_name)
-                val tvScoreRed = currentView.findViewById<TextView>(R.id.tv_score_red)
-                val tvScoreBlue = currentView.findViewById<TextView>(R.id.tv_score_blue)
-                Picasso.with(activity).load(game.redTeam.attackPlayer.avatar).into(imgRedAttack)
-                Picasso.with(activity).load(game.redTeam.defensePlayer.avatar).into(imgRedDefense)
-                Picasso.with(activity).load(game.blueTeam.attackPlayer.avatar).into(imgBlueAttack)
-                Picasso.with(activity).load(game.blueTeam.defensePlayer.avatar).into(imgBlueDefense)
-                tvScoreRed.text = game.redTeamGoal.toString()
-                tvScoreBlue.text = game.blueTeamGoal.toString()
-                tvRedAttack.text = game.redTeam.attackPlayer.name.take(10)
-                tvRedDefense.text = game.redTeam.defensePlayer.name.take(10)
-                tvBlueAttack.text = game.blueTeam.attackPlayer.name.take(10)
-                tvBlueDefense.text = game.blueTeam.defensePlayer.name.take(10)
+        val flipperView = currentView.findViewById<ViewFlipper>(R.id.vf_current_match_header)
+        val imgRedAttack = currentView.findViewById<ImageView>(R.id.img_player_red_attack)
+        val imgRedDefense = currentView.findViewById<ImageView>(R.id.img_player_red_defense)
+        val imgBlueAttack = currentView.findViewById<ImageView>(R.id.img_player_blue_attack)
+        val imgBlueDefense = currentView.findViewById<ImageView>(R.id.img_player_blue_defense)
+        val tvRedAttack = currentView.findViewById<TextView>(R.id.tv_player_red_attack_name)
+        val tvRedDefense = currentView.findViewById<TextView>(R.id.tv_player_red_defense_name)
+        val tvBlueAttack = currentView.findViewById<TextView>(R.id.tv_player_blue_attack_name)
+        val tvBlueDefense = currentView.findViewById<TextView>(R.id.tv_player_blue_defense_name)
+        val tvScoreRed = currentView.findViewById<TextView>(R.id.tv_score_red)
+        val tvScoreBlue = currentView.findViewById<TextView>(R.id.tv_score_blue)
+        Picasso.with(activity).load(game.redTeam.attackPlayer.avatar).into(imgRedAttack)
+        Picasso.with(activity).load(game.redTeam.defensePlayer.avatar).into(imgRedDefense)
+        Picasso.with(activity).load(game.blueTeam.attackPlayer.avatar).into(imgBlueAttack)
+        Picasso.with(activity).load(game.blueTeam.defensePlayer.avatar).into(imgBlueDefense)
+        tvScoreRed.text = game.redTeamGoal.toString()
+        tvScoreBlue.text = game.blueTeamGoal.toString()
+        tvRedAttack.text = game.redTeam.attackPlayer.name.take(10)
+        tvRedDefense.text = game.redTeam.defensePlayer.name.take(10)
+        tvBlueAttack.text = game.blueTeam.attackPlayer.name.take(10)
+        tvBlueDefense.text = game.blueTeam.defensePlayer.name.take(10)
 
-                val editBtn = currentView.findViewById<ImageView>(R.id.img_edit_game)
-                editBtn.setOnClickListener {
-                    initGameListener?.onEditGame(game, imgRedAttack, imgRedDefense, imgBlueAttack, imgBlueDefense)
-                }
-                flipperView.displayedChild = 1
-            } else {
-                val btnStart = currentView.findViewById<Button>(R.id.btn_start_new_game)
-                btnStart.setOnClickListener {
-                    initGameListener?.onNewGame()
-                }
-                flipperView.displayedChild = 0
-            }
+        val editBtn = currentView.findViewById<ImageView>(R.id.img_edit_game)
+        editBtn.setOnClickListener {
+            initGameListener?.onEditGame(game, imgRedAttack, imgRedDefense, imgBlueAttack, imgBlueDefense)
         }
+        flipperView.displayedChild = 1
     }
 
     override fun renderGameFinishedList(games: List<GameModel>) {
-        val adapter = GameAdapter(ArrayList(games.map { MultipleGameItem(game = it) }))
-        recyclerGames?.adapter = adapter
-        adapter.addHeaderView((context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
+        (recyclerGames?.adapter as? GameAdapter)?.let {
+            it.setNewData(games.map { MultipleGameItem(game = it) })
+            it.addHeaderView(LayoutInflater.from(context).inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
+        }
+    }
+
+    override fun showLoadingCurrentGame() {
+        // TODO Make a beautiful loading view ?
+    }
+
+    override fun hideLoadingCurrentGame() {
+        // TODO Make a beautiful loading view ?
+    }
+
+    override fun showErrorCurrentGames(title: String, message: String) {
+        val currentView = view
+        val flipperView = currentView.findViewById<ViewFlipper>(R.id.vf_current_match_header)
+        val btnStart = currentView.findViewById<Button>(R.id.btn_start_new_game)
+        btnStart.setOnClickListener {
+            initGameListener?.onNewGame()
+        }
+        flipperView.displayedChild = 0
+    }
+
+    override fun showLoadingGames() {
+        (recyclerGames?.adapter as? GameAdapter)?.setEmptyView(R.layout.list_games_loading, recyclerGames?.parent as ViewGroup)
+    }
+
+    override fun hideLoadingGames() {
+        // DO nothing, handle by renderGameFinishedList
+    }
+
+    override fun showErrorGames(title: String, message: String) {
+        val errorView = LayoutInflater.from(context).inflate(R.layout.list_games_error, recyclerGames?.parent as ViewGroup, false)
+        val errorMsg = errorView.findViewById<TextView>(R.id.tv_list_game_error_msg)
+        errorMsg.text = "$title: $message"
+        (recyclerGames?.adapter as? GameAdapter)?.emptyView = errorView
     }
 
     override fun onDetach() {

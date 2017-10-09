@@ -16,4 +16,6 @@ interface GameRestApi {
     fun addGoal(gameId: Int, striker: PlayerEntity, gamelle: Boolean): Observable<GameEntity>
 
     fun stopGame(gameId: Int, cancelled: Boolean): Observable<GameEntity>
+
+    fun currentGameEntity(): Observable<GameEntity>
 }
