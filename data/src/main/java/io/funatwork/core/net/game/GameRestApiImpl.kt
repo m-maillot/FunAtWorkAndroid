@@ -1,10 +1,8 @@
 package io.funatwork.core.net.game
 
 import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.fuel.httpHead
 import com.github.kittinunf.fuel.httpPost
 import io.funatwork.core.entity.PlayerEntity
-import io.funatwork.core.entity.UserAuthEntity
 import io.funatwork.core.entity.babyfoot.GameEntity
 import io.funatwork.core.entity.babyfoot.TeamEntity
 import io.funatwork.core.exception.NetworkConnectionException
@@ -103,6 +101,21 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                         }
                     } catch (e: Exception) {
                         emitter.onError(NetworkConnectionException(e.cause))
+                    }
+                } else {
+                    emitter.onError(NetworkConnectionException())
+                }
+            }
+
+    override fun currentGameEntity(): Observable<GameEntity> =
+            Observable.create<GameEntity> { emitter ->
+                if (connectionUtils.isThereInternetConnection()) {
+                    val (_, _, result) = RestApiData.API_URL_GET_CURRENT_GAME.httpGet().responseObject(GameDeserializer())
+                    if (result.component2() == null) {
+                        emitter.onNext(result.get())
+                        emitter.onComplete()
+                    } else {
+                        emitter.onError(NetworkConnectionException(result.component2()))
                     }
                 } else {
                     emitter.onError(NetworkConnectionException())
