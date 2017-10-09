@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
+import android.widget.TextView
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import io.funatwork.R
 import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.StatsDataRepository
@@ -25,6 +28,15 @@ class StandingsFragment : BaseFragment(), StandingsView {
     }
 
     private var recyclerGames: RecyclerView? = null
+    private var imgFirst: CircleImageView? = null
+    private var tvFirstName: TextView? = null
+    private var tvFirstScore: TextView? = null
+    private var imgSecond: CircleImageView? = null
+    private var tvSecondName: TextView? = null
+    private var tvSecondScore: TextView? = null
+    private var imgThird: CircleImageView? = null
+    private var tvThirdName: TextView? = null
+    private var tvThirdScore: TextView? = null
 
     val presenter by lazy {
         StandingsPresenter(
@@ -57,7 +69,16 @@ class StandingsFragment : BaseFragment(), StandingsView {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_standings, container, false)
-        recyclerGames = view?.findViewById<RecyclerView>(R.id.rv_standings)
+        imgFirst = view?.findViewById(R.id.img_player_first)
+        imgSecond = view?.findViewById(R.id.img_player_second)
+        imgThird = view?.findViewById(R.id.img_player_third)
+        tvFirstName = view?.findViewById(R.id.tv_name_first)
+        tvSecondName = view?.findViewById(R.id.tv_name_second)
+        tvThirdName = view?.findViewById(R.id.tv_name_third)
+        tvFirstScore = view?.findViewById(R.id.tv_score_first)
+        tvSecondScore = view?.findViewById(R.id.tv_score_second)
+        tvThirdScore = view?.findViewById(R.id.tv_score_third)
+        recyclerGames = view?.findViewById(R.id.rv_standings)
         recyclerGames?.setHasFixedSize(true)
         recyclerGames?.layoutManager = LinearLayoutManager(context)
         return view
@@ -90,7 +111,25 @@ class StandingsFragment : BaseFragment(), StandingsView {
     }
 
     override fun renderPlayerStats(playerStatsList: List<PlayerStatsModel>) {
-        recyclerGames?.adapter = PlayerStatsAdapter(activity, playerStatsList)
+        val first = playerStatsList.getOrNull(0)
+        val second = playerStatsList.getOrNull(1)
+        val third = playerStatsList.getOrNull(2)
+        first?.let {
+            tvFirstName?.text = getString(R.string.standings_first_name, "${it.player.name} ${it.player.surname.substring(0,1)}.")
+            tvFirstScore?.text = (Math.round(it.eloRanking * 100.0) / 100.0).toString()
+            Picasso.with(context).load(it.player.avatar).into(imgFirst)
+        }
+        second?.let {
+            tvSecondName?.text = getString(R.string.standings_second_name, "${it.player.name} ${it.player.surname.substring(0,1)}.")
+            tvSecondScore?.text = (Math.round(it.eloRanking * 100.0) / 100.0).toString()
+            Picasso.with(context).load(it.player.avatar).into(imgSecond)
+        }
+        third?.let {
+            tvThirdName?.text = getString(R.string.standings_third_name, "${it.player.name} ${it.player.surname.substring(0,1)}.")
+            tvThirdScore?.text = (Math.round(it.eloRanking * 100.0) / 100.0).toString()
+            Picasso.with(context).load(it.player.avatar).into(imgThird)
+        }
+        recyclerGames?.adapter = PlayerStatsAdapter(activity, playerStatsList.subList(3, playerStatsList.size))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

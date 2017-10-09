@@ -17,7 +17,6 @@ class PlayerStatsAdapter(val context: Context, val teamStatsModels: List<PlayerS
         val imgPlayer: ImageView = mView.findViewById(R.id.img_player)
         val tvPosition: TextView = mView.findViewById(R.id.tv_player_position)
         val tvPlayerName: TextView = mView.findViewById(R.id.tv_player_name)
-        val tvPlayerStat: TextView = mView.findViewById(R.id.tv_player_stat_detail)
         val tvPlayerElo: TextView = mView.findViewById(R.id.tv_player_elo_ranking)
 
     }
@@ -25,10 +24,8 @@ class PlayerStatsAdapter(val context: Context, val teamStatsModels: List<PlayerS
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val playerStat = teamStatsModels[position]
         Picasso.with(context).load(playerStat.player.avatar).into(holder?.imgPlayer)
-        holder?.tvPosition?.text = context.getString(R.string.stat_player_position, position.inc().toString())
-        holder?.tvPlayerName?.text = playerStat.player.name
-        val percentWin = playerStat.victory * 100 / playerStat.gamePlayed
-        holder?.tvPlayerStat?.text = "Played: ${playerStat.gamePlayed} | Win : $percentWin% | Goals: ${playerStat.goalAverage}" // context.getString(R.string.stat_player_detail, playerStat.gamePlayed.toString(), playerStat.victory.toString(), playerStat.goalAverage.toString())
+        holder?.tvPosition?.text = context.getString(R.string.stat_player_position, (position.inc() + 3).toString())
+        holder?.tvPlayerName?.text = "${playerStat.player.name} ${playerStat.player.surname.substring(0, 1)}."
         holder?.tvPlayerElo?.text = (Math.round(playerStat.eloRanking * 100.0) / 100.0).toString()
     }
 
