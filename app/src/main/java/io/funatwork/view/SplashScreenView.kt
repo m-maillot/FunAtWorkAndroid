@@ -1,8 +1,10 @@
 package io.funatwork.view
 
-interface SplashScreenView: LoadDataView {
+import io.funatwork.model.UserAuthModel
+
+interface SplashScreenView : LoadDataView {
 
     fun goToLoginScreen()
 
-    fun goToMainScreen()
+    fun goToMainScreen(userAuth: UserAuthModel)
 }

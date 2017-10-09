@@ -129,8 +129,12 @@ class MainGameFragment : BaseFragment(), GameListView {
         tvBlueDefense.text = game.blueTeam.defensePlayer.name.take(10)
 
         val editBtn = currentView.findViewById<ImageView>(R.id.img_edit_game)
-        editBtn.setOnClickListener {
-            initGameListener?.onEditGame(game, imgRedAttack, imgRedDefense, imgBlueAttack, imgBlueDefense)
+        if (userAuth.player.id == game.creator.id) {
+            editBtn.setOnClickListener {
+                initGameListener?.onEditGame(game, imgRedAttack, imgRedDefense, imgBlueAttack, imgBlueDefense)
+            }
+        } else {
+            editBtn.visibility = View.GONE
         }
         flipperView.displayedChild = 1
     }

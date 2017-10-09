@@ -33,6 +33,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     private var recyclerGames: RecyclerView? = null
+    private var tvTounamentTitle: TextView? = null
 
 
     val adapter = TournamentGameAdapter(emptyList())
@@ -79,6 +80,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
                               savedInstanceState: Bundle?): View? {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         val view = inflater?.inflate(R.layout.fragment_tournament, container, false)
+        tvTounamentTitle = view?.findViewById(R.id.tv_tournament_title)
         recyclerGames = view?.findViewById(R.id.rv_tournament_games)
         recyclerGames?.setHasFixedSize(true)
         recyclerGames?.layoutManager = LinearLayoutManager(activity)
@@ -110,6 +112,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     override fun renderCurrentTournament(tournament: TournamentModel) {
+        tvTounamentTitle?.text = tournament.name
         (recyclerGames?.adapter as? TournamentGameAdapter)?.let {
             it.setNewData(createTournament(tournament))
             it.setOnItemChildClickListener { _, _, position ->
@@ -144,9 +147,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
     }
 
     override fun showError(title: String, message: String) {
-        val errorView = LayoutInflater.from(context).inflate(R.layout.list_games_error, recyclerGames?.parent as ViewGroup, false)
-        val errorMsg = errorView.findViewById<TextView>(R.id.tv_list_game_error_msg)
-        errorMsg.text = "$title: $message"
+        val errorView = LayoutInflater.from(context).inflate(R.layout.list_games_error_tournament, recyclerGames?.parent as ViewGroup, false)
         adapter.emptyView = errorView
     }
 }

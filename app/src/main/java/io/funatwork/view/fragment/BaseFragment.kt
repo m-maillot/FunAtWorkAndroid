@@ -14,6 +14,10 @@ abstract class BaseFragment : Fragment(), LoadDataView {
         activity.application as FwtApplication
     }
 
+    val userAuth by lazy {
+        (activity.application as FwtApplication).connectedUser
+    }
+
     val baseActivity by lazy {
         activity as BaseActivity
     }

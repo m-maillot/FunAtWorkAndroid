@@ -1,8 +1,10 @@
 package io.funatwork.domain.model.babyfoot
 
+import io.funatwork.domain.model.Player
 import org.joda.time.DateTime
 
 data class Game(val id: Int,
+                val creator: Player,
                 val startedDate: DateTime?,
                 val plannedDate: DateTime?,
                 val redTeam: Team?,

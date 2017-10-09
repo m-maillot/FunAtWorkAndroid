@@ -5,6 +5,7 @@ import io.funatwork.domain.interactor.DefaultObserver
 import io.funatwork.domain.interactor.GetUserAuth
 import io.funatwork.domain.interactor.params.NoParams
 import io.funatwork.domain.model.UserAuth
+import io.funatwork.model.toModel
 import io.funatwork.view.SplashScreenView
 
 class SplashScreenPresenter(val splashScreenView: SplashScreenView, private val getUserAuth: GetUserAuth) : Presenter {
@@ -37,7 +38,7 @@ class SplashScreenPresenter(val splashScreenView: SplashScreenView, private val 
 
         override fun onNext(element: UserAuth) {
             if (element.expire_at > (System.currentTimeMillis() / 1000)) {
-                splashScreenView.goToMainScreen()
+                splashScreenView.goToMainScreen(element.toModel())
             } else {
                 splashScreenView.goToLoginScreen()
             }

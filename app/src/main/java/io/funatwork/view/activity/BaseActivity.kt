@@ -14,6 +14,10 @@ abstract class BaseActivity : AppCompatActivity() {
         application as FwtApplication
     }
 
+    val userAuth by lazy {
+        (application as FwtApplication).connectedUser
+    }
+
     val navigator = Navigator()
     var dialog: ProgressDialog? = null
 

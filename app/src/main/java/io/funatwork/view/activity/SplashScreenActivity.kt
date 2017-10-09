@@ -8,7 +8,9 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.AccountDataRepository
 import io.funatwork.core.repository.datasource.login.AccountDataStoreFactory
 import io.funatwork.domain.interactor.GetUserAuth
+import io.funatwork.domain.model.UserAuth
 import io.funatwork.extensions.getConnectivityManager
+import io.funatwork.model.UserAuthModel
 import io.funatwork.presenter.SplashScreenPresenter
 import io.funatwork.view.SplashScreenView
 
@@ -41,7 +43,8 @@ class SplashScreenActivity : BaseActivity(), SplashScreenView {
         finish()
     }
 
-    override fun goToMainScreen() {
+    override fun goToMainScreen(userAuth: UserAuthModel) {
+        fwtApplication.connectedUser = userAuth
         navigator.navigateToMain(this)
         finish()
     }

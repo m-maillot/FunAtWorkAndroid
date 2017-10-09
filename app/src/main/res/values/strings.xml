@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">B3D</string>
-    <string name="app_name_long">Babyfoot360Degrees</string>
+    <string name="app_name">Foosball League</string>
     <!-- Select players -->
     <string name="create_game_players_title">Select players</string>
     <string name="create_game_versus">VS</string>

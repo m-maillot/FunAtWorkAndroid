@@ -1,9 +1,11 @@
 package io.funatwork.model.babyfoot
 
+import io.funatwork.model.PlayerModel
 import org.joda.time.DateTime
 import java.io.Serializable
 
 data class GameModel(val id: Int,
+                     val creator: PlayerModel,
                      val startedDate: DateTime,
                      val plannedDate: DateTime,
                      val redTeam: TeamModel,

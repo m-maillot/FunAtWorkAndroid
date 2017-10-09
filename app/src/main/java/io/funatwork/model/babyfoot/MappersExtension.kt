@@ -23,6 +23,7 @@ fun GoalModel.toBo() =
 
 fun Game.toModel() =
         GameModel(id = id,
+                creator = creator.toModel(),
                 startedDate = startedDate ?: DateTime(0L),
                 blueTeam = blueTeam?.toModel() ?: generateUnknownTeam(),
                 redTeam = redTeam?.toModel() ?: generateUnknownTeam(),
@@ -36,6 +37,7 @@ fun Game.toModel() =
 
 fun GameModel.toBo() =
         Game(id = id,
+                creator = creator.toBo(),
                 startedDate = startedDate,
                 blueTeam = blueTeam.toBo(),
                 redTeam = redTeam.toBo(),

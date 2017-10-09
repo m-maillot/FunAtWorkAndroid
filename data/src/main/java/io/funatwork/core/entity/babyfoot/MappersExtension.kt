@@ -22,6 +22,7 @@ fun GoalEntity.toBo() =
 
 fun GameEntity.toBo() =
         Game(id = id,
+                creator = creator.toBo(),
                 startedDate = startedDate?.let { dateTimeNoMillis().parseDateTime(it) },
                 blueTeam = blueTeam?.toBo(),
                 redTeam = redTeam?.toBo(),

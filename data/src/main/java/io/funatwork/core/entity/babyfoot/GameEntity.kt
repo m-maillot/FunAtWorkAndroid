@@ -1,6 +1,9 @@
 package io.funatwork.core.entity.babyfoot
 
+import io.funatwork.core.entity.PlayerEntity
+
 data class GameEntity(val id: Int,
+                      val creator: PlayerEntity,
                       val startedDate: String? = null,
                       val plannedDate: String? = null,
                       val redTeam: TeamEntity? = null,
