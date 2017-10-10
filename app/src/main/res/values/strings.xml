@@ -73,5 +73,11 @@
     <string name="standings_third_name">3. %1$s</string>
     <string name="standings_second_name">2. %1$s</string>
     <string name="standings_first_name">1. %1$s</string>
+    <string name="account_stats_header_goals">GOALS</string>
+    <string name="account_stats_header_wins">WINS</string>
+    <string name="account_stats_header_games">MATCHES</string>
+    <string name="no_content_dash">-</string>
+    <string name="no_game_get_the_first">No game, be the first ?</string>
+    <string name="no_podium">Standings is empty, start to play to fill it!</string>
 
 </resources>

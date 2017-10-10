@@ -140,9 +140,13 @@ class MainGameFragment : BaseFragment(), GameListView {
     }
 
     override fun renderGameFinishedList(games: List<GameModel>) {
-        (recyclerGames?.adapter as? GameAdapter)?.let {
-            it.setNewData(games.map { MultipleGameItem(game = it) })
-            it.addHeaderView(LayoutInflater.from(context).inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
+        if (games.isEmpty()) {
+            (recyclerGames?.adapter as? GameAdapter)?.setEmptyView(R.layout.list_games_empty, recyclerGames?.parent as ViewGroup)
+        } else {
+            (recyclerGames?.adapter as? GameAdapter)?.let {
+                it.setNewData(games.map { MultipleGameItem(game = it) })
+                it.addHeaderView(LayoutInflater.from(context).inflate(R.layout.head_game_list, recyclerGames as ViewGroup, false))
+            }
         }
     }
 

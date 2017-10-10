@@ -55,7 +55,7 @@ class StatsRestApiImpl(val connectionUtils: ConnectionUtils) : StatsRestApi {
             Observable.create<PlayerStatsEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
-                        val (_, _, result) = "${RestApiData.API_URL_STATS_TEAM}/$playerId".httpGet().responseObject(PlayerStatsDeserializer())
+                        val (_, _, result) = "${RestApiData.API_URL_STATS_PLAYER}/$playerId".httpGet().responseObject(PlayerStatsDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
                             emitter.onComplete()

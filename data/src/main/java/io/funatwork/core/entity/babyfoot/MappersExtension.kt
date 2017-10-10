@@ -40,7 +40,9 @@ fun PlayerStatsEntity.toBo() =
                 eloRanking = eloRanking,
                 goalAverage = goalAverage,
                 loose = loose,
-                victory = victory)
+                victory = victory,
+                goals = goals,
+                rank = rank)
 
 fun TeamStatsEntity.toBo() =
         TeamStats(player1 = player1.toBo(),
