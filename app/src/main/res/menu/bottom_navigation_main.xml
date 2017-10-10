@@ -6,23 +6,23 @@
         android:enabled="true"
         android:icon="@drawable/ic_match_menu"
         android:title="@string/menu_matchs"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_standings"
         android:enabled="true"
         android:icon="@drawable/ic_podium"
         android:title="@string/menu_standings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_tournament"
         android:enabled="true"
         android:icon="@drawable/ic_tournament_cup"
         android:title="@string/menu_tournament"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_account"
         android:enabled="true"
         android:icon="@drawable/ic_account_circle_black_24dp"
         android:title="@string/menu_account"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

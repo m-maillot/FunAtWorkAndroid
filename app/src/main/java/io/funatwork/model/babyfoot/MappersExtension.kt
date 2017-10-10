@@ -66,10 +66,12 @@ fun TeamStats.toModel() =
 fun PlayerStats.toModel() =
         PlayerStatsModel(player = player.toModel(),
                 gamePlayed = gamePlayed,
-                eloRanking = eloRanking,
+                eloRanking = eloRanking.toInt(),
                 goalAverage = goalAverage,
                 loose = loose,
-                victory = victory)
+                victory = victory,
+                goals = goals,
+                rank = rank)
 
 fun Tournament.toModel() =
         TournamentModel(id = id,

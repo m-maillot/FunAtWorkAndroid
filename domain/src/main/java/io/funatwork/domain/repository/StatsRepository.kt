@@ -8,4 +8,6 @@ interface StatsRepository {
     fun byPlayers(): Observable<List<PlayerStats>>
 
     fun byTeams(): Observable<List<TeamStats>>
+
+    fun byPlayer(playerId: Int): Observable<PlayerStats>
 }

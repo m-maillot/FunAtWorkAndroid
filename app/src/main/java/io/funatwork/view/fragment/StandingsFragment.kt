@@ -1,6 +1,7 @@
 package io.funatwork.view.fragment
 
 import android.os.Bundle
+import android.support.constraint.Group
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
@@ -11,13 +12,14 @@ import io.funatwork.R
 import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.StatsDataRepository
 import io.funatwork.core.repository.datasource.stats.StatsDataStoreFactory
-import io.funatwork.domain.interactor.GetPlayerStats
+import io.funatwork.domain.interactor.GetPlayersStats
 import io.funatwork.domain.interactor.GetTeamStats
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.PlayerStatsModel
 import io.funatwork.model.babyfoot.TeamStatsModel
 import io.funatwork.presenter.StandingsPresenter
 import io.funatwork.view.StandingsView
+import io.funatwork.view.adapter.GameAdapter
 import io.funatwork.view.adapter.PlayerStatsAdapter
 import io.funatwork.view.adapter.TeamStatsAdapter
 
@@ -28,6 +30,7 @@ class StandingsFragment : BaseFragment(), StandingsView {
     }
 
     private var recyclerGames: RecyclerView? = null
+    private var groupPodium: Group? = null
     private var imgFirst: CircleImageView? = null
     private var tvFirstName: TextView? = null
     private var tvFirstScore: TextView? = null
@@ -49,7 +52,7 @@ class StandingsFragment : BaseFragment(), StandingsView {
                         ),
                         postExecutionThread = fwtApplication.uiThread,
                         threadExecutor = fwtApplication.jobExecutor),
-                getPlayerStats = GetPlayerStats(
+                getPlayersStats = GetPlayersStats(
                         statsRepository = StatsDataRepository(
                                 statsDataStoreFactory = StatsDataStoreFactory(
                                         connectionUtils = ConnectionUtils(activity.getConnectivityManager())
@@ -78,6 +81,7 @@ class StandingsFragment : BaseFragment(), StandingsView {
         tvFirstScore = view?.findViewById(R.id.tv_score_first)
         tvSecondScore = view?.findViewById(R.id.tv_score_second)
         tvThirdScore = view?.findViewById(R.id.tv_score_third)
+        groupPodium = view?.findViewById(R.id.group_standings_podium)
         recyclerGames = view?.findViewById(R.id.rv_standings)
         recyclerGames?.setHasFixedSize(true)
         recyclerGames?.layoutManager = LinearLayoutManager(context)
@@ -111,25 +115,32 @@ class StandingsFragment : BaseFragment(), StandingsView {
     }
 
     override fun renderPlayerStats(playerStatsList: List<PlayerStatsModel>) {
-        val first = playerStatsList.getOrNull(0)
-        val second = playerStatsList.getOrNull(1)
-        val third = playerStatsList.getOrNull(2)
-        first?.let {
-            tvFirstName?.text = getString(R.string.standings_first_name, "${it.player.name} ${it.player.surname.substring(0,1)}.")
-            tvFirstScore?.text = (Math.round(it.eloRanking * 100.0) / 100.0).toString()
-            Picasso.with(context).load(it.player.avatar).into(imgFirst)
+        if (playerStatsList.isNotEmpty()) {
+            groupPodium?.visibility = View.VISIBLE
+            val first = playerStatsList.getOrNull(0)
+            val second = playerStatsList.getOrNull(1)
+            val third = playerStatsList.getOrNull(2)
+            first?.let {
+                tvFirstName?.text = "${it.player.name} ${it.player.surname.substring(0, 1)}"
+                tvFirstScore?.text = it.eloRanking.toString()
+                Picasso.with(context).load(it.player.avatar).into(imgFirst)
+            }
+            second?.let {
+                tvSecondName?.text = "${it.player.name} ${it.player.surname.substring(0, 1)}"
+                tvSecondScore?.text = it.eloRanking.toString()
+                Picasso.with(context).load(it.player.avatar).into(imgSecond)
+            }
+            third?.let {
+                tvThirdName?.text = "${it.player.name} ${it.player.surname.substring(0, 1)}"
+                tvThirdScore?.text = it.eloRanking.toString()
+                Picasso.with(context).load(it.player.avatar).into(imgThird)
+            }
+            if (playerStatsList.size > 3) {
+                recyclerGames?.adapter = PlayerStatsAdapter(activity, playerStatsList.subList(3, playerStatsList.size))
+            }
+        } else {
+
         }
-        second?.let {
-            tvSecondName?.text = getString(R.string.standings_second_name, "${it.player.name} ${it.player.surname.substring(0,1)}.")
-            tvSecondScore?.text = (Math.round(it.eloRanking * 100.0) / 100.0).toString()
-            Picasso.with(context).load(it.player.avatar).into(imgSecond)
-        }
-        third?.let {
-            tvThirdName?.text = getString(R.string.standings_third_name, "${it.player.name} ${it.player.surname.substring(0,1)}.")
-            tvThirdScore?.text = (Math.round(it.eloRanking * 100.0) / 100.0).toString()
-            Picasso.with(context).load(it.player.avatar).into(imgThird)
-        }
-        recyclerGames?.adapter = PlayerStatsAdapter(activity, playerStatsList.subList(3, playerStatsList.size))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

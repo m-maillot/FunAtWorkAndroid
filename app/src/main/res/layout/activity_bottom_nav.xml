@@ -20,5 +20,6 @@
         app:itemBackground="@color/colorBottomNavBackground"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
+        android:background="@color/colorDivider"
         app:menu="@menu/bottom_navigation_main"/>
 </RelativeLayout>

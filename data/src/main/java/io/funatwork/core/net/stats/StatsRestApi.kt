@@ -9,4 +9,6 @@ interface StatsRestApi {
     fun byPlayerEntity(): Observable<List<PlayerStatsEntity>>
 
     fun byTeamEntity(): Observable<List<TeamStatsEntity>>
+
+    fun byPlayer(playerId: Int): Observable<PlayerStatsEntity>
 }

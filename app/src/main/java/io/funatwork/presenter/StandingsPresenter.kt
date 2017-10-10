@@ -1,7 +1,7 @@
 package io.funatwork.presenter
 
 import io.funatwork.domain.interactor.DefaultObserver
-import io.funatwork.domain.interactor.GetPlayerStats
+import io.funatwork.domain.interactor.GetPlayersStats
 import io.funatwork.domain.interactor.GetTeamStats
 import io.funatwork.domain.interactor.params.NoParams
 import io.funatwork.domain.model.babyfoot.PlayerStats
@@ -9,7 +9,7 @@ import io.funatwork.domain.model.babyfoot.TeamStats
 import io.funatwork.model.babyfoot.toModel
 import io.funatwork.view.StandingsView
 
-class StandingsPresenter(val standingsView: StandingsView, val getTeamStats: GetTeamStats, val getPlayerStats: GetPlayerStats) : Presenter {
+class StandingsPresenter(val standingsView: StandingsView, val getTeamStats: GetTeamStats, val getPlayersStats: GetPlayersStats) : Presenter {
 
     override fun resume() {}
 
@@ -32,7 +32,7 @@ class StandingsPresenter(val standingsView: StandingsView, val getTeamStats: Get
      */
     fun loadPlayerStats() {
         standingsView.showLoading()
-        getPlayerStats.execute(PlayerStatsObserver(standingsView), NoParams())
+        getPlayersStats.execute(PlayerStatsObserver(standingsView), NoParams())
     }
 
     private class TeamStatsObserver(val standingsView: StandingsView) : DefaultObserver<List<TeamStats>>() {

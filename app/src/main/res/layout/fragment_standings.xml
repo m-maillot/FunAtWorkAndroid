@@ -36,10 +36,7 @@
         android:id="@+id/tv_name_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/colorPrimaryText"
         app:layout_constraintEnd_toEndOf="@+id/img_player_first"
         app:layout_constraintStart_toStartOf="@+id/img_player_first"
         app:layout_constraintTop_toBottomOf="@+id/img_player_first" />
@@ -62,10 +59,7 @@
         android:id="@+id/tv_name_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/colorPrimaryText"
         app:layout_constraintEnd_toEndOf="@+id/img_player_second"
         app:layout_constraintStart_toStartOf="@+id/img_player_second"
         app:layout_constraintTop_toBottomOf="@+id/img_player_second" />
@@ -88,10 +82,7 @@
         android:id="@+id/tv_name_third"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/colorPrimaryText"
         app:layout_constraintEnd_toEndOf="@+id/img_player_third"
         app:layout_constraintStart_toStartOf="@+id/img_player_third"
         app:layout_constraintTop_toBottomOf="@+id/img_player_third" />
@@ -100,37 +91,64 @@
         android:id="@+id/tv_score_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name_second"
-        app:layout_constraintStart_toStartOf="@+id/tv_name_second"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_second"
+        app:layout_constraintStart_toStartOf="@+id/img_player_second"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_second" />
 
     <TextView
         android:id="@+id/tv_score_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name_first"
-        app:layout_constraintStart_toStartOf="@+id/tv_name_first"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_first"
+        app:layout_constraintStart_toStartOf="@+id/img_player_first"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_first" />
 
     <TextView
         android:id="@+id/tv_score_third"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name_third"
-        app:layout_constraintStart_toStartOf="@+id/tv_name_third"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_third"
+        app:layout_constraintStart_toStartOf="@+id/img_player_third"
         app:layout_constraintTop_toBottomOf="@+id/tv_name_third" />
 
+    <ImageView
+        android:id="@+id/img_standings_medal_gold"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/img_no_description"
+        app:layout_constraintBottom_toTopOf="@+id/tv_name_first"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_first"
+        app:srcCompat="@drawable/ic_gold_medal" />
+
+    <ImageView
+        android:id="@+id/img_standings_medal_silver"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/img_no_description"
+        app:layout_constraintBottom_toTopOf="@+id/tv_name_second"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_second"
+        app:srcCompat="@drawable/ic_silver_medal" />
+
+    <ImageView
+        android:id="@+id/img_standings_medal_bronze"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/img_no_description"
+        app:layout_constraintBottom_toTopOf="@+id/tv_name_third"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_third"
+        app:srcCompat="@drawable/ic_bronze_medal" />
+
+    <android.support.constraint.Group
+        android:id="@+id/group_standings_podium"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="img_standings_medal_gold,tv_score_third,tv_score_first,tv_name_third,tv_name_first,img_standings_medal_silver,img_standings_medal_bronze,tv_name_second,img_player_third,img_player_second,img_player_first,tv_score_second" />
 
 </android.support.constraint.ConstraintLayout>

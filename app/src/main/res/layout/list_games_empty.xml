@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_list_games_empty"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:contentDescription="@string/img_no_description"
+        android:tint="@color/colorDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_soccer_tactical_on_whiteboard" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/no_game_get_the_first"
+        android:textColor="@color/colorDivider"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/img_list_games_empty"
+        app:layout_constraintStart_toStartOf="@+id/img_list_games_empty"
+        app:layout_constraintTop_toBottomOf="@+id/img_list_games_empty" />
+</android.support.constraint.ConstraintLayout>
