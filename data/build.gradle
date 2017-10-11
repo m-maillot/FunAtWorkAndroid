@@ -15,7 +15,7 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", BABYFOOT_APP_BASE_URL
+            buildConfigField "String", "BASE_URL", BABYFOOT_APP_BASE_URL_DEBUG
         }
         release {
             buildConfigField "String", "BASE_URL", BABYFOOT_APP_BASE_URL
