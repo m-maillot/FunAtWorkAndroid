@@ -12,6 +12,8 @@ data class Game(val id: Int,
                 val redTeamGoal: Int?,
                 val blueTeamGoal: Int?,
                 val goals: List<Goal>,
-                val status: Int,
+                val status: GameStatus,
                 val endedDate: DateTime?,
-                val tournamentId: Int?)
+                val tournamentId: Int?,
+                val mode: GameMode,
+                val modeLimitValue: Int)

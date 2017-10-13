@@ -11,6 +11,7 @@ import io.funatwork.domain.interactor.StopGame
 import io.funatwork.domain.interactor.params.AddGoalParam
 import io.funatwork.domain.interactor.params.StopGameParam
 import io.funatwork.domain.model.babyfoot.Game
+import io.funatwork.domain.model.babyfoot.GameStatus
 import io.funatwork.gcm.PushMessageKeys
 import io.funatwork.gcm.model.GameOverModel
 import io.funatwork.gcm.model.NewGoalModel
@@ -95,7 +96,7 @@ class GamePresenter(val gameView: GameView, val loadGame: LoadGame, val addGoal:
         override fun onNext(element: Game) {
             val game = element.toModel()
             gameView.renderGoal(game.blueTeamGoal, game.redTeamGoal)
-            if (game.status == GameModel.GAME_OVER) {
+            if (game.status == GameStatus.OVER) {
                 gameView.renderGameFinished(element.toModel())
             }
         }

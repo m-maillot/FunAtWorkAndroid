@@ -4,12 +4,13 @@ import io.funatwork.core.entity.PlayerEntity
 import io.funatwork.core.entity.babyfoot.GameEntity
 import io.funatwork.core.entity.babyfoot.TeamEntity
 import io.funatwork.core.net.game.GameRestApi
+import io.funatwork.domain.model.babyfoot.GameMode
 import io.reactivex.Observable
 
 class CloudGameDataStore(val gameRestApi: GameRestApi) : GameDataStore {
 
-    override fun createGame(redTeam: TeamEntity, blueTeam: TeamEntity) =
-            gameRestApi.startGame(redTeam, blueTeam)
+    override fun createGame(redTeam: TeamEntity, blueTeam: TeamEntity, mode: GameMode, modeValueLimit: Int) =
+            gameRestApi.startGame(redTeam, blueTeam, mode, modeValueLimit)
 
     override fun gameEntityList() =
             gameRestApi.gameEntityList()

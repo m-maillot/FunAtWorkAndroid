@@ -68,13 +68,13 @@ class GameOverActivity : BaseActivity() {
         imgWinnerPlayerDefense.borderColor = winnerColorTeam
         imgLooserPlayerAttack.borderColor = looserColorTeam
         imgLooserPlayerDefense.borderColor = looserColorTeam
-        Picasso.with(this).load(game.winnerTeam.attackPlayer.avatar).into(imgWinnerPlayerAttack)
-        Picasso.with(this).load(game.winnerTeam.defensePlayer.avatar).into(imgWinnerPlayerDefense)
-        Picasso.with(this).load(game.looserTeam.attackPlayer.avatar).into(imgLooserPlayerAttack)
-        Picasso.with(this).load(game.looserTeam.defensePlayer.avatar).into(imgLooserPlayerDefense)
+        Picasso.with(this).load(game.getWinnerTeam().attackPlayer.avatar).into(imgWinnerPlayerAttack)
+        Picasso.with(this).load(game.getWinnerTeam().defensePlayer.avatar).into(imgWinnerPlayerDefense)
+        Picasso.with(this).load(game.getLooserTeam().attackPlayer.avatar).into(imgLooserPlayerAttack)
+        Picasso.with(this).load(game.getLooserTeam().defensePlayer.avatar).into(imgLooserPlayerDefense)
 
-        tvScoreWinner.text = game.winnerScore.toString()
-        tvScoreLooser.text = game.looserScore.toString()
+        tvScoreWinner.text = game.getWinnerScore().toString()
+        tvScoreLooser.text = game.getLooserScore().toString()
 
         if (game.tournamentId >= 0) {
             btnRestart.visibility = View.GONE

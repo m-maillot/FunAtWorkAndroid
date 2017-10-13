@@ -13,5 +13,5 @@ class StartGame(val gameRepository: GameRepository,
         UseCase<Game, CreateGameParam>(threadExecutor, postExecutionThread) {
 
     override fun buildUseCaseObservable(params: CreateGameParam): Observable<Game> =
-            gameRepository.startGame(params.redTeam, params.blueTeam)
+            gameRepository.startGame(params.redTeam, params.blueTeam, params.mode, params.modeLimitValue)
 }

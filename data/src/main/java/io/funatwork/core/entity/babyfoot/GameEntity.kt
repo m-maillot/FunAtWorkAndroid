@@ -13,4 +13,6 @@ data class GameEntity(val id: Int,
                       val goals: List<GoalEntity> = emptyList(),
                       val status: Int,
                       val endedDate: String? = null,
-                      val tournamentId: Int? = null)
+                      val tournamentId: Int? = null,
+                      val mode: Int,
+                      val modeLimitValue: Int)

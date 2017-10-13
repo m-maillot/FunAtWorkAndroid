@@ -4,6 +4,7 @@ import io.funatwork.domain.interactor.DefaultObserver
 import io.funatwork.domain.interactor.StartGame
 import io.funatwork.domain.interactor.params.CreateGameParam
 import io.funatwork.domain.model.babyfoot.Game
+import io.funatwork.domain.model.babyfoot.GameMode
 import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.model.babyfoot.toBo
 import io.funatwork.model.babyfoot.toModel
@@ -16,10 +17,10 @@ class StartGamePresenter(val startGameView: StartGameView, val startGame: StartG
 
     override fun destroy() {}
 
-    fun startGame(redTeam: TeamModel, blueTeam: TeamModel) {
+    fun startGame(redTeam: TeamModel, blueTeam: TeamModel, mode: GameMode, limitValue: Int) {
         startGameView.showLoading()
         startGame.execute(StartGameObserver(startGameView),
-                CreateGameParam(redTeam.toBo(), blueTeam.toBo()))
+                CreateGameParam(redTeam.toBo(), blueTeam.toBo(), mode, limitValue))
     }
 
     private class StartGameObserver(val startGameView: StartGameView) : DefaultObserver<Game>() {

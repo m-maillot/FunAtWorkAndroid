@@ -33,7 +33,9 @@ fun Game.toModel() =
                 goals = goals.map { it.toModel() },
                 status = status,
                 plannedDate = plannedDate ?: DateTime(0L),
-                tournamentId = tournamentId ?: -1)
+                tournamentId = tournamentId ?: -1,
+                mode = mode,
+                modeLimitValue = modeLimitValue)
 
 fun GameModel.toBo() =
         Game(id = id,
@@ -47,7 +49,9 @@ fun GameModel.toBo() =
                 goals = goals.map(GoalModel::toBo),
                 status = status,
                 plannedDate = plannedDate,
-                tournamentId = tournamentId)
+                tournamentId = tournamentId,
+                mode = mode,
+                modeLimitValue = modeLimitValue)
 
 fun TeamModel.toBo() =
         Team(id = id,

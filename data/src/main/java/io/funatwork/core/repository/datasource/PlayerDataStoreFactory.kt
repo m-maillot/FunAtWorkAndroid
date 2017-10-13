@@ -14,6 +14,6 @@ class PlayerDataStoreFactory(val connectionUtils: ConnectionUtils, val playerCac
             if (!playerCache.isExpired()) DiskPlayerDataStore(playerCache) else createCloudDataStore()
 
     fun createCloudDataStore() =
-            CloudPlayerDataStore(PlayerRestApiImpl(connectionUtils), playerCache)
+            CloudPlayerDataStore(PlayerRestApiImpl(connectionUtils))
 
 }
