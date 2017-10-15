@@ -3,12 +3,14 @@ package io.funatwork.view.activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation
 import android.support.v4.util.Pair.create
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -21,11 +23,13 @@ import io.funatwork.core.repository.datasource.game.GameDataStoreFactory
 import io.funatwork.domain.interactor.AddGoal
 import io.funatwork.domain.interactor.LoadGame
 import io.funatwork.domain.interactor.StopGame
+import io.funatwork.domain.model.babyfoot.GameMode
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.presenter.GamePresenter
 import io.funatwork.view.GameView
 import xyz.hanks.library.SmallBang
+import java.util.concurrent.TimeUnit
 
 
 class GameActivity : BaseActivity(), GameView {
@@ -102,6 +106,14 @@ class GameActivity : BaseActivity(), GameView {
         findViewById<LinearLayout>(R.id.background_goal)
     }
 
+    private val tvCountDown by lazy {
+        findViewById<TextView>(R.id.tv_game_countdown)
+    }
+
+    private val btnGameOver by lazy {
+        findViewById<Button>(R.id.btn_game_over)
+    }
+
     private val smallBang: SmallBang by lazy {
         SmallBang.attach2Window(this)
     }
@@ -109,6 +121,8 @@ class GameActivity : BaseActivity(), GameView {
     private val zoomInAnimation by lazy {
         AnimationUtils.loadAnimation(this, R.anim.zoomin)
     }
+
+    private var gameTimer: GameTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,6 +167,13 @@ class GameActivity : BaseActivity(), GameView {
         imgGoalRedDefense.setOnClickListener {
             presenter.addGamelle(game, game.redTeam.defensePlayer)
         }
+        if (game.mode == GameMode.TIME) {
+            gameTimer = GameTimer(game = game,
+                    btnGameOver = btnGameOver,
+                    tvCountDown = tvCountDown,
+                    presenter = presenter)
+            gameTimer?.start()
+        }
     }
 
     override fun renderGoal(blueScore: Int, redScore: Int) {
@@ -170,6 +191,7 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     override fun renderGameFinished(game: GameModel) {
+        gameTimer?.cancel()
         val animations = animateWinner(game) + animateLooser(game)
         val options = makeSceneTransitionAnimation(this, animations[0], animations[1], animations[2], animations[3])
         navigator.navigateToGameOver(this, game, options)
@@ -219,5 +241,27 @@ class GameActivity : BaseActivity(), GameView {
     override fun dismissNewGoalProcessing() {
         backgroundGoal.visibility = GONE
         imgGoal.visibility = GONE
+    }
+
+    private class GameTimer(private val game: GameModel,
+                            private val presenter: GamePresenter,
+                            private val tvCountDown: TextView,
+                            private val btnGameOver: Button) : CountDownTimer(game.modeLimitValue * 60L * 1000L, 1000) {
+        override fun onFinish() {
+            tvCountDown.text = ""
+            btnGameOver.visibility = View.VISIBLE
+            btnGameOver.setOnClickListener {
+                presenter.timesUp(game)
+            }
+        }
+
+        override fun onTick(millisUntilFinished: Long) {
+            tvCountDown.text = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
+                                    toMinutes(millisUntilFinished)))
+        }
+
     }
 }
