@@ -129,7 +129,7 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                     Pair("bluePlayerAttackId", blueTeam.attackPlayer.id),
                     Pair("bluePlayerDefenseId", blueTeam.defensePlayer.id),
                     Pair("mode", mode.apiValue),
-                    Pair("modeValueLimit", modeValueLimit)
+                    Pair("modeLimitValue", modeValueLimit)
             )
 
     private fun generateParameters(gameId: Int, striker: PlayerEntity, gamelle: Boolean) =

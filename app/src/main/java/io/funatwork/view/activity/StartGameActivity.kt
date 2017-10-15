@@ -108,17 +108,13 @@ class StartGameActivity : BaseActivity(), StartGameView {
 
         imgScoreLimit.setOnClickListener {
             mode = SCORE
-            Picasso.with(this).load(R.id.img_game_score_limit).into(imgScoreLimit)
-            Picasso.with(this).load(R.id.img_game_time_limit).transform(GrayscaleTransformation()).into(imgTimeLimit)
-            imgTimeLimit.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
+            imgTimeLimit.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
             imgScoreLimit.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
             groupLimit.visibility = View.VISIBLE
         }
         imgTimeLimit.setOnClickListener {
             mode = TIME
-            Picasso.with(this).load(R.id.img_game_score_limit).transform(GrayscaleTransformation()).into(imgScoreLimit)
-            Picasso.with(this).load(R.id.img_game_time_limit).into(imgTimeLimit)
-            imgScoreLimit.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
+            imgScoreLimit.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
             imgTimeLimit.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
             groupLimit.visibility = View.VISIBLE
         }
@@ -126,23 +122,23 @@ class StartGameActivity : BaseActivity(), StartGameView {
         imgLimitFive.setOnClickListener {
             modeValueLimit = 5
             imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
-            imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
-            imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
+            imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
             btnKickOff.isEnabled = true
         }
 
         imgLimitSeven.setOnClickListener {
             modeValueLimit = 7
-            imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
+            imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
             imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
-            imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
+            imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
             btnKickOff.isEnabled = true
         }
 
         imgLimitTen.setOnClickListener {
             modeValueLimit = 10
-            imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
-            imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorDivider)
+            imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
             imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
             btnKickOff.isEnabled = true
         }

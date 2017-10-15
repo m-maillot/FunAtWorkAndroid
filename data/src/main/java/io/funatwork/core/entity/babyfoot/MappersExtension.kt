@@ -18,7 +18,7 @@ fun Team.toEntity() =
 fun GoalEntity.toBo() =
         Goal(id = id,
                 position = position,
-                striker = stricker.toBo())
+                striker = striker.toBo())
 
 fun GameEntity.toBo() =
         Game(id = id,
