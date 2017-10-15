@@ -56,7 +56,9 @@ class Navigator {
         context.startActivity(intentToLaunch, activityOptionsCompat.toBundle())
     }
 
-    fun navigateToGame(context: Context, gameModel: GameModel, activityOptionsCompat: ActivityOptionsCompat? = null) {
+    fun navigateToGame(context: Context,
+                       gameModel: GameModel,
+                       activityOptionsCompat: ActivityOptionsCompat? = null) {
         val intentToLaunch = Intent(context, GameActivity::class.java)
         intentToLaunch.putExtra("GAME", gameModel.id)
         if (activityOptionsCompat != null) {

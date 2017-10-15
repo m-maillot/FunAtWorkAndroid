@@ -5,7 +5,7 @@ import io.funatwork.domain.interactor.GetGameList
 import io.funatwork.domain.interactor.LoadCurrentGame
 import io.funatwork.domain.interactor.params.NoParams
 import io.funatwork.domain.model.babyfoot.Game
-import io.funatwork.model.babyfoot.GameModel
+import io.funatwork.domain.model.babyfoot.GameStatus
 import io.funatwork.model.babyfoot.toModel
 import io.funatwork.view.GameListView
 
@@ -54,7 +54,7 @@ class GameListPresenter(val gameListView: GameListView, private val getGameList:
         }
 
         override fun onNext(element: List<Game>) {
-            gameListView.renderGameFinishedList(element.map(Game::toModel).filter { it.status == GameModel.GAME_OVER })
+            gameListView.renderGameFinishedList(element.map(Game::toModel).filter { it.status == GameStatus.OVER })
         }
     }
 

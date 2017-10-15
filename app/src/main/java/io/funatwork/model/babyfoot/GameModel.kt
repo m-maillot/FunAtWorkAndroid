@@ -1,5 +1,7 @@
 package io.funatwork.model.babyfoot
 
+import io.funatwork.domain.model.babyfoot.GameMode
+import io.funatwork.domain.model.babyfoot.GameStatus
 import io.funatwork.model.PlayerModel
 import org.joda.time.DateTime
 import java.io.Serializable
@@ -13,20 +15,23 @@ data class GameModel(val id: Int,
                      val redTeamGoal: Int,
                      val blueTeamGoal: Int,
                      val goals: List<GoalModel>,
-                     val status: Int,
+                     val status: GameStatus,
                      val endedDate: DateTime,
                      val tournamentId: Int,
-                     val winnerTeam: TeamModel = if (redTeamGoal > blueTeamGoal) redTeam else blueTeam,
-                     val looserTeam: TeamModel = if (redTeamGoal < blueTeamGoal) redTeam else blueTeam,
-                     val winnerScore: Int = Math.max(redTeamGoal, blueTeamGoal),
-                     val looserScore: Int = Math.min(redTeamGoal, blueTeamGoal)) : Serializable {
+                     val mode: GameMode,
+                     val modeLimitValue: Int) : Serializable {
 
-    companion object Status {
-        val PLANNED = 0
-        val STARTED = 1
-        val GAME_OVER = 2
-        val CANCELED = 3
-    }
+    fun getWinnerTeam() =
+            if (redTeamGoal > blueTeamGoal) redTeam else blueTeam
+
+    fun getLooserTeam() =
+            if (redTeamGoal < blueTeamGoal) redTeam else blueTeam
+
+    fun getWinnerScore() =
+            Math.max(redTeamGoal, blueTeamGoal)
+
+    fun getLooserScore() =
+            Math.min(redTeamGoal, blueTeamGoal)
 
     fun isRedTeamWin() =
             redTeamGoal > blueTeamGoal

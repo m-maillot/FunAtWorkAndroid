@@ -18,7 +18,7 @@ fun Team.toEntity() =
 fun GoalEntity.toBo() =
         Goal(id = id,
                 position = position,
-                striker = stricker.toBo())
+                striker = striker.toBo())
 
 fun GameEntity.toBo() =
         Game(id = id,
@@ -30,9 +30,28 @@ fun GameEntity.toBo() =
                 redTeamGoal = redTeamGoal,
                 endedDate = endedDate?.let { dateTimeNoMillis().parseDateTime(it) },
                 goals = goals.map { it.toBo() },
-                status = status,
+                status = statusFromApi(status),
                 plannedDate = plannedDate?.let { dateTimeNoMillis().parseDateTime(it) },
-                tournamentId = tournamentId)
+                tournamentId = tournamentId,
+                mode = modeFromApi(mode),
+                modeLimitValue = modeLimitValue
+        )
+
+private fun modeFromApi(apiValue: Int) =
+        when (apiValue) {
+            1 -> GameMode.SCORE
+            2 -> GameMode.TIME
+            else -> GameMode.SCORE
+        }
+
+private fun statusFromApi(apiValue: Int) =
+        when (apiValue) {
+            0 -> GameStatus.PLANNED
+            1 -> GameStatus.STARTED
+            2 -> GameStatus.OVER
+            3 -> GameStatus.CANCELED
+            else -> GameStatus.CANCELED
+        }
 
 fun PlayerStatsEntity.toBo() =
         PlayerStats(player = player.toBo(),

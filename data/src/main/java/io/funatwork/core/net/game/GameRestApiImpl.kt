@@ -10,6 +10,7 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.net.RestApiData
 import io.funatwork.core.net.deserializer.GameDeserializer
 import io.funatwork.core.net.deserializer.GameListDeserializer
+import io.funatwork.domain.model.babyfoot.GameMode
 import io.reactivex.Observable
 
 class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
@@ -29,12 +30,12 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                 }
             }
 
-    override fun startGame(redTeam: TeamEntity, blueTeam: TeamEntity): Observable<GameEntity> =
+    override fun startGame(redTeam: TeamEntity, blueTeam: TeamEntity, mode: GameMode, modeValueLimit: Int): Observable<GameEntity> =
             Observable.create<GameEntity> { emitter ->
                 if (connectionUtils.isThereInternetConnection()) {
                     try {
                         val (_, _, result) = RestApiData.API_URL_CREATE_GAME_LIST
-                                .httpPost(generateParameters(redTeam = redTeam, blueTeam = blueTeam))
+                                .httpPost(generateParameters(redTeam = redTeam, blueTeam = blueTeam, mode = mode, modeValueLimit = modeValueLimit))
                                 .responseObject(GameDeserializer())
                         if (result.component2() == null) {
                             emitter.onNext(result.get())
@@ -122,11 +123,14 @@ class GameRestApiImpl(val connectionUtils: ConnectionUtils) : GameRestApi {
                 }
             }
 
-    private fun generateParameters(redTeam: TeamEntity, blueTeam: TeamEntity) =
+    private fun generateParameters(redTeam: TeamEntity, blueTeam: TeamEntity, mode: GameMode, modeValueLimit: Int) =
             listOf(Pair("redPlayerAttackId", redTeam.attackPlayer.id),
                     Pair("redPlayerDefenseId", redTeam.defensePlayer.id),
                     Pair("bluePlayerAttackId", blueTeam.attackPlayer.id),
-                    Pair("bluePlayerDefenseId", blueTeam.defensePlayer.id))
+                    Pair("bluePlayerDefenseId", blueTeam.defensePlayer.id),
+                    Pair("mode", mode.apiValue),
+                    Pair("modeLimitValue", modeValueLimit)
+            )
 
     private fun generateParameters(gameId: Int, striker: PlayerEntity, gamelle: Boolean) =
             listOf(Pair("game", gameId),

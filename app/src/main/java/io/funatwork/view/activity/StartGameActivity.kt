@@ -1,7 +1,9 @@
 package io.funatwork.view.activity
 
 import android.os.Bundle
+import android.support.constraint.Group
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -13,11 +15,14 @@ import io.funatwork.core.net.ConnectionUtils
 import io.funatwork.core.repository.GameDataRepository
 import io.funatwork.core.repository.datasource.game.GameDataStoreFactory
 import io.funatwork.domain.interactor.StartGame
+import io.funatwork.domain.model.babyfoot.GameMode.SCORE
+import io.funatwork.domain.model.babyfoot.GameMode.TIME
 import io.funatwork.extensions.getConnectivityManager
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.model.babyfoot.TeamModel
 import io.funatwork.presenter.StartGamePresenter
 import io.funatwork.view.StartGameView
+import jp.wasabeef.picasso.transformations.GrayscaleTransformation
 
 class StartGameActivity : BaseActivity(), StartGameView {
 
@@ -35,22 +40,45 @@ class StartGameActivity : BaseActivity(), StartGameView {
         )
     }
 
-    val imgRedPlayerAttack by lazy {
+    private val imgRedPlayerAttack by lazy {
         findViewById<CircleImageView>(R.id.img_player_red_attack)
     }
-    val imgRedPlayerDefense by lazy {
+    private val imgRedPlayerDefense by lazy {
         findViewById<CircleImageView>(R.id.img_player_red_defense)
     }
-    val imgBluePlayerAttack by lazy {
+    private val imgBluePlayerAttack by lazy {
         findViewById<CircleImageView>(R.id.img_player_blue_attack)
     }
-    val imgBluePlayerDefense by lazy {
+    private val imgBluePlayerDefense by lazy {
         findViewById<CircleImageView>(R.id.img_player_blue_defense)
     }
 
-    val btnKickOff by lazy {
+    private val imgScoreLimit by lazy {
+        findViewById<CircleImageView>(R.id.img_game_score_limit)
+    }
+    private val imgTimeLimit by lazy {
+        findViewById<CircleImageView>(R.id.img_game_time_limit)
+    }
+
+    private val groupLimit by lazy {
+        findViewById<Group>(R.id.group_game_limit_values)
+    }
+    private val imgLimitFive by lazy {
+        findViewById<CircleImageView>(R.id.img_game_limit_5)
+    }
+    private val imgLimitSeven by lazy {
+        findViewById<CircleImageView>(R.id.img_game_limit_7)
+    }
+    private val imgLimitTen by lazy {
+        findViewById<CircleImageView>(R.id.img_game_limit_10)
+    }
+
+    private val btnKickOff by lazy {
         findViewById<Button>(R.id.btn_kickoff)
     }
+
+    private var mode = SCORE
+    private var modeValueLimit = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,8 +101,46 @@ class StartGameActivity : BaseActivity(), StartGameView {
         Picasso.with(this).load(blueTeam.defensePlayer.avatar).into(imgBluePlayerDefense)
         (findViewById<TextView>(R.id.tv_player_blue_defense)).text = blueTeam.defensePlayer.name
 
+        btnKickOff.isEnabled = false
         btnKickOff.setOnClickListener {
-            presenter.startGame(redTeam, blueTeam)
+            presenter.startGame(redTeam, blueTeam, mode, modeValueLimit)
+        }
+
+        imgScoreLimit.setOnClickListener {
+            mode = SCORE
+            imgTimeLimit.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgScoreLimit.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
+            groupLimit.visibility = View.VISIBLE
+        }
+        imgTimeLimit.setOnClickListener {
+            mode = TIME
+            imgScoreLimit.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgTimeLimit.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
+            groupLimit.visibility = View.VISIBLE
+        }
+
+        imgLimitFive.setOnClickListener {
+            modeValueLimit = 5
+            imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
+            imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            btnKickOff.isEnabled = true
+        }
+
+        imgLimitSeven.setOnClickListener {
+            modeValueLimit = 7
+            imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
+            imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            btnKickOff.isEnabled = true
+        }
+
+        imgLimitTen.setOnClickListener {
+            modeValueLimit = 10
+            imgLimitFive.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgLimitSeven.borderColor = ContextCompat.getColor(this, R.color.colorBackground)
+            imgLimitTen.borderColor = ContextCompat.getColor(this, R.color.colorAccent)
+            btnKickOff.isEnabled = true
         }
     }
 

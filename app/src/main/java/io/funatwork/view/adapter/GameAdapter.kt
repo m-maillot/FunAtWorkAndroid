@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.squareup.picasso.Picasso
 import io.funatwork.R
+import io.funatwork.domain.model.babyfoot.GameStatus
 import io.funatwork.extensions.showHumanDateFromMillis
 import io.funatwork.model.babyfoot.GameModel
 import jp.wasabeef.picasso.transformations.GrayscaleTransformation
@@ -19,10 +20,10 @@ class GameAdapter(var gameItems: List<MultipleGameItem>) : BaseMultiItemQuickAda
     override fun convert(helper: BaseViewHolder, item: MultipleGameItem) {
         when (item.itemTypeEntity) {
             MultipleGameItem.LIGHT -> when (item.game.status) {
-                GameModel.PLANNED -> convertGamePlanned(helper, item.game)
-                GameModel.STARTED -> convertGameStarted(helper, item.game)
-                GameModel.GAME_OVER -> convertGameOver(helper, item.game)
-                GameModel.CANCELED -> convertGameCanceled(helper, item.game)
+                GameStatus.PLANNED -> convertGamePlanned(helper, item.game)
+                GameStatus.STARTED -> convertGameStarted(helper, item.game)
+                GameStatus.OVER -> convertGameOver(helper, item.game)
+                GameStatus.CANCELED -> convertGameCanceled(helper, item.game)
             }
             MultipleGameItem.FULL_PENDING -> convertFullGamePlanned(helper, item.game)
         }

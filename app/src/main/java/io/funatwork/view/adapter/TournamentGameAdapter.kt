@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.squareup.picasso.Picasso
 import io.funatwork.R
+import io.funatwork.domain.model.babyfoot.GameStatus
 import io.funatwork.extensions.showHumanDateFromMillis
 import io.funatwork.model.babyfoot.GameModel
 import io.funatwork.view.adapter.item.Game
@@ -38,10 +39,10 @@ class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickA
 
     private fun convertGame(helper: BaseViewHolder, item: GameModel) {
         when (item.status) {
-            GameModel.PLANNED -> convertGamePlanned(helper, item)
-            GameModel.STARTED -> convertGameStarted(helper, item)
-            GameModel.GAME_OVER -> convertGameOver(helper, item)
-            GameModel.CANCELED -> convertGameCanceled(helper, item)
+            GameStatus.PLANNED -> convertGamePlanned(helper, item)
+            GameStatus.STARTED -> convertGameStarted(helper, item)
+            GameStatus.OVER -> convertGameOver(helper, item)
+            GameStatus.CANCELED -> convertGameCanceled(helper, item)
         }
     }
 
