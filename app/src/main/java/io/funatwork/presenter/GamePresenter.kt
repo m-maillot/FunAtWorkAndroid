@@ -71,7 +71,7 @@ class GamePresenter(private val gameView: GameView,
     }
 
     fun timesUp(game: GameModel) {
-        gameView.showNewGoalProcessing()
+        gameView.showLoading()
         stopGame.execute(TimesUpObserver(gameView), StopGameParam(game.id, false))
     }
 
@@ -134,11 +134,11 @@ class GamePresenter(private val gameView: GameView,
     private class TimesUpObserver(val gameView: GameView) : DefaultObserver<Game>() {
 
         override fun onComplete() {
-            gameView.dismissNewGoalProcessing()
+            gameView.hideLoading()
         }
 
         override fun onError(exception: Throwable?) {
-            gameView.dismissNewGoalProcessing()
+            gameView.hideLoading()
             gameView.showError(title = "Error happen", message = exception?.message ?: "Unknown Error")
         }
 
