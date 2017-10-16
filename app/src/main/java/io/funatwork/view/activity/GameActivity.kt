@@ -78,16 +78,16 @@ class GameActivity : BaseActivity(), GameView {
     }
 
     private val imgGoalRedAttack by lazy {
-        findViewById<TextView>(R.id.tv_red_attack_gamelle)
+        findViewById<ImageView>(R.id.img_red_player_attack_gamelle)
     }
     private val imgGoalRedDefense by lazy {
-        findViewById<TextView>(R.id.tv_red_defense_gamelle)
+        findViewById<ImageView>(R.id.img_red_player_defense_gamelle)
     }
     private val imgGoalBlueAttack by lazy {
-        findViewById<TextView>(R.id.tv_blue_attack_gamelle)
+        findViewById<ImageView>(R.id.img_blue_player_attack_gamelle)
     }
     private val imgGoalBlueDefense by lazy {
-        findViewById<TextView>(R.id.tv_blue_defense_gamelle)
+        findViewById<ImageView>(R.id.img_blue_player_defense_gamelle)
     }
 
     private val tvScoreBlue by lazy {

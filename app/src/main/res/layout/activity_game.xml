@@ -27,22 +27,6 @@
         app:layout_constraintRight_toLeftOf="@+id/img_player_red_attack"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_blue_defense_gamelle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/game_goal_gamelle"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_defense"
-        app:layout_constraintRight_toRightOf="@+id/img_player_blue_defense"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_defense" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_player_red_attack"
         android:layout_width="150dp"
@@ -57,22 +41,6 @@
         app:layout_constraintLeft_toRightOf="@+id/img_player_blue_defense"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_red_attack_gamelle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/game_goal_gamelle"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@+id/img_player_red_attack"
-        app:layout_constraintRight_toRightOf="@+id/img_player_red_attack"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_red_attack" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_player_red_defense"
@@ -89,22 +57,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_score_separator" />
 
-    <TextView
-        android:id="@+id/tv_red_defense_gamelle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/game_goal_gamelle"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@+id/img_player_red_defense"
-        app:layout_constraintRight_toRightOf="@+id/img_player_red_defense"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_red_defense" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_player_blue_attack"
         android:layout_width="150dp"
@@ -120,21 +72,46 @@
         app:layout_constraintRight_toLeftOf="@+id/img_player_red_defense"
         app:layout_constraintTop_toBottomOf="@+id/tv_score_separator" />
 
-    <TextView
-        android:id="@+id/tv_blue_attack_gamelle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/game_goal_gamelle"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@+id/img_player_blue_attack"
-        app:layout_constraintRight_toRightOf="@+id/img_player_blue_attack"
-        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_attack" />
+
+    <ImageView
+        android:id="@+id/img_blue_player_defense_gamelle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/img_no_description"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_blue_defense"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_blue_defense"
+        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_defense"
+        app:srcCompat="@drawable/ic_gamelle_strike" />
+
+    <ImageView
+        android:id="@+id/img_blue_player_attack_gamelle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/img_no_description"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_blue_attack"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_blue_attack"
+        app:layout_constraintTop_toBottomOf="@+id/img_player_blue_attack"
+        app:srcCompat="@drawable/ic_gamelle_strike" />
+
+    <ImageView
+        android:id="@+id/img_red_player_defense_gamelle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/img_no_description"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_red_defense"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_red_defense"
+        app:layout_constraintTop_toBottomOf="@+id/img_player_red_defense"
+        app:srcCompat="@drawable/ic_gamelle_strike" />
+
+    <ImageView
+        android:id="@+id/img_red_player_attack_gamelle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/img_no_description"
+        app:layout_constraintBottom_toBottomOf="@+id/img_player_red_attack"
+        app:layout_constraintEnd_toEndOf="@+id/img_player_red_attack"
+        app:layout_constraintTop_toBottomOf="@+id/img_player_red_attack"
+        app:srcCompat="@drawable/ic_gamelle_strike" />
 
     <TextView
         android:id="@+id/tv_score_blue"
@@ -216,5 +193,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
