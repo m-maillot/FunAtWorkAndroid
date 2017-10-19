@@ -106,10 +106,16 @@ class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickA
         if (item.redTeam.id >= 0) {
             Picasso.with(mContext).load(item.redTeam.attackPlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_red_attack))
             Picasso.with(mContext).load(item.redTeam.defensePlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_red_defense))
+        } else {
+            helper.setImageResource(R.id.img_player_red_attack, R.drawable.ic_user)
+            helper.setImageResource(R.id.img_player_red_defense, R.drawable.ic_user)
         }
         if (item.blueTeam.id >= 0) {
             Picasso.with(mContext).load(item.blueTeam.attackPlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_blue_attack))
             Picasso.with(mContext).load(item.blueTeam.defensePlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_blue_defense))
+        } else {
+            helper.setImageResource(R.id.img_player_blue_attack, R.drawable.ic_user)
+            helper.setImageResource(R.id.img_player_blue_defense, R.drawable.ic_user)
         }
     }
 }
