@@ -52,8 +52,12 @@ class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickA
         helper.setText(R.id.tv_game_date, item.plannedDate.millis.showHumanDateFromMillis())
         helper.setText(R.id.tv_game_state, mContext.getString(R.string.game_state_planned))
         loadAvatar(helper, item)
-        helper.setVisible(R.id.btn_tournament_stat_game, true)
-        helper.addOnClickListener(R.id.btn_tournament_stat_game)
+        if (item.redTeam.id >= 0 && item.blueTeam.id >= 0) {
+            helper.setVisible(R.id.btn_tournament_stat_game, true)
+            helper.addOnClickListener(R.id.btn_tournament_stat_game)
+        } else {
+            helper.setVisible(R.id.btn_tournament_stat_game, false)
+        }
     }
 
     private fun convertGameStarted(helper: BaseViewHolder, item: GameModel) {
