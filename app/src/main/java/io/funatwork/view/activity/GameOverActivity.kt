@@ -83,11 +83,11 @@ class GameOverActivity : BaseActivity() {
             }
         } else {
             btnRestart.setOnClickListener {
-                navigator.navigateToMain(this, FLAG_ACTIVITY_CLEAR_TOP)
+                navigator.navigateToCreateGame(this, FLAG_ACTIVITY_CLEAR_TOP, game.redTeam, game.blueTeam)
             }
 
             btnDone.setOnClickListener {
-                navigator.navigateToCreateGame(this, FLAG_ACTIVITY_CLEAR_TOP, game.redTeam, game.blueTeam)
+                navigator.navigateToMain(this, FLAG_ACTIVITY_CLEAR_TOP)
             }
         }
     }

@@ -8,4 +8,8 @@ interface TournamentView : LoadDataView {
     fun renderCurrentTournament(tournament: TournamentModel)
 
     fun startGame(game: GameModel)
+
+    fun showLoadingTournament()
+
+    fun showErrorLoadingTournament()
 }

@@ -13,7 +13,7 @@ import io.funatwork.view.adapter.item.GameItem
 import io.funatwork.view.adapter.item.Header
 import jp.wasabeef.picasso.transformations.GrayscaleTransformation
 
-class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickAdapter<GameItem, BaseViewHolder>(gameItems) {
+class TournamentGameAdapter(gameItems: List<GameItem>) : BaseMultiItemQuickAdapter<GameItem, BaseViewHolder>(gameItems) {
 
     init {
         addItemType(GameItem.GAME, R.layout.game_item)
@@ -52,8 +52,12 @@ class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickA
         helper.setText(R.id.tv_game_date, item.plannedDate.millis.showHumanDateFromMillis())
         helper.setText(R.id.tv_game_state, mContext.getString(R.string.game_state_planned))
         loadAvatar(helper, item)
-        helper.setVisible(R.id.btn_tournament_stat_game, true)
-        helper.addOnClickListener(R.id.btn_tournament_stat_game)
+        if (item.redTeam.id >= 0 && item.blueTeam.id >= 0) {
+            helper.setVisible(R.id.btn_tournament_stat_game, true)
+            helper.addOnClickListener(R.id.btn_tournament_stat_game)
+        } else {
+            helper.setVisible(R.id.btn_tournament_stat_game, false)
+        }
     }
 
     private fun convertGameStarted(helper: BaseViewHolder, item: GameModel) {
@@ -106,10 +110,16 @@ class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickA
         if (item.redTeam.id >= 0) {
             Picasso.with(mContext).load(item.redTeam.attackPlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_red_attack))
             Picasso.with(mContext).load(item.redTeam.defensePlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_red_defense))
+        } else {
+            helper.setImageResource(R.id.img_player_red_attack, R.drawable.ic_user)
+            helper.setImageResource(R.id.img_player_red_defense, R.drawable.ic_user)
         }
         if (item.blueTeam.id >= 0) {
             Picasso.with(mContext).load(item.blueTeam.attackPlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_blue_attack))
             Picasso.with(mContext).load(item.blueTeam.defensePlayer.avatar).into(helper.getView<ImageView>(R.id.img_player_blue_defense))
+        } else {
+            helper.setImageResource(R.id.img_player_blue_attack, R.drawable.ic_user)
+            helper.setImageResource(R.id.img_player_blue_defense, R.drawable.ic_user)
         }
     }
 }
