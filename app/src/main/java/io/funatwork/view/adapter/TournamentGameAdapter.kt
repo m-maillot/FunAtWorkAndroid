@@ -13,7 +13,7 @@ import io.funatwork.view.adapter.item.GameItem
 import io.funatwork.view.adapter.item.Header
 import jp.wasabeef.picasso.transformations.GrayscaleTransformation
 
-class TournamentGameAdapter(var gameItems: List<GameItem>) : BaseMultiItemQuickAdapter<GameItem, BaseViewHolder>(gameItems) {
+class TournamentGameAdapter(gameItems: List<GameItem>) : BaseMultiItemQuickAdapter<GameItem, BaseViewHolder>(gameItems) {
 
     init {
         addItemType(GameItem.GAME, R.layout.game_item)

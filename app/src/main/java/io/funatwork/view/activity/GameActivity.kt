@@ -1,7 +1,10 @@
 package io.funatwork.view.activity
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.app.ActivityOptionsCompat.makeSceneTransitionAnimation
@@ -30,6 +33,8 @@ import io.funatwork.presenter.GamePresenter
 import io.funatwork.view.GameView
 import xyz.hanks.library.SmallBang
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 
 class GameActivity : BaseActivity(), GameView {
@@ -168,7 +173,8 @@ class GameActivity : BaseActivity(), GameView {
             presenter.addGamelle(game, game.redTeam.defensePlayer)
         }
         if (game.mode == GameMode.TIME) {
-            gameTimer = GameTimer(game = game,
+            gameTimer = GameTimer(context = this,
+                    game = game,
                     btnGameOver = btnGameOver,
                     tvCountDown = tvCountDown,
                     presenter = presenter)
@@ -218,6 +224,7 @@ class GameActivity : BaseActivity(), GameView {
 
     override fun renderGameCanceled() {
         navigator.navigateToHome(this, Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        gameTimer?.cancel()
     }
 
     override fun onBackPressed() {
@@ -243,19 +250,30 @@ class GameActivity : BaseActivity(), GameView {
         imgGoal.visibility = GONE
     }
 
-    private class GameTimer(private val game: GameModel,
+    private class GameTimer(private val context: Context,
+                            private val game: GameModel,
                             private val presenter: GamePresenter,
                             private val tvCountDown: TextView,
-                            private val btnGameOver: Button) : CountDownTimer(game.modeLimitValue * 60L * 1000L, 1000) {
+                            private val btnGameOver: Button) : CountDownTimer((game.modeLimitValue - 4) * 60L * 1000L, 100) {
+
+        val beep = MediaPlayer.create(context, R.raw.beep_sound).apply { setAudioStreamType(AudioManager.STREAM_MUSIC) }
+        val finalWhistle = MediaPlayer.create(context, R.raw.final_whistle).apply { setAudioStreamType(AudioManager.STREAM_MUSIC) }
+        val counter = AtomicInteger(0)
+        val shouldPlaySound = AtomicBoolean(false)
+
         override fun onFinish() {
+            beep.release()
+            finalWhistle.start()
             tvCountDown.text = ""
             btnGameOver.visibility = View.VISIBLE
             btnGameOver.setOnClickListener {
+                finalWhistle.release()
                 presenter.timesUp(game)
             }
         }
 
         override fun onTick(millisUntilFinished: Long) {
+            playSound(millisUntilFinished)
             tvCountDown.text = String.format("%02d:%02d",
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
@@ -263,5 +281,30 @@ class GameActivity : BaseActivity(), GameView {
                                     toMinutes(millisUntilFinished)))
         }
 
+        fun playSound(millisUntilFinished: Long) {
+            if (millisUntilFinished <= 30000) {
+                shouldPlaySound.set(true)
+            }
+            if (shouldPlaySound.get()) {
+                val currentOccurence = counter.incrementAndGet()
+                if (currentOccurence >= maxOccurence(millisUntilFinished)) {
+                    counter.set(0)
+                    beep.start()
+                }
+            }
+        }
+
+        fun maxOccurence(millisUntilFinished: Long): Int {
+            if (millisUntilFinished < 3 * 1000) {
+                return 1
+            }
+            if (millisUntilFinished < 5 * 1000) {
+                return 3
+            }
+            if (millisUntilFinished < 10 * 1000) {
+                return 5
+            }
+            return 10
+        }
     }
 }

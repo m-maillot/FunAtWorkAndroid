@@ -25,7 +25,7 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame, TournamentFra
         supportActionBar?.hide()
         supportActionBar?.title = getString(R.string.game_title)
         val action = intent?.extras?.getInt("SECTION", R.id.action_play) ?: R.id.action_play
-        loadFragment(action, true)
+        bottomNavigationView.selectedItemId = action
     }
 
     override fun onStart() {

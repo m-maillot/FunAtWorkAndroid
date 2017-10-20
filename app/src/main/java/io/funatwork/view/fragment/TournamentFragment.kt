@@ -116,7 +116,7 @@ class TournamentFragment : BaseFragment(), TournamentView {
         (recyclerGames?.adapter as? TournamentGameAdapter)?.let {
             it.setNewData(createTournament(tournament))
             it.setOnItemChildClickListener { _, _, position ->
-                val item = it.gameItems[position] as Game
+                val item = it.data[position] as Game
                 presenter.startGame(item.game)
             }
         }
@@ -139,14 +139,11 @@ class TournamentFragment : BaseFragment(), TournamentView {
         return element.toList()
     }
 
-    override fun showLoading() {
+    override fun showLoadingTournament() {
         adapter.setEmptyView(R.layout.list_games_loading, recyclerGames?.parent as ViewGroup)
     }
 
-    override fun hideLoading() {
-    }
-
-    override fun showError(title: String, message: String) {
+    override fun showErrorLoadingTournament() {
         val errorView = LayoutInflater.from(context).inflate(R.layout.list_games_error_tournament, recyclerGames?.parent as ViewGroup, false)
         adapter.emptyView = errorView
     }
