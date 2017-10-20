@@ -38,6 +38,7 @@ class MainActivity : BaseActivity(), MainGameFragment.InitNewGame, TournamentFra
             loadFragment(item.itemId, false)
             true
         }
+        loadFragment(bottomNavigationView.selectedItemId, true)
     }
 
     private fun loadFragment(action: Int, forced: Boolean) {

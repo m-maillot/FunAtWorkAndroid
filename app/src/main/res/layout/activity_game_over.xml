@@ -149,18 +149,18 @@
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_new_game"
+        android:id="@+id/btn_done"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:text="@string/game_over_done"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_done"
+        app:layout_constraintEnd_toStartOf="@+id/btn_new_game"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_done"
+        android:id="@+id/btn_new_game"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:text="@string/game_over_new_game"
@@ -168,6 +168,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_new_game" />
+        app:layout_constraintStart_toEndOf="@+id/btn_done" />
 
 </android.support.constraint.ConstraintLayout>

@@ -254,7 +254,7 @@ class GameActivity : BaseActivity(), GameView {
                             private val game: GameModel,
                             private val presenter: GamePresenter,
                             private val tvCountDown: TextView,
-                            private val btnGameOver: Button) : CountDownTimer((game.modeLimitValue - 4) * 60L * 1000L, 100) {
+                            private val btnGameOver: Button) : CountDownTimer(game.modeLimitValue * 60L * 1000L, 100) {
 
         val beep = MediaPlayer.create(context, R.raw.beep_sound).apply { setAudioStreamType(AudioManager.STREAM_MUSIC) }
         val finalWhistle = MediaPlayer.create(context, R.raw.final_whistle).apply { setAudioStreamType(AudioManager.STREAM_MUSIC) }
